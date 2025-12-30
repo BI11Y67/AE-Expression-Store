@@ -67,9 +67,15 @@
 
         .description {
             font-size: 0.9rem;
-            color: #8b949e;
+            color: #94a3b8;
             margin-bottom: 15px;
             flex-grow: 1;
+        }
+
+        .usage-label {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: #cbd5e1;
         }
 
         .code-container {
@@ -134,8 +140,9 @@
     <div class="container">
 
         <div class="card">
-            <h2>Maintain Stroke Width</h2>
-            <p class="description">Keeps the stroke width consistent even when you scale the layer.</p>
+            <h2>Maintain Shape's Stroke Width</h2>
+            <p class="description">Keeps the stroke width of a shape layer consistent even when you <strong>Scale</strong> the shape layer itself from the <strong>Transform</strong> property.</p>
+            <p class="usage-label">Shape Layer > Contents > Rectangle > Stroke > Stroke Width</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>value / length(toComp([0,0]), toComp([0.7071,0.7071])) || 0.001;</code>
@@ -143,226 +150,214 @@
         </div>
 
         <div class="card">
-            <h2>Maintain Scale (Parented)</h2>
+            <h2>Maintain Shape's Scale (Parented)</h2>
             <p class="description">Keeps the layer's visual scale locked, even if the parent layer is scaled.</p>
+            <p class="usage-label">Shape Layer > Contents > Rectangle > Rectangle Path > Size</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>s = []; 
-ps = parent.transform.scale.value; 
-for (i = 0; i < ps.length; i++){ 
-    s[i] = value[i]*100/ps[i]; 
-} 
-s</code>
+            ps = parent.transform.scale.value; 
+            for (i = 0; i < ps.length; i++){ 
+                s[i] = value[i]*100/ps[i]; 
+            } 
+            s</code>
             </div>
-        </div>
-
-        <div class="card" data-tags="bounce animation inertial">
-            <h2>Bounce Animation</h2>
-            <p class="description">This makes the Bounce Animation.</p>
+            </div>
+            
+            <div class="card" data-tags="bounce animation inertial">
+                <h2>In Bounce Animation (Left - Right)</h2>
+                <p class="description">This makes Bounce in Animation.</p>
+                <p class="usage-label">Shape Layer /Image /Video > Position</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <code>freq = 3;
+            decay = 5;
+            amp = 50;
+            
+            t = time - inPoint;
+            value + amp * Math.sin(freq * Math.PI * 2 * t) / Math.exp(decay * t);</code>
+                </div>
+            </div>
+            
+            <div class="card" data-tags="bounce animation advanced control">
+            <h2>In Bounce Animation (Top - Bottom)</h2>
+            <p class="description">This is the same In Bounce Expression (left - right) what is unique in this is, There is some other
+                properties which let's you control where you want you shape after the bounce and it also falls from the top to Bottom.</p>
+                <p class="usage-label">Shape Layer /Image /Video > Position</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>freq = 3;
-decay = 5;
-amp = 50;
-
-t = time - inPoint;
-value + amp * Math.sin(freq * Math.PI * 2 * t) / Math.exp(decay * t);</code>
-            </div>
-        </div>
-
-        <div class="card" data-tags="bounce animation advanced control">
-            <h2>Bounce Animation_Advance</h2>
-            <p class="description">This is the same Bounce Expression what is unique in this is there is some other
-                properties which let's you control where you want you shape after the bounce and more.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>// How far off-center the initial drop is (20%)
-initialDrop = 200;
-
-// How much bounce area after the drop (5%)
-bounceArea = 10;
-
-// Bounce frequency and decay
-freq = 100;
-decay = 10;
-
-t = time - inPoint;
-duration = .5; // Duration of the entire animation in seconds
-
-// Calculate the center position of the comp
-centerY = thisComp.height/2;
-
-// Calculate base position (starts at center-initialDrop, moves to center)
-basePos = linear(t, 0, duration/2, centerY-initialDrop, centerY);
-
-// Calculate bounce (only after half the duration)
-if (t < duration/2) {
-bounce = 0; // No bounce during initial drop
-} else {
-// Time since bounce phase started
-bounceTime = t - duration/2;
-// Create diminishing bounce within the bounceArea
-bounce = bounceArea * Math.sin(freq * Math.PI * 2 * bounceTime) / Math.exp(decay * bounceTime);
-}
-
-// Combine base position and bounce
-basePos + bounce;</code>
-            </div>
-        </div>
+                <code>// How far off-center the initial drop is (pixels)
+                initialDrop = 200;
+                
+                // How much bounce amplitude after the drop (pixels)
+                bounceArea = 50; 
+                
+                // Bounce frequency (bounces per second) and decay
+                freq = 5;  // CHANGED: 100 was too fast (invisible vibration)
+                decay = 10;
+                
+                // Time setup
+                t = time - inPoint;
+                duration = 0.5; // Duration of drop phase
+                
+                // Calculate the center position (Y)
+                centerY = thisComp.height / 2;
+                
+                // 1. Calculate drop position
+                // (Moves from 'centerY - initialDrop' to 'centerY' over half duration)
+                basePos = linear(t, 0, duration/2, centerY - initialDrop, centerY);
+                
+                // 2. Calculate bounce (only runs after the drop phase)
+                if (t < duration/2) {
+                    bounce = 0; 
+                } else {
+                    // Time since bounce phase started
+                    bounceTime = t - duration/2;
+                    // Create diminishing bounce
+                    bounce = bounceArea * Math.sin(freq * Math.PI * 2 * bounceTime) / Math.exp(decay * bounceTime);
+                }
+                
+                // 3. Final Output
+                y = basePos + bounce;
+                
+                // Return [x, y] because Position is a 2D property
+                [value[0], y];</code>
+                </div>
+                </div>
 
         <div class="card" data-tags="reverse animation mirror">
-            <h2>Reverse Animation</h2>
-            <p class="description">This expression make the animation in Reverse.</p>
+            <h2>Reverse Keyframe /Animation</h2>
+            <p class="description">This expression make the animation in Reverse with the help of Math, which means the Shape layer which was moving in the right direction will now move in the left direction.</p>
+            <p class="usage-label">Shape Layer > Position</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>compCenter = thisComp.width / 2;
-(compCenter - transform.position[0]) + compCenter</code>
-            </div>
+                newX = (compCenter - transform.position[0]) + compCenter;
+                [newX, value[1]];</code>
+                </div>
         </div>
 
         <div class="card" data-tags="math sin wave">
-            <h2>Math.sin()</h2>
-            <p class="description">You can use this on a shape when you need a bounce Animations I guess make sure to
-                link that property to a null so it's position is "0" before applying this expression</p>
+            <h2>Floating Ball Animation</h2>
+            <p class="description">You can use this on a shape when you need a floating ball animation. Make sure to
+                link that property to a <strong>null</strong> so it's position is <strong>0</strong> before applying this expression</p>
+                <p class="usage-label">Shape Layer > Position</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>x=value[0]
-a=240
-f=.5
-t=time-inPoint;
-y=Math.sin(t*2*Math.PI*f)*a;
-[x,y]</code>
-            </div>
-        </div>
+                a=240
+                f=.5
+                t=time-inPoint;
+                y=Math.sin(t*2*Math.PI*f)*a;
+                [x,y]</code>
+                </div>
+                </div>
 
         <div class="card" data-tags="math cos wave">
-            <h2>Math.cos()</h2>
-            <p class="description">apply this on the rotation and it's gives some smooth dip in and dip out Animation!!
-            </p>
+            <h2>Math.cos() /Smooth Rotation</h2>
+            <p class="description">Apply this on a Shape's <strong>Rotation Property</strong> and it's gives some smooth smooth in and out rotation Animation</p>
+            <p class="usage-label">Shape Layer > Rotation</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>a=45;
-f=.5;
-t=time-inPoint;
-y=Math.cos(t*2*Math.PI*f)*a;
-y</code>
-            </div>
+                f=.5;
+                t=time-inPoint;
+                y=Math.cos(t*2*Math.PI*f)*a;
+                y</code>
+                </div>
         </div>
 
         <div class="card" data-tags="anchor point advance text center">
-            <h2>Anchor Point_Advance</h2>
-            <p class="description">This helps to keep this anchor point in the middle of the text as weel as the text
-                itself, so matter how long and what you type as text it always makes it's self in place</p>
+            <h2>Auto-Center Text</h2>
+            <p class="description">Automatically realigns the anchor and text as you type to maintain symmetry.</p>
+            <p class="usage-label">Text Layer > Anchor Point</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>// Auto-center the anchor point
-var rect = sourceRectAtTime(time, false);
-[rect.left + rect.width/2, rect.top + rect.height/2, 0]</code>
-            </div>
+                var rect = sourceRectAtTime(time, false);
+                [rect.left + rect.width/2, rect.top + rect.height/2, 0]</code>
+                </div>
         </div>
 
         <div class="card" data-tags="text box rectangle size resize">
-            <h2>Text Box_1/2 (Rectangle>Size)</h2>
-            <p class="description">this 2 expression just makes the auto resize box</p>
+            <h2>Dynamic Text Box</h2>
+            <p class="description">Automatically resizes the background shape to fit your text length.</p>
+            <p class="usage-label">Shape Layer > Rectangle > Rectangle Path > Size</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>// Get text layer dimensions
-var textLayer = thisComp.layer("Headline");
-// Replace with your actual text layer name
-var textRect = textLayer.sourceRectAtTime(time, false);
+                <code>                
+                // Get the text layer's dimensions
+                var textLayer = thisComp.layer("text");
+                var textRect = textLayer.sourceRectAtTime(time, false);
+                
+                // Add margins (adjust these values as needed)
+                var marginX = 20;
+                var marginY = 10;
+                
+                // Set rectangle size based on text size plus margins
+                [textRect.width + marginX*2, textRect.height + marginY*2]</code>
+                </div>
 
-// Add margins (adjust these values as needed)
-var marginX = 20;
-var marginY = 10;
-
-// Set rectangle size based on text size plus margins
-[textRect.width + marginX*2, textRect.height + marginY*2]</code>
-            </div>
-        </div>
-
-        <div class="card" data-tags="text box rectangle position">
-            <h2>Text Box_1/2 (Rectangle>Position)</h2>
-            <p class="description">Follow text layer position</p>
-            <div class="code-container">
+                <p class="usage-label">Shape Layer > Rectangle > Rectangle Path > Position</p>
+                <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>// Follow text layer position
-thisComp.layer("Headline").transform.position 
-// Replace with your actual text layer name</code>
-            </div>
-        </div>
+                <code>                
+                // Follow text layer position
+                transform.position
+                // Replace with your actual text layer name</code>
+                </div>
 
-        <div class="card" data-tags="typewriter center text">
-            <h2>Typewrite Effect_Always middle in text</h2>
-            <p class="description">This same expression keeps the text in the mid all the time which creates kinds cool
-                text in</p>
-            <div class="code-container">
+                <p class="usage-label">Text Layer > Anchor Point</p>
+                <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>// Auto-center the anchor point
-var rect = sourceRectAtTime(time, false);
-[rect.left + rect.width/2, rect.top + rect.height/2, 0]</code>
+                <code>               
+                // Auto-center the anchor point
+                var rect = sourceRectAtTime(time, false);
+                [rect.left + rect.width/2, rect.top + rect.height/2, 0]</code>
+                </div>
             </div>
-        </div>
 
         <div class="card" data-tags="change text font">
-            <h2>Changes Text</h2>
-            <p class="description">this changes text form the expression.</p>
+            <h2>Font Switcher</h2>
+            <p class="description">Changes the layer's font style based on the slider value (Don't forget to add the <strong>Slider Control</strong>effect on Text Layer).</p>
+            <p class="usage-label">Text Layer > Text > Source Text</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>var fontArray = [
-"OPTIBodoni-Antiqua",
-"Poppins-Italic",
-"Platypi-Light",
-"Montserrat-SemiBold"
-];
-v = Math.round(effect("Slider Control")("Slider")); // Removed extra bracket
-style.setFont(fontArray[v]);</code>
-            </div>
-        </div>
+                "OPTIBodoni-Antiqua",
+                "Poppins-Italic",
+                "Platypi-Light",
+                "Montserrat-SemiBold"
+                ];
+                v = Math.round(effect("Slider Control")("Slider")); // Removed extra bracket
+                style.setFont(fontArray[v]);</code>
+                </div>
+                </div>
 
         <div class="card" data-tags="link text comp external">
-            <h2>Edit the text out of comp</h2>
-            <p class="description">With the help of this expression you can edit a text wich is inside a comp without
-                opening it just form the refrence of the text (here, "Comp 2" is main comp and "change text here" is the
-                refrence text.</p>
+            <h2>Remote Text Control</h2>
+            <p class="description">Links this text to a master controller. Simply edit the text inside Comp 2, and it will instantly update here in Comp 1 without you needing to switch comps.
+            </p>
+            <p class="usage-label">Comp01 > Text > Source Text</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>comp("Comp 2").layer("Change text here:").text.sourceText</code>
-            </div>
-        </div>
-
-        <div class="card" data-tags="maintain stroke width">
-            <h2>Maintain stroke width</h2>
-            <p class="description">Keeps the stroke width consistent even when scaled.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>value / length(toComp([0,0]), toComp([0.7071,0.7071])) || 0.001;</code>
-            </div>
-        </div>
-
-        <div class="card" data-tags="maintain scale parent">
-            <h2>Maintain scale when parented</h2>
-            <p class="description">Keeps the layer's visual scale locked, even if the parent layer is scaled.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>s = []; 
-ps = parent.transform.scale.value; 
-for (i = 0; i < ps.length; i++){ 
-s[i] = value[i]*100/ps[i]; 
-} 
-s</code>
+                <code>//make sure to change the comp and layer name
+                    comp("Comp2").layer("text").text.sourceText</code>
             </div>
         </div>
 
         <div class="card" data-tags="posterize time fps stop motion">
-            <h2>Posterize Time without Layer</h2>
-            <p class="description">This helps to use the posterize time on the specify properties insted of using in it
-                a adjustment layer, this creats some kind of random of hand made animation.</p>
+            <h2>Local Posterize Time</h2>
+            <p class="description">Restricts the frame rate of this specific property. Ideal for adding "organic" jitter to smooth digital movements.</p>
+            <p class="usage-label">Any Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>posterizeTime(4);
-value</code>
-            </div>
+                value</code>
+                </div>
         </div>
+
+        <!-- I'm done making changes now. -->
 
         <div class="card" data-tags="loop pingpong">
             <h2>Advance Loop Out Expression (PingPong)</h2>
@@ -419,9 +414,9 @@ value</code>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>posterizeTime(2); // Updates the value only 2 times per second
-seedRandom(index, false); // Ensures randomness is consistent for each layer
-random(0, 10); // Generates a random number between 0 and 10</code>
-            </div>
+                seedRandom(index, false); // Ensures randomness is consistent for each layer
+                random(0, 10); // Generates a random number between 0 and 10</code>
+                </div>
         </div>
 
         <div class="card" data-tags="smooth keyframe ease">
@@ -441,9 +436,9 @@ random(0, 10); // Generates a random number between 0 and 10</code>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>w = content("Rectangle 1").content("Rectangle Path 1").size[0];
-h = content("Rectangle 1").content("Rectangle Path 1").size[1];
-[w/2, h/2]</code>
-            </div>
+                h = content("Rectangle 1").content("Rectangle Path 1").size[1];
+                [w/2, h/2]</code>
+                </div>
         </div>
 
         <div class="card" data-tags="card animation system">
@@ -453,24 +448,24 @@ h = content("Rectangle 1").content("Rectangle Path 1").size[1];
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>//Variables //
-var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
-var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
-var id = thisLayer.index;
-
-//Calculation //
-if (select > id)
-{x=ease(select,id,id+padding,0,value[0]);}
-else
-{x=ease(select,id-padding,id,value[0],0);}
-
-if (select > id)
-{y=ease(select,id,id+padding,0,value[1]);}
-else
-{y=ease(select,id-padding,id,value[1],0);}
-
-//Outputs //
-[x,y]</code>
-            </div>
+                var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
+                var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
+                var id = thisLayer.index;
+                
+                //Calculation //
+                if (select > id)
+                {x=ease(select,id,id+padding,0,value[0]);}
+                else
+                {x=ease(select,id-padding,id,value[0],0);}
+                
+                if (select > id)
+                {y=ease(select,id,id+padding,0,value[1]);}
+                else
+                {y=ease(select,id-padding,id,value[1],0);}
+                
+                //Outputs //
+                [x,y]</code>
+                </div>
         </div>
 
         <div class="card" data-tags="automate scale system">
@@ -481,20 +476,20 @@ else
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>// variables //
-var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
-var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
-var id = thisLayer.index;
-
-// Calculation //
-if (select > id)
-{x=ease(select, id, id+padding, value[0]*1.5, value[0]);}
-else
-{x=ease(select, id, id-padding, value[0], value[0]*1.5);}
-
-// Outputs //
-[x,x]</code>
-            </div>
-        </div>
+                var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
+                var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
+                var id = thisLayer.index;
+                
+                // Calculation //
+                if (select > id)
+                {x=ease(select, id, id+padding, value[0]*1.5, value[0]);}
+                else
+                {x=ease(select, id, id-padding, value[0], value[0]*1.5);}
+                
+                // Outputs //
+                [x,x]</code>
+                </div>
+                </div>
 
         <div class="card" data-tags="automate rotation system">
             <h2>Automate Rotation</h2>
@@ -504,19 +499,19 @@ else
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>// variables //
-var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
-var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
-var id = thisLayer.index;
-
-// Calculation //
-if (select > id)
-{x=ease(select,id,id+padding,value+360,value);}
-else
-{x=ease(select,id,id-padding,value,value+360);}
-
-// Outputs //
-x</code>
-            </div>
+                var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
+                var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
+                var id = thisLayer.index;
+                
+                // Calculation //
+                if (select > id)
+                {x=ease(select,id,id+padding,value+360,value);}
+                else
+                {x=ease(select,id,id-padding,value,value+360);}
+                
+                // Outputs //
+                x</code>
+                </div>
         </div>
 
         <div class="card" data-tags="show data debug">
@@ -526,17 +521,17 @@ x</code>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>x = thisComp.layer("Shape Layer 1").transform.position[0];
-y = thisComp.layer("Shape Layer 1").transform.position[1];
-s1 = Math.round(thisComp.layer("Shape Layer 1").transform.scale[0]);
-s2 = Math.round(thisComp.layer("Shape Layer 1").transform.scale[1]);
-r = Math.round(thisComp.layer("Shape Layer 1").transform.rotation);
-t=Math.round(thisComp.layer("Shape Layer 1").transform.opacity)
-
-"Position: " + x + " , " + y +
-"\nScale: " +s1 +" ,"+ s2 +
-"\nRotation: " + r +
-"\nOpacity: " + t</code>
-            </div>
+                y = thisComp.layer("Shape Layer 1").transform.position[1];
+                s1 = Math.round(thisComp.layer("Shape Layer 1").transform.scale[0]);
+                s2 = Math.round(thisComp.layer("Shape Layer 1").transform.scale[1]);
+                r = Math.round(thisComp.layer("Shape Layer 1").transform.rotation);
+                t=Math.round(thisComp.layer("Shape Layer 1").transform.opacity)
+                
+                "Position: " + x + " , " + y +
+                "\nScale: " +s1 +" ,"+ s2 +
+                "\nRotation: " + r +
+                "\nOpacity: " + t</code>
+                </div>
         </div>
 
         <div class="card" data-tags="track 3d lookat">
@@ -546,8 +541,8 @@ t=Math.round(thisComp.layer("Shape Layer 1").transform.opacity)
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>target = thisComp.layer("TargetLayer");
-lookAt(thisLayer.position, target.position);</code>
-            </div>
+                lookAt(thisLayer.position, target.position);</code>
+                </div>
         </div>
 
         <div class="card" data-tags="track position 2d">
@@ -588,8 +583,8 @@ lookAt(thisLayer.position, target.position);</code>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>posterizeTime(4);
-value</code>
-            </div>
+                value</code>
+                </div>
         </div>
 
         <div class="card">
@@ -670,6 +665,6 @@ value</code>
             });
         }
     </script>
-</body>
+</body>      
 
 </html>
