@@ -357,12 +357,10 @@
                 </div>
         </div>
 
-        <!-- I'm done making changes now. -->
-
         <div class="card" data-tags="loop pingpong">
-            <h2>Advance Loop Out Expression (PingPong)</h2>
-            <p class="description">The frist Loop out expression makes the pingpong animation but with only the last 2
-                keyframe.</p>
+            <h2>Single-Segment PingPong</h2>
+            <p class="description">Loops the animation back and forth using only the last two keyframes.</p>
+            <p class="usage-label">Any Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>loopOut(type = "pingpong", numKeyframes = 1)</code>
@@ -370,8 +368,9 @@
         </div>
 
         <div class="card" data-tags="loop offset infinite">
-            <h2>Advance Loop Out Expression (Offset)</h2>
-            <p class="description">The second expression make a stuff go forever.</p>
+            <h2>Continuous Offset Loop</h2>
+            <p class="description">Creates a never-ending animation by adding the last keyframe's value to the next cycle. Perfect for infinite scrolling or rotating.</p>
+            <p class="usage-label">Any Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>loopOut(type = "offset", numKeyframes = 0)</code>
@@ -379,18 +378,19 @@
         </div>
 
         <div class="card" data-tags="wiggle custom shake">
-            <h2>Custom shake_wiggle</h2>
-            <p class="description">Make a Null and apply "point control" rename it to "shake" and use this expression on
-                a layer then link that to null and make a custom shake.</p>
+            <h2>Local Wiggle Controller</h2>
+            <p class="description">Adds a Point Control directly to the layer to manage wiggle frequency and amplitude. This keeps your timeline clean by eliminating the need for extra Null layers.</p>
+            <p class="usage-label">Shape Layer > Position</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>wiggle(effect("shake")("Point")[0],effect("shake")("Point")[1])</code>
+                <code>wiggle(effect("Point Control")("Point")[0],effect("Point Control")("Point")[1])</code>
             </div>
         </div>
 
         <div class="card" data-tags="clamp lock layer">
-            <h2>Can't move the layer</h2>
-            <p class="description">This just keep the layer's property value 100.</p>
+            <h2>Value Lock</h2>
+            <p class="description">Forces a property to remain at a fixed value (100) regardless of manual adjustments or keyframes.</p>
+            <p class="usage-label">Any Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>clamp(value, 100, 100)</code>
@@ -398,8 +398,9 @@
         </div>
 
         <div class="card" data-tags="delay time animation">
-            <h2>Add Delay</h2>
-            <p class="description">It's just makes the Animation Dealy by 1 sec.</p>
+            <h2>Constant Time Offset</h2>
+            <p class="description">Delays the property's animation by exactly 1 second. Useful for creating staggered motion or secondary animation.</p>
+            <p class="usage-label">Any Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>valueAtTime(time - 1); // Delayed motion</code>
@@ -407,126 +408,104 @@
         </div>
 
         <div class="card" data-tags="random static posterize">
-            <h2>Random Static /Moving Value</h2>
-            <p class="description">This works same as the random () but a bit advance way here you can get the static
-                result time each time and in each layer which helps sometimes, via the help of "Index" and "true /falsh"
+            <h2>Seeded Low-Fi Random</h2>
+            <p class="description">Generates a unique, stepped random value for each layer. Using <strong>seedRandom</strong> ensures each layer gets a different result, while posterizeTime controls the <strong>"jitter"</strong> speed.
             </p>
+            <p class="usage-label">Any Array Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>posterizeTime(2); // Updates the value only 2 times per second
-                seedRandom(index, false); // Ensures randomness is consistent for each layer
-                random(0, 10); // Generates a random number between 0 and 10</code>
+                <code>posterizeTime(2);
+                seedRandom(index, false);
+                r = random(200, 100);
+                [r, r] // Tells AE to use the random number for both X and Y</code>
+                </div>
+
+                <p class="usage-label">Any Scalar Property</p>
+                <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>posterizeTime(2);           // The "Speed" of the change (2 times per second)
+                seedRandom(index, false);    // The "Unique ID" (index) and "Motion" (false)
+                random(0, 10);               // The "Range" (Minimum, Maximum)</code>
                 </div>
         </div>
 
         <div class="card" data-tags="smooth keyframe ease">
-            <h2>Smooth Keyframe</h2>
-            <p class="description">This expression is same as "leaner" one the main different here is it smooths the
-                keyframes where as the "Leaner" one goes in the same speed all the time no easing.</p>
+            <h2>Dynamic Ease Mapping</h2>
+            <p class="description">Maps time to a value range with built-in easing. Unlike a linear transition, this starts slowly and decelerates at the end for more natural movement.</p>
+            <p class="usage-label">Any Property</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>ease(time, 0, 5, 0, 100);</code>
             </div>
         </div>
 
-        <div class="card" data-tags="round corners shape">
-            <h2>Round Shape Corners</h2>
-            <p class="description">you can make a shape's corner stary round with this expression no matter what the
-                size you chose over time</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>w = content("Rectangle 1").content("Rectangle Path 1").size[0];
-                h = content("Rectangle 1").content("Rectangle Path 1").size[1];
-                [w/2, h/2]</code>
-                </div>
-        </div>
-
         <div class="card" data-tags="card animation system">
-            <h2>Card Animation</h2>
-            <p class="description">apply this to the position and make sure that layer in linked to the null or
-                controller and then see the magic</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>//Variables //
-                var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
-                var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
-                var id = thisLayer.index;
-                
-                //Calculation //
-                if (select > id)
-                {x=ease(select,id,id+padding,0,value[0]);}
-                else
-                {x=ease(select,id-padding,id,value[0],0);}
-                
-                if (select > id)
-                {y=ease(select,id,id+padding,0,value[1]);}
-                else
-                {y=ease(select,id-padding,id,value[1],0);}
-                
-                //Outputs //
-                [x,y]</code>
-                </div>
-        </div>
-
-        <div class="card" data-tags="automate scale system">
-            <h2>Automate Scale</h2>
-            <p class="description">This automate the scall over the multiple layers /shapes all you have to do is add a
-                null named "CONTROLER" and then apply 2 silder control named "Select" "Padding" and now you have a
-                animation Which is responseve and well mentioned</p>
+            <h2>Dynamic 3x5 Auto-Scaling Shape Grid</h2>
+            <p class="description">This setup creates a grid of 15 shapes (5 columns by 3 rows) that you can control globally using a single Null Object. By using expressions, you can adjust the size, spacing, and selection of the shapes without having to edit each layer individually.</p>
+            <p class="usage-label">Shape Layer > Scale </p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>// variables //
-                var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
-                var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
+                var select = thisComp.layer("controls").effect("Select")("Slider");
+                var padding = thisComp.layer("controls").effect("Padding")("Slider");
                 var id = thisLayer.index;
                 
-                // Calculation //
-                if (select > id)
-                {x=ease(select, id, id+padding, value[0]*1.5, value[0]);}
-                else
-                {x=ease(select, id, id-padding, value[0], value[0]*1.5);}
+                // calculations //
+                if (select > id) {
+                    x = ease(select, id, id + padding, value[0]*thisComp.layer("controls").effect("the size of the shape")("Slider"), value[0]);
+                } else {
+                    x = ease(select, id - padding, id, value[0], value[0]*thisComp.layer("controls").effect("the size of the shape")("Slider"));
+                }
                 
-                // Outputs //
-                [x,x]</code>
+                // outputs //
+                [x,x]
+                </code>
                 </div>
                 </div>
-
-        <div class="card" data-tags="automate rotation system">
-            <h2>Automate Rotation</h2>
-            <p class="description">This automate the rotation over the multiple layers /shapes all you have to do is add
-                a null named "CONTROLER" and then apply 2 slider control named "Select" "Padding" and now you have a
-                animation Which is responsive and well mentioned</p>
+                
+                <div class="card" data-tags="Dynamic Multi-Layer Index Rotation system">
+                    <h2>Dynamic Multi-Layer Index Rotation</h2>
+            <p class="description">This expression automates the rotation of multiple layers based on their stack order. It creates
+                a responsive, procedural animation controlled by a single "CONTROLLER" Null.<br>
+                <br>
+                <strong>Select:</strong> Adjusts the base rotation or target layer focus.<br>
+                <strong>Padding:</strong> Sets the rotational offset (gap) between each layer.
+            </p>
+            <p class="usage-label">Shape Layer > Rotation </p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>// variables //
-                var select = thisComp.layer("#CONTROLER").effect("Select")("Slider");
-                var padding = thisComp.layer("#CONTROLER").effect("Padding")("Slider");
+                <code>var select = thisComp.layer("#CONTROLER").effect("Slider Control")("Slider");
+                var padding = thisComp.layer("#CONTROLER").effect("Slider Control 2")("Slider");
                 var id = thisLayer.index;
                 
-                // Calculation //
                 if (select > id)
-                {x=ease(select,id,id+padding,value+360,value);}
+                	{x=ease(select,id,id+padding,value+360,value);}
                 else
-                {x=ease(select,id,id-padding,value,value+360);}
+                	{x=ease(select,id,id-padding,value,value+360);}
                 
-                // Outputs //
                 x</code>
                 </div>
         </div>
 
-        <div class="card" data-tags="show data debug">
-            <h2>Show data</h2>
-            <p class="description">Show position, rotation and scale in a canvas one can also use this to make the
-                responsive animation which update automatically.</p>
+        <div class="card" data-tags="Live Transform HUD debug">
+            <h2>Live Transform HUD</h2>
+            <p class="description">Displays real-time transform data (Position, Scale, Rotation, and Opacity) from a target layer
+                onto a text layer. Perfect for technical UI designs and automated property labeling.</p>
+            <p class="usage-label">Text Layer > Source Text</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>x = thisComp.layer("Shape Layer 1").transform.position[0];
-                y = thisComp.layer("Shape Layer 1").transform.position[1];
+                <code>
+                    // Change the Name of the Layer "Shape Layer 1" to your layer name
+                x = thisComp.layer("Shape Layer 1").transform.position[0];
+                y = Math.round(thisComp.layer("Shape Layer 1").transform.position[1]);
+                x = Math.round(thisComp.layer("Shape Layer 1").transform.position[0]);
                 s1 = Math.round(thisComp.layer("Shape Layer 1").transform.scale[0]);
                 s2 = Math.round(thisComp.layer("Shape Layer 1").transform.scale[1]);
                 r = Math.round(thisComp.layer("Shape Layer 1").transform.rotation);
-                t=Math.round(thisComp.layer("Shape Layer 1").transform.opacity)
-                
+                t = Math.round(thisComp.layer("Shape Layer 1").transform.opacity)
+                                
+                // Output the HUD text
+
                 "Position: " + x + " , " + y +
                 "\nScale: " +s1 +" ,"+ s2 +
                 "\nRotation: " + r +
@@ -534,114 +513,65 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="track 3d lookat">
-            <h2>Track a Object_3D</h2>
-            <p class="description">Apply this to "orientation" and name a layer "TargetLayer" and then this layer will
-                follow that layer, Make sure to on the 3d coz it's only work in the 3rd</p>
+        <div class="card" data-tags="3D LookAt Target Constraint">
+            <h2>3D LookAt Target Constraint</h2>
+            <p class="description">Forces a 3D layer to constantly face a designated "TargetLayer." This expression calculates the
+                necessary orientation to keep the target in sight, regardless of where either layer moves in 3D space.</p>
+            <p class="usage-label">Shape Layer > Orientation</p>   
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>target = thisComp.layer("TargetLayer");
-                lookAt(thisLayer.position, target.position);</code>
-                </div>
+                <code>
+                    // Ensure both layers are 3D enabled
+                    // Replace "TargetLayer" with the actual name of your target layer
+
+                    target = thisComp.layer("TargetLayer");
+
+                    // Calculate the orientation to look at the target
+                    lookAt(thisLayer.position, target.position);
+                </code>
+            </div>
         </div>
 
         <div class="card" data-tags="track position 2d">
-            <h2>Track a Object position</h2>
-            <p class="description">I don't know much about this- that said my understanding is this helps to parent a
-                layers position to another's position while being relative to each other</p>
+            <h2>Relative Position Tracker</h2>
+            <p class="description">Syncs a layer's position to another object (e.g., "Null 1") while allowing the layer to remain
+                independent. It converts Global Composition coordinates into Local Layer coordinates.</p>
+            <p class="usage-label">Shape Layer > Position</p>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>fromComp(thisComp.layer("Null 1").position); // Convert comp space to layer space</code>
+                <code>
+                    // Change "Null 1" to the name of your target layer
+                    fromComp(thisComp.layer("Null 1").position); // Convert comp space to layer space</code>
             </div>
         </div>
 
         
 
         <div class="card">
-            <h2>Keep Keyframes Working</h2>
-            <p class="description">Allows you to still use keyframes alongside an expression. The expression adds to the
-                keyframed value.</p>
+            <h2>Keyframe-Friendly Scripting</h2>
+            <p class="description">Prevents an expression from "locking" your properties. This allows you to animate naturally with
+                keyframes while the expression runs simultaneously, adding its results to your manual animation.</p>
+            <p class="usage-label">Any Property</p>    
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>+value</code>
+                <code>
+                    // Use this expression to retain keyframe functionality
+                    +value
+                </code>
             </div>
         </div>
 
         <div class="card">
-            <h2>Invert Value (Negative)</h2>
-            <p class="description">Flips the animation to the opposite direction (e.g., Rotation 90 becomes -90).</p>
+            <h2>Value Inversion (Mirroring)</h2>
+            <p class="description">Multiplies the property value by -1 to create a "mirror" effect. This is ideal for symmetrical
+                rigs where one side of a design must move in the exact opposite direction of the other.</p>
+            <p class="usage-label">Any Property</p>    
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>*-1</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Property Posterize Time</h2>
-            <p class="description">Lowers the frame rate of a specific property (creating a stop-motion look) without
-                affecting the whole layer.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>posterizeTime(4);
-                value</code>
-                </div>
-        </div>
-
-        <div class="card">
-            <h2>Advanced Loop (PingPong)</h2>
-            <p class="description">Loops the animation back and forth. 'numKeyframes = 1' restricts it to the last
-                section.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>loopOut(type = "pingpong", numKeyframes = 1);</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Advanced Loop (Offset)</h2>
-            <p class="description">Continues the animation in the same direction forever, adding to the previous value.
-            </p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>loopOut(type = "offset", numKeyframes = 0);</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Link Text from External Comp</h2>
-            <p class="description">Control text inside a pre-comp without opening it. Replace "Comp 2" and "Change text
-                here" with your names.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>comp("Comp 2").layer("Change text here:").text.sourceText</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Custom Shake Wiggle</h2>
-            <p class="description">Requires a Null with a Point Control effect named "shake". Link this property to that
-                controller.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>wiggle(effect("shake")("Point")[0], effect("shake")("Point")[1])</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Lock Property (Clamp)</h2>
-            <p class="description">Forces a value to stay exactly at 100, effectively locking the layer's property.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>clamp(value, 100, 100);</code>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Add Delay</h2>
-            <p class="description">Delays the animation of this layer by 1 second based on the current time.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>valueAtTime(time - 1);</code>
+                <code>
+                    // Inverts the current property value
+                    value * -1;
+                </code>
             </div>
         </div>
 
