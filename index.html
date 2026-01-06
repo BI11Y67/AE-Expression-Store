@@ -72,6 +72,14 @@
             flex-grow: 1;
         }
 
+        .social-media-links {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            margin-left: 1rem;
+            flex-grow: 1;
+        }
+
         .usage-label {
             font-size: 0.85rem;
             margin-bottom: 10px;
@@ -128,7 +136,7 @@
             }
         }
     </style>
-</head>
+    </head>
 
 <body>
 
@@ -136,6 +144,16 @@
         <h1>🎬 AE Expression Store</h1>
         <p class="subtitle">A curated collection of time-saving After Effects expressions.</p>
     </header>
+
+    
+
+    <div class="social-media-links">
+        <p>Follow me on 
+            <a href="https://twitter.com/socrazymedia" target="_blank" style="color: var(--text-accent);">X</a>
+        <p>More Links
+            <a href="https://www.linktr.ee/socrazymedia" target="_blank" style="color: var(--text-accent);">Click here</a>
+        </p>
+    </div>
 
     <div class="container">
 
@@ -575,11 +593,380 @@
             </div>
         </div>
 
+        <div class="card">
+            <h2>2D Auto-Orient / Look-At</h2>
+            <p class="description">A trigonometric expression applied to the Rotation property that dynamically calculates the angle
+                required for a layer to continuously face a target layer.</p>
+            <p class="usage-label">Shape Layer > Rotation</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>targetLayer = {pickwhip this to the layer you want to look at};
+                
+                xDistance = targetLayer.transform.position[0] - transform.position[0];
+                yDistance = targetLayer.transform.position[1] - transform.position[1];
+                
+                radians = Math.atan2(yDistance, xDistance);
+                
+                radiansToDegrees(radians);
+                                </code>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Luma Scale Driver</h2>
+            <p class="description">Samples the luminance (brightness) of a target layer to drive the scale property. White values produce 100% scale, while black values produce 0%.<br>
+                <br>
+                <strong>Note:</strong>You must have a source layer in your composition that contains Black & White (Luminance) information.<br>
+                <br>
+                <strong>Example:</strong> Create a Solid layer, apply the Gradient Ramp effect, and animate the gradient colors or positions. The shape layer's scale will automatically react to the changing brightness.<br>
+            </p>
+            <p class="usage-label">Shape Layer > Rotation</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>var sample = thisComp.layer("MAIN ANIMATION").sampleImage(position, [1, 1]);
+                var sampleHSL = rgbToHsl(sample);
+                
+                var newScale = linear(sampleHSL[2], 0, 1, 0, 100);
+                
+                [newScale, newScale];
+                </code>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Absolute World Position Tracker</h2>
+            <p class="description">Converts a layer's local anchor point into global composition coordinates. This allows you to
+                track the exact screen position of a layer, even if it is parented or inside a complex hierarchy.
+            </p>
+            <p class="usage-label">Shape Layer > Position</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                    // Converts the layer name to "Car" or your desired layer
+
+                    L = thisComp.layer("Car");
+                    L.toWorld(L.anchorPoint);
+                </code>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Auto Grid Layout</h2>
+            <p class="description">Automatically arranges shape layers in a grid pattern based on a padding value from a null layer.</p>
+            <p class="usage-label">Shape Layer > Position</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+
+                    // Make sure to have a Null layer named "Null 13" with a Slider Control for padding
+                padding = thisComp.layer("Null 13").effect("Slider Control")("Slider");     
+                numberOfColumns = Math.ceil(thisComp.width / padding)+1;
+                
+                xValue = padding * ((index-1) % numberOfColumns);
+                yValue = padding * Math.floor((index-1) / numberOfColumns);
+                
+                [value[0]+xValue, value[1] + yValue];</code>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Seamless Looping Wiggle</h2>
+            <p class="description">A dual-timeline expression that uses a cross-fade to eliminate "jumps" in random movement, creating a perfect repeat.</p>
+            <p class="usage-label">Shape Layer > Position</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                frequency = 2; // wiggles per second
+                amplitude = 40; // amount of pixels to wiggle
+                secondsToLoop = 3; // time to loop in seconds. Change this to thisComp.duration if more appropriate
+                // --------
+                t = time % secondsToLoop;
+                wiggle1 = wiggle(frequency, amplitude, 1, 0.5, t);
+                wiggle2 = wiggle(frequency, amplitude, 1, 0.5, t - secondsToLoop);
+                linear(t, 0,  secondsToLoop, wiggle1, wiggle2)</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Half-Frame Stutter</h2>
+            <p class="description">Forces a property to update every second frame, creating a low-fps stop-motion aesthetic.</p>
+            <p class="usage-label">Any Property</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                if(timeToFrames() % 2 > 0){value}else{valueAtTime(time-thisComp.frameDuration)}</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Proportional Y-Scaler</h2>
+            <p class="description">This expression scales the Y value proportionally to the X value.</p>
+            <p class="usage-label">Any Y Value</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                    // pickwhip the x value to scale proportionally
+                    xValue = {pickwhip this value to the x value};
+                
+                (xValue*thisComp.height)/thisComp.width</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Constant Auto-Scale</h2>
+            <p class="description">Automatically scales a layer up or down at a fixed speed starting from the layer's In-Point.</p>
+            <p class="usage-label">Shape Layer > Scale</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                
+                // Adjust this value to control the speed of scaling
+                var scaleSpeed = 10;
+                var scaleFactor = (time-inPoint)*scaleSpeed;
+                value - [scaleFactor, scaleFactor]; // Use - to decrease and + to increase</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Constant Auto-Scale</h2>
+            <p class="description">Automatically scales a layer up or down at a fixed speed starting from the layer's In-Point.</p>
+            <p class="usage-label">Shape Layer > Scale</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                
+                // Adjust this value to control the speed of scaling
+                var scaleSpeed = 10;
+                var scaleFactor = (time-inPoint)*scaleSpeed;
+                value - [scaleFactor, scaleFactor]; // Use - to decrease and + to increase</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Typewriter with Cursor</h2>
+            <p class="description">Creates a typewriter effect with a blinking cursor.</p>
+            <p class="usage-label">Text Layer > Source Text</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                // 1. Setup Blink Speed
+                var blinkControl = Math.sin(time * 15); // Increased speed to 15 for better visibility
+                
+                // 2. Check if Markers exist (Safety Check)
+                if (marker.numKeys >= 2) {
+                    var inTime = marker.key(1).time;
+                    var outTime = marker.key(2).time;
+                } else {
+                    // Default to start at 0s and end at 2s if you forgot markers
+                    var inTime = 0;
+                    var outTime = 2;
+                }
+                
+                // 3. Calculate Typewriter Progress
+                // Using 'value' instead of 'text.sourceText' is safer
+                var txt = value; 
+                var charCount = linear(time, inTime, outTime, 0, txt.length);
+                var animation = txt.slice(0, Math.floor(charCount)); // Round down to whole letters
+                
+                // 4. Create the Final Output Variable
+                var finalOutput = "";
+                
+                if (time <= inTime) {
+                    // Phase 1: Waiting to start (Blinking Cursor only)
+                    finalOutput = (blinkControl < 0) ? "|" : "";
+                } else if (time < outTime) {
+                    // Phase 2: Typing (Text + Solid Cursor)
+                    finalOutput = animation + "|";
+                } else {
+                    // Phase 3: Finished (Text only, no cursor)
+                    finalOutput = animation;
+                }
+                
+                // 5. This last line is what actually shows up on screen
+                finalOutput;</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Path Flow Distributor(Shape Layer)</h2>
+            <p class="description">Automatically calculates spacing based on layer index. Usage: Apply to the Position property. Requires a source shape layer named "MAIN PATH" with "OFFSET CONTROL" and "RANDOM POSITION" sliders attached.<br
+                <br>
+                <br>
+                <strong>Steps:</strong><br>
+                1. Create a Shape Layer named "MAIN PATH" & Make a Path with the Pen tool (Shape 1 > Path 1).<br>
+                2. Add two Slider Controls to "MAIN PATH" named "OFFSET CONTROL" and "RANDOM POSITION".<br>
+                3. Apply this expression to the Position property of the layers you want to distribute along the path.<br>
+                4. Turn on the auto-orient for better effect.<br>
+                5. Align the shape layer, then duplicate it to see the magic happen.<br>
+                <br>
+                <strong>OFFSET CONTROL:</strong> Adjusts the overall flow along the path.<br>
+                <strong>RANDOM POSITION:</strong> Adds random positional variation to each layer.
+                 
+            </p>
+            <p class="usage-label">Shape Layer > Position</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                
+                let pathLayer = thisComp.layer("MAIN PATH");
+                let thePath = pathLayer.content("Shape 1").content("Path 1").path;
+                let sliderOffset = thisComp.layer("MAIN PATH").effect("OFFSET CONTROL")("Slider");
+                let offsetRepeat = sliderOffset % 100;
+                let offsetToAdd = linear(offsetRepeat, 0, 100, 1, 0);
+                
+                let pathOffset = linear(index, 0, thisComp.numLayers-1, 0, 1);
+                let myPos = thePath.pointOnPath((pathOffset+offsetToAdd)%1, time);
+                
+                seedRandom(index, true);
+                let posSlider = thisComp.layer("MAIN PATH").effect("RANDOM POSITION")("Slider");
+                let randomPos = random([-posSlider, -posSlider], [posSlider, posSlider]);
+                
+                toComp(myPos) - thisComp.layer("MAIN PATH").transform.position + randomPos;
+                
+                
+                </code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Dynamic Velocity Spring</h2>
+            <p class="description">Apply to the Rotation property. Adjust rotateOnMovement for the lean intensity and decay for the spring duration. Align your shape, then duplicate the layer to see the magic happen!</p>
+            <p class="usage-label">Shape Layer > Rotation</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+
+                let amp = 2.0; //Sets the angle that the layer will rotate on the spring animation
+                let freq = 2.0; //Sets the velocity that the spring animation will have
+                let decay = 4.0; //How long the spring animation lasts
+                let rotateOnMovement = 42; //Maximum angle that the layer will rotate when it's moving
+                let useAxis = 0; // 0 will use the speed of the X axis and 1 will use the speed of the Y axis
+                let timeBeforeKey = thisComp.frameDuration/10;
+                let refValue = position;
+                
+                if (refValue.velocity[useAxis] != 0) {
+                	linear(refValue.velocity[useAxis], -3000, 3000, -rotateOnMovement, rotateOnMovement);
+                } else {
+                	let n = 0;
+                	if (refValue.numKeys > 0) {
+                		n = refValue.nearestKey(time).index;
+                		if (refValue.key(n).time > time) { n--; }
+                	}
+                	if (n == 0) {
+                		t = 0;
+                	} else {
+                		t = time - refValue.key(n).time;
+                	}
+                	if (n > 0 && t < 1) {
+                		let v = refValue.velocityAtTime(refValue.key(n).time - timeBeforeKey)[useAxis];
+                		value - (v*(amp/100)*Math.sin(freq*t*2*Math.PI)/Math.exp(decay*t));
+                	} else {
+                		value;
+                	}
+                }</code>
+                </div>
+        </div>
+
+        <div class="card">
+            <h2>Proximity Force Field</h2>
+            <p class="description">Apply to the Position property. Requires a layer named "SPACESHIP" with a "DEFLECT RADIUS" slider. Align your shape, then duplicate the layer to see the magic happen!<br
+                <br>
+                <br>
+                <strong>Steps:</strong><br>
+                1. Make a Mouse cursor Shape layer named "SPACESHIP" (You can use any shape).<br>
+                2. Then Add a Slider Control named "DEFLECT RADIUS" to the "SPACESHIP" layer.<br>
+                3. Add A circle shape and apply this expression to the Position property of the layers you want to be affected by the force field.<br>
+                4. Now Change the "DEFLECT RADIUS" slider to see the effect and then Move the SPACESHIP from the program Moniter.<br
+                <br>
+                <br>
+                <strong>DEFLECT RADIUS:</strong> Adjusts the strength of the force field.
+                 
+            </p>
+            <p class="usage-label">Shape Layer > Scale</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+
+                //Getting the strength value of the force field
+                var reflectRadius = thisComp.layer("SPACESHIP").effect("DEFLECT RADIUS")("Slider");
+                
+                //Calculating the total distance between the layers and the distance on each axis
+                var lengthX = value[0] - thisComp.layer("SPACESHIP").transform.position[0];
+                var lengthY = value[1] - thisComp.layer("SPACESHIP").transform.position[1];
+                var distance = length(value, thisComp.layer("SPACESHIP").transform.position);
+                
+                //Calculating the angle between the layers,
+                //this will allow us to get how much force will be applied into each axis
+                
+                var angle = Math.atan2(lengthY, lengthX);
+                var cosine = Math.cos(angle);
+                var sine = Math.sin(angle);
+                var moveRadius = ease(distance, reflectRadius, 0, reflectRadius, 0);
+                
+                //Applying the final value
+                [value[0]+moveRadius*cosine, value[1]+moveRadius*sine];</code>
+                </div>
+        </div>
+
+        <!-- <div class="w-full h-48 bg-slate-800 border-b border-slate-700 overflow-hidden">
+            <img src="https://github.com/BI11Y67/AE-Expression-Store/blob/main/Images/test.png?raw=true" alt="Preview" class="w-full h-full object-cover">
+        </div> -->
+
+        <!-- <div id="social-popup" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center backdrop-blur-sm">
+    
+    <div class="bg-[#0f172a] border border-slate-700 p-8 rounded-2xl shadow-2xl w-[90%] max-w-md text-center relative">
+        
+        <button onclick="closePopup()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div class="w-20 h-20 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl shadow-lg shadow-blue-500/20">
+            👋
+        </div>
+
+        <h2 class="text-2xl font-bold text-white mb-2">Wait! Before you go...</h2>
+        <p class="text-slate-400 mb-6">
+            If you found these expressions helpful, follow me on Instagram for more motion design tips!
+        </p>
+
+        <div class="space-y-3">
+            <a href="https://instagram.com/YOUR_USERNAME" target="_blank" class="block w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-105">
+                Follow on Instagram 📸
+            </a>
+            
+            <button onclick="closePopup()" class="block w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-3 rounded-lg transition-colors">
+                Maybe Later
+            </button>
+        </div>
+
+    </div> -->
+
+    <!-- <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="mt-4">
+    <textarea name="message" placeholder="Leave an anonymous comment..." class="w-full bg-slate-800 text-white text-sm p-3 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 mb-2" rows="2"></textarea>
+    <button type="submit" class="w-full bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2 rounded-lg transition-colors">
+        Send Anonymous Comment
+        </button>
+    </form> -->
+    
+</div>
+
+<script>
+    function closePopup() {
+        // This finds the popup div and hides it by adding 'hidden' class
+        const popup = document.getElementById('social-popup');
+        popup.style.display = 'none';
+    }
+</script>
+
+        <!-- <h1> <strong> More Resources:</strong>https://frangiordano96.gitbook.io/ae-expressions/quick-tips </h1> -->
+
     </div>
 
     <div class="donate-section">
         <p>Found this helpful? Support the project!</p>
-        <!-- <p><strong>UPI ID:</strong> [YOUR_UPI_ID_HERE]</p> -->
+        <strong>UPI ID:</strong> mukeshavik@ybl</p>
     </div>
 
     <script>
@@ -595,6 +982,6 @@
             });
         }
     </script>
-</body>      
+    </body>      
 
 </html>

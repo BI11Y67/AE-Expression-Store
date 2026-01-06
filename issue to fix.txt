@@ -1,0 +1,5 @@
+issue to fix
+    How to add Images /Gif to the code
+    How to add QR code to this code
+    And add category to the code and Make sure to add a poup up when one opens that page
+        which will say to follow me on insta or click more to see the linktr.ee
