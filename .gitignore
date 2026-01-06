@@ -2,6 +2,7 @@
 
 # Ignore specific files
 issue to fix.txt
+.gitignore
 
 # Ignore entire folders
 06_important-information/

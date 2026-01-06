@@ -57,6 +57,6 @@ Got a cool expression?
 
 I post daily motion design tips, breakdown the logic behind these expressions, and share more tools.
 
-[![X (Twitter) Follow](https://img.shields.io/twitter/follow/YOUR_X_HANDLE?style=social)](https://x.com/socrazy.media)
+[![X (Twitter) Follow](https://img.shields.io/twitter/follow/socrazymedia?style=social)](https://x.com/socrazymedia)
 
 *Created with ❤️ by BI11Y67*
