@@ -906,49 +906,66 @@
                 //Applying the final value
                 [value[0]+moveRadius*cosine, value[1]+moveRadius*sine];</code>
                 </div>
+
+                
         </div>
 
-        <!-- <div class="w-full h-48 bg-slate-800 border-b border-slate-700 overflow-hidden">
-            <img src="https://github.com/BI11Y67/AE-Expression-Store/blob/main/Images/test.png?raw=true" alt="Preview" class="w-full h-full object-cover">
-        </div> -->
+        <div class="card">
+            <h2>Auto-Distribute</h2>
+            <p class="description">This expression automatically calculates a layer's position based on the layer directly above it in the stack. When you duplicate the layer (Cmd+D or Ctrl+D), it pushes the new copy by a fixed horizontal amount (xOffset) while still allowing you to manually nudge the layer to fine-tune its placement.</p>
+             
+            <p class="usage-label">Apply this strictly to the Position property of a 2D layer.</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                
+                                // Set your fixed horizontal gap here
+                var xOffset = -571.6;
+                
+                // Check if there is a layer above this one to reference
+                if (index < thisComp.numLayers && index > 1) {
+                    var prevPos = thisComp.layer(index - 1).transform.position;
+                    
+                    // Previous X + Offset + Current Layer's Manual Value
+                    var newX = prevPos[0] + xOffset + value[0];
+                    var newY = prevPos[1]; 
+                
+                    [newX, newY];
+                } else {
+                    value; 
+                }</code>
+                </div>
 
-        <!-- <div id="social-popup" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center backdrop-blur-sm">
-    
-    <div class="bg-[#0f172a] border border-slate-700 p-8 rounded-2xl shadow-2xl w-[90%] max-w-md text-center relative">
-        
-        <button onclick="closePopup()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-
-        <div class="w-20 h-20 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl shadow-lg shadow-blue-500/20">
-            👋
+                
         </div>
 
-        <h2 class="text-2xl font-bold text-white mb-2">Wait! Before you go...</h2>
-        <p class="text-slate-400 mb-6">
-            If you found these expressions helpful, follow me on Instagram for more motion design tips!
-        </p>
+        <div class="card">
+            <h2>Auto-Distribute</h2>
+            <p class="description">This expression automatically calculates a layer's position based on the layer directly above it in the stack. When you duplicate the layer (Cmd+D or Ctrl+D), it pushes the new copy by a fixed horizontal amount (xOffset) while still allowing you to manually nudge the layer to fine-tune its placement.</p>
+             
+            <p class="usage-label">Apply this strictly to the Position property of a 2D layer.</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                
+                                // Set your fixed horizontal gap here
+                var xOffset = -571.6;
+                
+                // Check if there is a layer above this one to reference
+                if (index < thisComp.numLayers && index > 1) {
+                    var prevPos = thisComp.layer(index - 1).transform.position;
+                    
+                    // Previous X + Offset + Current Layer's Manual Value
+                    var newX = prevPos[0] + xOffset + value[0];
+                    var newY = prevPos[1]; 
+                
+                    [newX, newY];
+                } else {
+                    value; 
+                }</code>
+                </div>
 
-        <div class="space-y-3">
-            <a href="https://instagram.com/YOUR_USERNAME" target="_blank" class="block w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-400 hover:to-purple-400 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-105">
-                Follow on Instagram 📸
-            </a>
-            
-            <button onclick="closePopup()" class="block w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-3 rounded-lg transition-colors">
-                Maybe Later
-            </button>
         </div>
-
-    </div> -->
-
-    <!-- <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="mt-4">
-    <textarea name="message" placeholder="Leave an anonymous comment..." class="w-full bg-slate-800 text-white text-sm p-3 rounded-lg border border-slate-700 focus:outline-none focus:border-blue-500 mb-2" rows="2"></textarea>
-    <button type="submit" class="w-full bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2 rounded-lg transition-colors">
-        Send Anonymous Comment
-        </button>
-    </form> -->
     
 </div>
 
