@@ -43,11 +43,11 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 100%;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 20px;
+            padding: 0 20px;
+            column-count: 2;
+            column-gap: 20px;
         }
 
         .card {
@@ -57,6 +57,13 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            height: fit-content;
+            margin: 0 0 20px 0;
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 0;
+            break-inside: avoid;
+            page-break-inside: avoid;
         }
 
         .card h2 {
@@ -68,16 +75,15 @@
         .description {
             font-size: 0.9rem;
             color: #94a3b8;
-            margin-bottom: 15px;
-            flex-grow: 1;
+            margin-bottom: 12px;
+            flex-shrink: 0;
         }
 
         .social-media-links {
             font-size: 1rem;
             color: #94a3b8;
             margin-bottom: 15px;
-            margin-left: 1rem;
-            flex-grow: 1;
+            padding: 0 20px;
         }
 
         .usage-label {
@@ -123,15 +129,54 @@
         }
 
         .donate-section {
+            max-width: 100%;
+            margin: 60px auto 0;
+            padding: 30px 20px;
+            padding-top: 30px;
+            border-top: 2px solid var(--text-accent);
+            background: linear-gradient(180deg, rgba(88,166,255,0.05) 0%, transparent 100%);
+        }
+
+        .donate-section h2 {
+            margin-top: 0;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .donate-section p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .donate-section code {
+            background-color: var(--card-bg);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-accent);
+            border: 1px solid var(--border-color);
+        }
+
+        .qr-code-container {
+            margin-top: 16px;
             text-align: center;
-            margin-top: 60px;
-            padding: 20px;
-            border-top: 1px solid var(--border-color);
+        }
+
+        .qr-code-image {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin: 12px auto;
+            display: block;
         }
 
         .top-bar {
-            max-width: 1000px;
+            max-width: 100%;
             margin: 0 auto 20px;
+            padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -182,43 +227,102 @@
         }
 
         .menu-button {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            background-color: var(--card-bg);
+            background: rgba(22, 27, 34, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            padding: 0;
+            padding: 10px 16px;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-button:hover {
+            background: rgba(22, 27, 34, 0.8);
+            border-color: var(--text-accent);
         }
 
         .menu-button span {
             display: block;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background-color: #c9d1d9;
-            margin: 1px 0;
+        }
+
+        .menu-button .menu-dots {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .menu-button .menu-dots span {
+            width: 18px;
+            height: 2px;
+            background-color: var(--text-accent);
+            border-radius: 1px;
+        }
+
+        .menu-label {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
         .menu-dropdown {
             position: absolute;
-            top: 40px;
+            top: 100%;
             right: 0;
-            background-color: var(--card-bg);
+            background: rgba(13, 17, 23, 0.88);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            min-width: 200px;
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            min-width: 220px;
             padding: 8px 0;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: none;
             z-index: 500;
+            opacity: 0;
+            transform: translateY(-8px) scaleY(0.95);
+            transform-origin: top right;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .menu-dropdown.open {
             display: block;
+            animation: menuSlideDown 0.3s ease forwards;
+        }
+
+        @keyframes menuSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px) scaleY(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scaleY(1);
+            }
+        }
+
+        .menu-wrapper.menu-open .menu-button {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .menu-wrapper.menu-open .menu-dots span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-wrapper.menu-open .menu-dots span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-wrapper.menu-open .menu-dots span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .menu-button .menu-dots span {
+            transition: transform 0.3s ease, opacity 0.2s ease;
         }
 
         .menu-dropdown a {
@@ -230,20 +334,63 @@
         }
 
         .menu-dropdown a:hover {
-            background-color: #21262d;
+            background: rgba(88, 166, 255, 0.12);
             color: #ffffff;
         }
 
+        .menu-category {
+            background: transparent;
+        }
+
         .section-title {
-            max-width: 1000px;
+            max-width: 100%;
             margin: 0 auto 10px;
+            padding: 0 20px;
             font-size: 1.4rem;
             color: #ffffff;
         }
 
+        .menu-category {
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-category-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #8b949e;
+            margin-bottom: 4px;
+        }
+
+        .menu-category-options {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-category-option {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            text-align: left;
+            padding: 2px 0;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.15s ease;
+        }
+
+        .menu-category-option:hover,
+        .menu-category-option.menu-category-option--active {
+            opacity: 1;
+        }
+
         .info-section {
-            max-width: 1000px;
+            max-width: 100%;
             margin: 40px auto 0;
+            padding: 20px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
         }
@@ -258,25 +405,36 @@
             font-size: 0.95rem;
         }
 
+        .comments-section {
+            margin-top: 60px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            background: radial-gradient(circle at top left, rgba(88,166,255,0.12), transparent 50%);
+        }
+
         #social-popup {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.2);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
         }
 
         .social-popup-content {
             position: relative;
-            background-color: var(--card-bg);
-            border-radius: 8px;
+            background-color: rgba(22, 27, 34, 0.9);
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             padding: 20px 24px;
             max-width: 380px;
             width: 90%;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+            cursor: default;
         }
 
         .social-popup-content h2 {
@@ -340,10 +498,151 @@
             background-color: #21262d;
         }
 
-        /* Mobile adjustment */
+        .x-link {
+            color: var(--text-accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .x-logo {
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .comment-form {
+            margin-top: 12px;
+        }
+
+        .comment-field {
+            margin-bottom: 10px;
+        }
+
+        .comment-field label {
+            display: block;
+            font-size: 0.8rem;
+            color: #8b949e;
+            margin-bottom: 4px;
+        }
+
+        .comment-field input,
+        .comment-field textarea {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .comment-field textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .comment-note {
+            font-size: 0.75rem;
+            color: #8b949e;
+            margin-bottom: 8px;
+        }
+
+        .comment-list {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment-item {
+            padding: 10px 12px;
+            border-radius: 6px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .comment-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+            color: #8b949e;
+        }
+
+        .comment-item-name {
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .comment-item-body {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            white-space: pre-wrap;
+        }
+
+        .comment-empty {
+            font-size: 0.85rem;
+            color: #8b949e;
+        }
+
+        .expression-preview {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 1400px) {
+            .top-bar,
+            .container,
+            .section-title,
+            .info-section,
+            .donate-section {
+                max-width: 1400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                column-gap: 16px;
+            }
+        }
+
         @media (max-width: 600px) {
             .container {
-                grid-template-columns: 1fr;
+                column-count: 1;
+                column-gap: 16px;
+                padding: 0 16px;
+            }
+
+            .card {
+                margin-bottom: 16px;
+                padding: 16px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .top-bar-left {
+                width: 100%;
+            }
+
+            .search-input {
+                flex: 1;
             }
         }
     </style>
@@ -359,15 +658,26 @@
         <div class="top-bar-right">
             <div class="menu-wrapper">
                 <button id="menu-button" class="menu-button" aria-label="Open menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span class="menu-label">Menu</span>
+                    <span class="menu-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
                 </button>
                 <div id="menu-dropdown" class="menu-dropdown" aria-label="Quick navigation menu">
-                    <a href="#categories">Categories / Library</a>
+                    <div class="menu-category">
+                        <span class="menu-category-label">Category</span>
+                        <div class="menu-category-options">
+                            <button type="button" class="menu-category-option menu-category-option--active" data-category="all">All expressions</button>
+                            <button type="button" class="menu-category-option" data-category="animation">Animation</button>
+                            <button type="button" class="menu-category-option" data-category="text">Text &amp; titles</button>
+                            <button type="button" class="menu-category-option" data-category="3d">3D &amp; orientation</button>
+                            <button type="button" class="menu-category-option" data-category="utility">Utility &amp; workflow</button>
+                        </div>
+                    </div>
                     <a href="#about">About</a>
                     <a href="#contact">Contact</a>
-                    <a href="#more">More</a>
                 </div>
             </div>
         </div>
@@ -378,12 +688,13 @@
         <p class="subtitle">A curated collection of time-saving After Effects expressions.</p>
     </header>
 
-    
 
     <div class="social-media-links">
-        <p>Follow me on 
-            <a href="https://twitter.com/socrazymedia" target="_blank" style="color: var(--text-accent);">X</a>
-            </p>
+        <p>Project updates on 
+            <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
+                <span class="x-logo" aria-hidden="true">𝕏</span>
+            </a>
+        </p>
         <!-- <p>More Links
             <a href="https://www.linktr.ee/socrazymedia" target="_blank" style="color: var(--text-accent);">Click here</a>
         </p> -->
@@ -397,6 +708,8 @@
             <h2>Maintain Shape's Stroke Width</h2>
             <p class="description">Keeps the stroke width of a shape layer consistent even when you <strong>Scale</strong> the shape layer itself from the <strong>Transform</strong> property.</p>
             <p class="usage-label">Shape Layer > Contents > Rectangle > Stroke > Stroke Width</p>
+            <!-- Replace the URL below with your GIF link (e.g., https://i.imgur.com/your-gif.gif) -->
+            <img src="https://your-gif-url-here.gif" alt="Preview animation for Maintain Shape's Stroke Width" class="expression-preview">
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                 <code>value / length(toComp([0,0]), toComp([0.7071,0.7071])) || 0.001;</code>
@@ -1180,11 +1493,15 @@
     <div id="social-popup">
         <div class="social-popup-content">
             <button class="popup-close" onclick="closePopup()" aria-label="Close follow popup">&times;</button>
-            <h2>Stay updated & support the tool</h2>
-            <p>Follow me on <a href="https://twitter.com/socrazymedia" target="_blank" style="color: var(--text-accent);">X</a> for new AE expressions and updates.</p>
+            <h2>Support if you loved this tool</h2>
+            <p>Project updates on 
+                <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
+                    <span class="x-logo" aria-hidden="true">𝕏</span>
+                </a>
+            </p>
             <p>If this tool has helped you, consider making a small donation to support more free resources.</p>
             <div class="popup-actions">
-                <a href="#donate" class="btn-primary">View donation details</a>
+                <a href="https://www.blockchain.com/btc/address/bc1-your-bitcoin-address-here" target="_blank" class="btn-primary">Donate with Bitcoin</a>
                 <a href="https://twitter.com/socrazymedia" target="_blank" class="btn-secondary">Follow on X</a>
             </div>
         </div>
@@ -1206,52 +1523,120 @@
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
+        const categoryButtons = Array.from(document.querySelectorAll('.menu-category-option'));
         const cards = Array.from(document.querySelectorAll('.card'));
+        let currentCategory = 'all';
 
-        function filterCards() {
-            if (!searchInput) return;
-            const term = searchInput.value.trim().toLowerCase();
+        function matchesCategory(card, category) {
+            if (!category || category === 'all') return true;
+            const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+            const title = (card.querySelector('h2')?.innerText || '').toLowerCase();
+
+            if (category === 'animation') {
+                return tags.includes('animation') ||
+                    title.includes('bounce') ||
+                    title.includes('wiggle') ||
+                    title.includes('loop') ||
+                    title.includes('animation');
+            }
+            if (category === 'text') {
+                return tags.includes('text') ||
+                    title.includes('text') ||
+                    title.includes('typewriter') ||
+                    title.includes('font');
+            }
+            if (category === '3d') {
+                return tags.includes('3d') ||
+                    title.includes('3d') ||
+                    title.includes('lookat') ||
+                    title.includes('orientation');
+            }
+            if (category === 'utility') {
+                return tags.includes('utility') ||
+                    title.includes('grid') ||
+                    title.includes('hud') ||
+                    title.includes('tracker') ||
+                    title.includes('control') ||
+                    title.includes('driver');
+            }
+            return true;
+        }
+
+        function applyFilters() {
+            const term = (searchInput?.value || '').trim().toLowerCase();
+            const selectedCategory = currentCategory || 'all';
+
             cards.forEach(card => {
                 const tags = (card.getAttribute('data-tags') || '').toLowerCase();
                 const text = card.innerText.toLowerCase();
-                if (!term || tags.includes(term) || text.includes(term)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
+
+                const matchesSearch = !term || tags.includes(term) || text.includes(term);
+                const matchesCat = matchesCategory(card, selectedCategory);
+
+                card.style.display = (matchesSearch && matchesCat) ? '' : 'none';
             });
         }
 
         if (searchButton && searchInput) {
-            searchButton.addEventListener('click', filterCards);
+            searchButton.addEventListener('click', applyFilters);
             searchInput.addEventListener('keyup', function (e) {
                 if (e.key === 'Enter') {
-                    filterCards();
+                    applyFilters();
                 }
             });
+            searchInput.addEventListener('input', applyFilters);
         }
 
         const menuButton = document.getElementById('menu-button');
         const menuDropdown = document.getElementById('menu-dropdown');
+        const menuWrapper = document.querySelector('.menu-wrapper');
+        let menuHoverTimeout = null;
 
-        if (menuButton && menuDropdown) {
-            menuButton.addEventListener('click', function (event) {
-                event.stopPropagation();
-                const isOpen = menuDropdown.classList.toggle('open');
-                menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (menuWrapper && menuDropdown && menuButton) {
+            let menuCloseTimeout = null;
+            
+            menuWrapper.addEventListener('mouseenter', function() {
+                if (menuCloseTimeout) {
+                    clearTimeout(menuCloseTimeout);
+                    menuCloseTimeout = null;
+                }
+                if (menuHoverTimeout) {
+                    clearTimeout(menuHoverTimeout);
+                }
+                menuHoverTimeout = setTimeout(function() {
+                    menuDropdown.classList.add('open');
+                    menuWrapper.classList.add('menu-open');
+                }, 850);
             });
 
-            document.addEventListener('click', function (event) {
-                if (!menuDropdown.contains(event.target) && !menuButton.contains(event.target)) {
-                    if (menuDropdown.classList.contains('open')) {
-                        menuDropdown.classList.remove('open');
-                        menuButton.setAttribute('aria-expanded', 'false');
-                    }
+            menuWrapper.addEventListener('mouseleave', function() {
+                if (menuHoverTimeout) {
+                    clearTimeout(menuHoverTimeout);
+                    menuHoverTimeout = null;
                 }
+                menuCloseTimeout = setTimeout(function() {
+                    menuDropdown.classList.remove('open');
+                    menuWrapper.classList.remove('menu-open');
+                }, 450);
+            });
+        }
+
+        if (categoryButtons.length) {
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const value = this.getAttribute('data-category') || 'all';
+                    currentCategory = value;
+
+                    categoryButtons.forEach(b => b.classList.remove('menu-category-option--active'));
+                    this.classList.add('menu-category-option--active');
+
+                    applyFilters();
+                });
             });
         }
 
         const popup = document.getElementById('social-popup');
+        const popupContent = document.querySelector('.social-popup-content');
         if (popup) {
             let dismissed = false;
             try {
@@ -1263,8 +1648,103 @@
             if (!dismissed) {
                 setTimeout(function () {
                     popup.style.display = 'flex';
-                }, 3000);
+                }, 500);
             }
+
+            popup.addEventListener('click', function(event) {
+                if (event.target === popup) {
+                    closePopup();
+                }
+            });
+            
+            if (popupContent) {
+                popupContent.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            }
+        }
+
+        const commentForm = document.getElementById('comment-form');
+        const commentName = document.getElementById('comment-name');
+        const commentText = document.getElementById('comment-text');
+        const commentList = document.getElementById('comment-list');
+        const COMMENTS_STORAGE_KEY = 'aeExpressionComments';
+
+        function loadComments() {
+            try {
+                const raw = localStorage.getItem(COMMENTS_STORAGE_KEY);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveComments(items) {
+            try {
+                localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(items));
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        function renderComments() {
+            if (!commentList) return;
+            const items = loadComments();
+            commentList.innerHTML = '';
+            if (!items.length) {
+                const p = document.createElement('p');
+                p.className = 'comment-empty';
+                p.textContent = 'No comments yet. Be the first to share your thoughts.';
+                commentList.appendChild(p);
+                return;
+            }
+
+            items.forEach(item => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'comment-item';
+
+                const header = document.createElement('div');
+                header.className = 'comment-item-header';
+
+                const nameEl = document.createElement('span');
+                nameEl.className = 'comment-item-name';
+                nameEl.textContent = item.name || 'Guest';
+
+                const timeEl = document.createElement('span');
+                timeEl.textContent = item.createdAt || '';
+
+                header.appendChild(nameEl);
+                header.appendChild(timeEl);
+
+                const body = document.createElement('div');
+                body.className = 'comment-item-body';
+                body.textContent = item.text || '';
+
+                wrapper.appendChild(header);
+                wrapper.appendChild(body);
+                commentList.appendChild(wrapper);
+            });
+        }
+
+        if (commentForm && commentText && commentList) {
+            renderComments();
+
+            commentForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const text = commentText.value.trim();
+                const name = (commentName?.value || '').trim() || 'Guest';
+                if (!text) return;
+
+                const items = loadComments();
+                items.push({
+                    name,
+                    text,
+                    createdAt: new Date().toLocaleString()
+                });
+                saveComments(items);
+                renderComments();
+                commentForm.reset();
+            });
         }
     });
 </script>
@@ -1273,22 +1753,49 @@
 
     <section id="about" class="info-section">
         <h2>About this project</h2>
-        <p>This is a curated collection of After Effects expressions designed to save time and speed up your motion graphics workflow.</p>
+        <p>This project is built and maintained by a one‑person team who loves After Effects and tiny tools that make motion design faster.</p>
+        <p>Every expression here is tested and documented so you can drop it straight into your comps without fighting the math.</p>
+        <p>If you have ideas, requests, or find a bug, feel free to reach out on 
+            <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
+                <span class="x-logo" aria-hidden="true">𝕏</span>
+            </a>.
+        </p>
     </section>
 
     <section id="contact" class="info-section">
         <h2>Contact</h2>
-        <p>Have suggestions or requests? Reach out on <a href="https://twitter.com/socrazymedia" target="_blank" style="color: var(--text-accent);">X (@socrazymedia)</a>.</p>
+        <p>Right now the best way to contact me is via DMs or replies on 
+            <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
+                <span class="x-logo" aria-hidden="true">𝕏</span>
+            </a>. I read suggestions and ideas there regularly.
+        </p>
     </section>
 
-    <section id="more" class="info-section">
-        <h2>More</h2>
-        <p>Bookmark this page and follow on X to be notified when new expressions are added.</p>
+    <section id="comments" class="info-section comments-section">
+        <h2>Comments</h2>
+        <p>Share your tips, ideas, or questions. You can add a name or post as a guest.</p>
+        <form id="comment-form" class="comment-form">
+            <div class="comment-field">
+                <label for="comment-name">Name (optional)</label>
+                <input id="comment-name" type="text" autocomplete="name" placeholder="Your name or leave empty to comment as guest">
+            </div>
+            <div class="comment-field">
+                <label for="comment-text">Comment</label>
+                <textarea id="comment-text" required placeholder="Write your comment here..."></textarea>
+            </div>
+            <p class="comment-note">Comments are stored locally in your browser so you can see your own history.</p>
+            <button type="submit" class="btn-primary">Post comment</button>
+        </form>
+        <div id="comment-list" class="comment-list"></div>
     </section>
 
     <div class="donate-section" id="donate">
-        <p>Found this helpful? Support the project!</p>
-        <p><strong>UPI ID:</strong> mukeshavik@ybl</p>
+        <h2>Support this project</h2>
+        <p>If this tool saves you time and you’d like to support future expressions, you can send a small Bitcoin donation to the address below:</p>
+        <p><strong>Bitcoin address:</strong> <code id="btc-address">bc1-your-bitcoin-address-here</code></p>
+        <div class="popup-actions" style="justify-content: center; margin-top: 16px;">
+            <a href="https://www.blockchain.com/btc/address/bc1-your-bitcoin-address-here" target="_blank" class="btn-primary">Donate with Bitcoin</a>
+        </div>
     </div>
 
     <script>
