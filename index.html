@@ -1803,7 +1803,7 @@
         const commentText = document.getElementById('comment-text');
         const commentList = document.getElementById('comment-list');
 
-        // Supabase: create table "comments" with columns name (text), text (text), created_at (timestamptz). Enable RLS and allow anon insert/select if needed.
+        // Supabase: table "comments" columns: id (uuid), name (text), message (text), created_at (timestamptz). Enable RLS and allow anon insert/select if needed.
         const SUPABASE_URL = 'https://cmqdmcxpdactcbvltqwz.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtcWRtY3hwZGFjdGNidmx0cXd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5OTM5MTcsImV4cCI6MjA4NjU2OTkxN30.jR5SmkG_AKDHFbBjvdUFrHHotOu4J3jcJdZsBJnJm2A';
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
@@ -1821,12 +1821,12 @@
             try {
                 const { data, error } = await supabase
                     .from('comments')
-                    .select('name, text, created_at')
+                    .select('name, message, created_at')
                     .order('created_at', { ascending: false });
                 if (error) throw error;
                 return (data || []).map(row => ({
                     name: row.name || 'Guest',
-                    text: row.text || '',
+                    text: row.message || '',
                     createdAt: formatCommentTime(row.created_at)
                 }));
             } catch (e) {
@@ -1894,7 +1894,7 @@
                 try {
                     const { error } = await supabase
                         .from('comments')
-                        .insert([{ name, text, created_at: new Date().toISOString() }]);
+                        .insert([{ name, message: text, created_at: new Date().toISOString() }]);
                     if (error) throw error;
                     const items = await loadComments();
                     renderComments(items);
