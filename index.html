@@ -938,34 +938,6 @@
 
                 
         </div>
-
-        <div class="card">
-            <h2>Auto-Distribute</h2>
-            <p class="description">This expression automatically calculates a layer's position based on the layer directly above it in the stack. When you duplicate the layer (Cmd+D or Ctrl+D), it pushes the new copy by a fixed horizontal amount (xOffset) while still allowing you to manually nudge the layer to fine-tune its placement.</p>
-             
-            <p class="usage-label">Apply this strictly to the Position property of a 2D layer.</p>
-            <div class="code-container">
-                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                <code>
-                
-                                // Set your fixed horizontal gap here
-                var xOffset = -571.6;
-                
-                // Check if there is a layer above this one to reference
-                if (index < thisComp.numLayers && index > 1) {
-                    var prevPos = thisComp.layer(index - 1).transform.position;
-                    
-                    // Previous X + Offset + Current Layer's Manual Value
-                    var newX = prevPos[0] + xOffset + value[0];
-                    var newY = prevPos[1]; 
-                
-                    [newX, newY];
-                } else {
-                    value; 
-                }</code>
-                </div>
-
-        </div>
     
 </div>
 
