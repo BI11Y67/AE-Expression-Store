@@ -39,7 +39,7 @@ You don't need to install anything! This is a static web tool.
     ```bash
     git clone https://github.com/BI11Y67/AE-Expression-Store.git
     ```
-2.  **Go to this URL https://aees.socrazy.media** in your browser.
+2.  **Go to this URL https://aees.socrazymedia.com** in your browser.
 3.  **That's it!** No servers, no Node.js required.
 
 ---
