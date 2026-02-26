@@ -1597,6 +1597,38 @@
         </div>
 
         <div class="card">
+            <h2>The Proportional Y-Scale Sync</h2>
+            <p class="description">This expression creates a mathematical bridge between a Slider Control and a layer's Vertical Position. It normalizes a specific coordinate (in this case, -181.5) to a "Home" value of 100 on the slider. Once synced, any percentage change on the slider (e.g., moving from 100 to 120) triggers an identical percentage shift in the Y-position, keeping the movement perfectly proportional.</p>
+            <p class="usage-label">Any property</p>
+            <div class="expression-preview-wrap">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>
+                
+                    // 1. Get the Slider value
+                    var slider = thisComp.layer("CONTROLER").effect("Animation_GRID")("Slider");
+                    
+                    // 2. Define your "Home" constants
+                    var original_y = -181.5; 
+                    var slider_base = 100; // This tells AE: "When slider is 100, Y should be -181.5"
+                    
+                    // 3. Calculate the percentage factor
+                    // If slider is 110, factor is 1.1 (a 10% increase)
+                    var factor = slider / slider_base;
+                    
+                    // 4. Apply the factor to your Y coordinate
+                    var newY = original_y * factor;
+                    
+                    // Result: Keep your current X [0], apply the new calculated Y
+                    [value[0], newY]
+                
+                
+                </code>
+            </div>
+
+        <div class="card">
             <h2>Path Flow Distributor(Shape Layer)</h2>
             <p class="description">Automatically calculates spacing based on layer index. Usage: Apply to the Position property. Requires a source shape layer named "MAIN PATH" with "OFFSET CONTROL" and "RANDOM POSITION" sliders attached.<br
                 <br>
