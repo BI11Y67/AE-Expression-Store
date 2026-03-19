@@ -4,6 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A curated collection of time-saving After Effects expressions. Copy-paste ready code for animation, text, 3D, and workflow.">
+    <meta property="og:title" content="AE Expression Store">
+    <meta property="og:description" content="A curated collection of time-saving After Effects expressions. Copy-paste ready code for animation, text, 3D, and workflow.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ae-expression-store.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AE Expression Store">
+    <meta name="twitter:description" content="A curated collection of time-saving After Effects expressions.">
     <title>AE Expression Store</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -15,8 +23,9 @@
             --card-bg: #161b22;
             --text-main: #c9d1d9;
             --text-accent: #58a6ff;
+            --text-muted: #8b949e;
             --border-color: #30363d;
-            --code-bg: #000000;
+            --code-bg: #0d1117;
         }
 
         body {
@@ -24,15 +33,18 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            padding: 24px;
+            line-height: 1.65;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
             text-align: center;
-            padding: 40px 0;
+            padding: 36px 0 32px;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
         h1 {
@@ -46,18 +58,31 @@
             font-size: 1.1rem;
         }
 
+        .main-content {
+            flex: 1 0 auto;
+            width: 100%;
+        }
+
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 20px 40px;
             column-count: 2;
             column-gap: 20px;
+        }
+
+        .footer-spacer {
+            display: block;
+            clear: both;
+            height: 0;
+            min-height: 80px;
+            width: 100%;
         }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -68,6 +93,12 @@
             min-height: 0;
             break-inside: avoid;
             page-break-inside: avoid;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(88, 166, 255, 0.35);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
         }
 
         .card h2 {
@@ -88,6 +119,7 @@
             color: #94a3b8;
             margin-bottom: 15px;
             padding: 0 20px;
+            text-align: left;
         }
 
         .usage-label {
@@ -133,12 +165,14 @@
         }
 
         .donate-section {
+            width: 100%;
             max-width: 100%;
-            margin: 60px auto 0;
+            margin: 40px auto 0;
             padding: 30px 20px;
             padding-top: 30px;
             border-top: 2px solid var(--text-accent);
             background: linear-gradient(180deg, rgba(88,166,255,0.05) 0%, transparent 100%);
+            box-sizing: border-box;
         }
 
         .donate-section h2 {
@@ -226,11 +260,12 @@
 
         .top-bar {
             max-width: 100%;
-            margin: 0 auto 20px;
+            margin: 0 auto 24px;
             padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: nowrap;
             gap: 12px;
         }
 
@@ -395,10 +430,11 @@
 
         .section-title {
             max-width: 100%;
-            margin: 0 auto 10px;
+            margin: 0 0 10px 0;
             padding: 0 20px;
             font-size: 1.4rem;
             color: #ffffff;
+            text-align: left;
         }
 
         .menu-category {
@@ -438,12 +474,50 @@
             opacity: 1;
         }
 
+        /* Footer wrapper - always at bottom, never collides with cards */
+        footer.site-footer {
+            display: block;
+            clear: both;
+            position: relative;
+            width: 100%;
+            margin: 0;
+            padding-top: 60px;
+            padding-bottom: 0;
+            background: linear-gradient(180deg, rgba(13, 17, 23, 0.3) 0%, rgba(13, 17, 23, 0.6) 100%);
+            border-top: 1px solid var(--border-color);
+            box-sizing: border-box;
+            overflow: visible;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+            footer.site-footer {
+                padding-top: 80px;
+            }
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
         .info-section {
+            width: 100%;
             max-width: 100%;
             margin: 40px auto 0;
             padding: 20px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
+            box-sizing: border-box;
+        }
+
+        .info-section:first-of-type {
+            margin-top: 0;
+            border-top: none;
+            padding-top: 20px;
         }
 
         .info-section h2 {
@@ -457,11 +531,11 @@
         }
 
         .comments-section {
-            margin-top: 60px;
+            margin-top: 40px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            padding: 20px;
-            background: radial-gradient(circle at top left, rgba(88,166,255,0.12), transparent 50%);
+            padding: 24px;
+            background: rgba(22, 27, 34, 0.5);
         }
 
         #social-popup {
@@ -644,90 +718,6 @@
             color: #8b949e;
         }
 
-        .comment-replies {
-            margin-top: 8px;
-            margin-left: 24px;
-            padding-left: 12px;
-            border-left: 2px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .comment-item.reply {
-            padding: 8px 10px;
-            font-size: 0.9rem;
-        }
-
-        .comment-item-header .reply-btn {
-            margin-left: 8px;
-            padding: 2px 8px;
-            font-size: 0.75rem;
-            background: transparent;
-            color: var(--text-accent);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .comment-item-header .reply-btn:hover {
-            background: var(--card-bg);
-        }
-
-        .reply-form {
-            margin-top: 8px;
-            padding: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-        }
-
-        .reply-form .comment-field {
-            margin-bottom: 8px;
-        }
-
-        .reply-form .comment-field input,
-        .reply-form .comment-field textarea {
-            width: 100%;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 6px 8px;
-            color: var(--text-main);
-            font-size: 0.85rem;
-        }
-
-        .reply-form .comment-field textarea {
-            min-height: 60px;
-            resize: vertical;
-        }
-
-        .reply-form-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .reply-form-actions button[type="submit"] {
-            padding: 4px 10px;
-            font-size: 0.85rem;
-        }
-
-        .reply-form-actions .cancel-reply {
-            padding: 4px 10px;
-            font-size: 0.85rem;
-            background: transparent;
-            color: #8b949e;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .reply-form-actions .cancel-reply:hover {
-            background: var(--card-bg);
-            color: var(--text-main);
-        }
-
         .expression-preview-wrap {
             margin-top: 8px;
             margin-bottom: 12px;
@@ -737,6 +727,26 @@
             background: var(--code-bg);
             aspect-ratio: 16 / 9;
             max-width: 100%;
+            position: relative;
+            min-height: 100px;
+        }
+
+        .expression-preview-wrap.loading::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--code-bg) 0%, #1a1f26 50%, var(--code-bg) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.2s ease-in-out infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .expression-preview-wrap.loading .expression-preview {
+            opacity: 0;
         }
 
         .expression-preview {
@@ -744,6 +754,67 @@
             height: 100%;
             object-fit: contain;
             display: block;
+            transition: opacity 0.25s ease;
+        }
+
+        /* Focus styles for accessibility */
+        .search-input:focus,
+        .search-button:focus,
+        .menu-button:focus,
+        .menu-dropdown a:focus,
+        .menu-category-option:focus,
+        .copy-btn:focus,
+        .btn-primary:focus,
+        .btn-secondary:focus,
+        input:focus,
+        textarea:focus,
+        button:focus {
+            outline: 2px solid var(--text-accent);
+            outline-offset: 2px;
+        }
+
+        .copy-btn:hover {
+            background-color: #30363d;
+            border-color: #8b949e;
+        }
+
+        .copy-btn:active {
+            background-color: #21262d;
+        }
+
+        /* Footer bottom bar */
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-accent);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            text-decoration: underline;
+        }
+
+        .footer-links a:focus {
+            outline: 2px solid var(--text-accent);
+            outline-offset: 2px;
         }
 
         /* Responsive adjustments */
@@ -751,8 +822,7 @@
             .top-bar,
             .container,
             .section-title,
-            .info-section,
-            .donate-section {
+            .social-media-links {
                 max-width: 1400px;
                 margin-left: auto;
                 margin-right: auto;
@@ -778,16 +848,49 @@
             }
 
             .top-bar {
-                flex-direction: column;
-                gap: 12px;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: nowrap;
             }
 
             .top-bar-left {
-                width: 100%;
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .top-bar-right {
+                margin-left: auto;
+                flex-shrink: 0;
             }
 
             .search-input {
                 flex: 1;
+                min-width: 100px;
+            }
+
+            .footer-inner {
+                padding: 0 20px 40px;
+            }
+
+            .info-section,
+            .donate-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .donate-qr-wrap {
+                padding: 16px;
+            }
+
+            .qr-code-image {
+                width: 140px;
+                height: 140px;
             }
         }
     </style>
@@ -821,8 +924,8 @@
                             <button type="button" class="menu-category-option" data-category="utility">Utility &amp; workflow</button>
                         </div>
                     </div>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#discussion">Discussion</a>
+                    <a href="#donate">Support</a>
                 </div>
             </div>
         </div>
@@ -847,6 +950,7 @@
 
     <h2 id="categories" class="section-title">Expression Library</h2>
 
+    <main class="main-content">
     <div class="container">
 
         <div class="card">
@@ -854,7 +958,7 @@
             <p class="description">Keeps the stroke width of a shape layer consistent even when you <strong>Scale</strong> the shape layer itself from the <strong>Transform</strong> property.</p>
             <p class="usage-label">Shape Layer > Contents > Rectangle > Stroke > Stroke Width</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Maintain%20Shape's%20Stroke%20Width.gif" alt="Preview animation for Maintain Shape's Stroke Width" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Maintain%20Shape's%20Stroke%20Width.gif" alt="Preview animation for Maintain Shape's Stroke Width" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -867,7 +971,7 @@
             <p class="description">Keeps the layer's visual scale locked, even if the parent layer is scaled.</p>
             <p class="usage-label">Shape Layer > Contents > Rectangle > Rectangle Path > Size</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Maintain%20Shape's%20Scale%20(Parented).gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Maintain%20Shape's%20Scale%20(Parented).gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -885,7 +989,7 @@
                 <p class="description">This makes Bounce in Animation.</p>
                 <p class="usage-label">Shape Layer /Image /Video > Position</p>
                 <div class="expression-preview-wrap">
-                    <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/In%20Bounce%20Animation%20(Left%20-%20Right).gif" alt="Expression preview" class="expression-preview">
+                    <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/In%20Bounce%20Animation%20(Left%20-%20Right).gif" alt="Expression preview" class="expression-preview" loading="lazy">
                 </div>
                 <div class="code-container">
                     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -904,7 +1008,7 @@
                 properties which let's you control where you want you shape after the bounce and it also falls from the top to Bottom.</p>
                 <p class="usage-label">Shape Layer /Image /Video > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/In%20Bounce%20Animation%20(Top%20-%20Bottom).gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/In%20Bounce%20Animation%20(Top%20-%20Bottom).gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -952,7 +1056,7 @@
             <p class="description">This expression make the animation in Reverse with the help of Math, which means the Shape layer which was moving in the right direction will now move in the left direction.</p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Reverse%20Keyframe%20or%20Animation.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Reverse%20Keyframe%20or%20Animation.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -968,7 +1072,7 @@
                 link that property to a <strong>null</strong> so it's position is <strong>0</strong> before applying this expression</p>
                 <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -986,7 +1090,7 @@
             <p class="description">Apply this on a Shape's <strong>Rotation Property</strong> and it's gives some smooth smooth in and out rotation Animation</p>
             <p class="usage-label">Shape Layer > Rotation            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1003,7 +1107,7 @@
             <p class="description">Automatically realigns the anchor and text as you type to maintain symmetry.</p>
             <p class="usage-label">Text Layer > Anchor Point</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1018,7 +1122,7 @@
             <p class="description">Automatically resizes the background shape to fit your text length.</p>
             <p class="usage-label">Shape Layer > Rectangle > Rectangle Path > Size</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Dynamic%20Text%20Box.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Dynamic%20Text%20Box.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1037,7 +1141,7 @@
 
                 <p class="usage-label">Shape Layer > Rectangle > Rectangle Path > Position            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1049,7 +1153,7 @@
 
             <p class="usage-label">Text Layer > Anchor Point</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1065,7 +1169,7 @@
             <p class="description">Changes the layer's font style based on the slider value (Don't forget to add the <strong>Slider Control</strong>effect on Text Layer).</p>
             <p class="usage-label">Text Layer > Text > Source Text            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1086,7 +1190,7 @@
             </p>
             <p class="usage-label">Comp01 > Text > Source Text            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1100,7 +1204,7 @@
             <p class="description">Restricts the frame rate of this specific property. Ideal for adding "organic" jitter to smooth digital movements.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1114,7 +1218,7 @@
             <p class="description">Loops the animation back and forth using only the last two keyframes.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1127,7 +1231,7 @@
             <p class="description">Creates a never-ending animation by adding the last keyframe's value to the next cycle. Perfect for infinite scrolling or rotating.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1140,7 +1244,7 @@
             <p class="description">Adds a Point Control directly to the layer to manage wiggle frequency and amplitude. This keeps your timeline clean by eliminating the need for extra Null layers.</p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1153,7 +1257,7 @@
             <p class="description">Forces a property to remain at a fixed value (100) regardless of manual adjustments or keyframes.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1166,7 +1270,7 @@
             <p class="description">Delays the property's animation by exactly 1 second. Useful for creating staggered motion or secondary animation.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1180,7 +1284,7 @@
             </p>
             <p class="usage-label">Any Array Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1192,7 +1296,7 @@
 
                 <p class="usage-label">Any Scalar Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1207,7 +1311,7 @@
             <p class="description">Maps time to a value range with built-in easing. Unlike a linear transition, this starts slowly and decelerates at the end for more natural movement.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1220,7 +1324,7 @@
             <p class="description">This setup creates a grid of 15 shapes (5 columns by 3 rows) that you can control globally using a single Null Object. By using expressions, you can adjust the size, spacing, and selection of the shapes without having to edit each layer individually.</p>
             <p class="usage-label">Shape Layer > Scale             </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1252,7 +1356,7 @@
             </p>
             <p class="usage-label">Shape Layer > Rotation             </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1275,7 +1379,7 @@
                 onto a text layer. Perfect for technical UI designs and automated property labeling.</p>
             <p class="usage-label">Text Layer > Source Text            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1304,7 +1408,7 @@
                 necessary orientation to keep the target in sight, regardless of where either layer moves in 3D space.</p>
             <p class="usage-label">Shape Layer > Orientation            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/3D%20LookAt%20Target%20Constraint.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/3D%20LookAt%20Target%20Constraint.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1326,7 +1430,7 @@
                 independent. It converts Global Composition coordinates into Local Layer coordinates.</p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Relative%20Position%20Tracker.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Relative%20Position%20Tracker.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1344,7 +1448,7 @@
                 keyframes while the expression runs simultaneously, adding its results to your manual animation.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Keyframe-Friendly%20Scripting.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Keyframe-Friendly%20Scripting.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1361,7 +1465,7 @@
                 rigs where one side of a design must move in the exact opposite direction of the other.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Value%20Inversion%20(Mirroring).gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Value%20Inversion%20(Mirroring).gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1378,7 +1482,7 @@
                 required for a layer to continuously face a target layer.</p>
             <p class="usage-label">Shape Layer > Rotation            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/2D%20Auto-Orient%20%20Look-At.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/2D%20Auto-Orient%20%20Look-At.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1404,7 +1508,7 @@
             </p>
             <p class="usage-label">Shape Layer > Scale            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Luma%20Scale%20Driver.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Luma%20Scale%20Driver.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1425,7 +1529,7 @@
             </p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1443,7 +1547,7 @@
             <p class="description">Automatically arranges shape layers in a grid pattern based on a padding value from a null layer.</p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1465,7 +1569,7 @@
             <p class="description">A dual-timeline expression that uses a cross-fade to eliminate "jumps" in random movement, creating a perfect repeat.</p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1486,7 +1590,7 @@
             <p class="description">Forces a property to update every second frame, creating a low-fps stop-motion aesthetic.</p>
             <p class="usage-label">Any Property            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1500,7 +1604,7 @@
             <p class="description">This expression scales the Y value proportionally to the X value.</p>
             <p class="usage-label">Any Y Value            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1517,7 +1621,7 @@
             <p class="description">Automatically scales a layer up or down at a fixed speed starting from the layer's In-Point.</p>
             <p class="usage-label">Shape Layer > Scale            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1535,7 +1639,7 @@
             <p class="description">Automatically scales a layer up or down at a fixed speed starting from the layer's In-Point.</p>
             <p class="usage-label">Shape Layer > Scale            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1553,7 +1657,7 @@
             <p class="description">Creates a typewriter effect with a blinking cursor.</p>
             <p class="usage-label">Text Layer > Source Text            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1601,7 +1705,7 @@
             <p class="description">This expression creates a mathematical bridge between a Slider Control and a layer's Vertical Position. It normalizes a specific coordinate (in this case, -181.5) to a "Home" value of 100 on the slider. Once synced, any percentage change on the slider (e.g., moving from 100 to 120) triggers an identical percentage shift in the Y-position, keeping the movement perfectly proportional.</p>
             <p class="usage-label">Any property</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1646,7 +1750,7 @@
             </p>
             <p class="usage-label">Shape Layer > Position</p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1677,7 +1781,7 @@
             <p class="description">Apply to the Rotation property. Adjust rotateOnMovement for the lean intensity and decay for the spring duration. Align your shape, then duplicate the layer to see the magic happen!</p>
             <p class="usage-label">Shape Layer > Rotation            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1731,7 +1835,7 @@
             </p>
             <p class="usage-label">Shape Layer > Scale            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Proximity%20Force%20Field.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Proximity%20Force%20Field.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1766,7 +1870,7 @@
              
             <p class="usage-label">Apply this strictly to the Position property of a 2D layer.            </p>
             <div class="expression-preview-wrap">
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
             </div>
             <div class="code-container">
                 <button class="copy-btn" onclick="copyCode(this)">Copy</button>
@@ -1794,10 +1898,13 @@
     
     </div>
 
+    <div class="footer-spacer" aria-hidden="true"></div>
+    </main>
+
     <div id="social-popup">
         <div class="social-popup-content">
             <button class="popup-close" onclick="closePopup()" aria-label="Close follow popup">&times;</button>
-            <h2>Support if you loved this tool</h2>
+            <h2>Support this project</h2>
             <p>Project updates on 
                 <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
                     <span class="x-logo" aria-hidden="true">𝕏</span>
@@ -1832,6 +1939,53 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         if (!window.location.hash) window.scrollTo(0, 0);
+
+        // Footer year
+        const footerYear = document.getElementById('footer-year');
+        if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+        // Expression preview loading states (skeleton until image loads)
+        document.querySelectorAll('.expression-preview-wrap').forEach(function (wrap) {
+            const img = wrap.querySelector('.expression-preview, video');
+            if (!img) return;
+            function hideLoading() {
+                wrap.classList.remove('loading');
+            }
+            if (img.tagName === 'IMG' && img.complete) {
+                hideLoading();
+            } else {
+                wrap.classList.add('loading');
+                img.addEventListener('load', hideLoading);
+                img.addEventListener('error', hideLoading);
+            }
+        });
+
+        // GIF loop workaround: force restart for GIFs that don't loop (HTML can't control GIF loop)
+        const GIF_LOOP_INTERVAL_MS = 4000;
+        document.querySelectorAll('.expression-preview-wrap img.expression-preview').forEach(function (img) {
+            if (!img.src || img.src.toLowerCase().indexOf('.gif') === -1) return;
+            setInterval(function () {
+                var base = img.src.split('?')[0];
+                img.src = base + '?t=' + Date.now();
+            }, GIF_LOOP_INTERVAL_MS);
+        });
+
+        // Keyboard support: Enter to search, Escape to close menu
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const popup = document.getElementById('social-popup');
+                if (popup && popup.style.display !== 'none') closePopup();
+                const menuDropdown = document.getElementById('menu-dropdown');
+                const menuWrapper = document.querySelector('.menu-wrapper');
+                if (menuDropdown && menuWrapper) {
+                    menuDropdown.classList.remove('open');
+                    menuWrapper.classList.remove('menu-open');
+                }
+                const active = document.activeElement;
+                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) active.blur();
+            }
+        });
+
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
         const categoryButtons = Array.from(document.querySelectorAll('.menu-category-option'));
@@ -2031,134 +2185,38 @@
             }
         }
 
-        function buildDiscussionTree(items) {
-            const top = items.filter(i => !i.parentId).sort((a, b) => new Date(b.rawCreatedAt || 0) - new Date(a.rawCreatedAt || 0));
-            const byParent = {};
-            items.forEach(i => {
-                if (i.parentId) {
-                    if (!byParent[i.parentId]) byParent[i.parentId] = [];
-                    byParent[i.parentId].push(i);
-                }
-            });
-            Object.keys(byParent).forEach(pid => {
-                byParent[pid].sort((a, b) => new Date(a.rawCreatedAt || 0) - new Date(b.rawCreatedAt || 0));
-            });
-            return { top, byParent };
-        }
-
-        function createReplyForm(parentId, parentEl, onDone) {
-            const form = document.createElement('form');
-            form.className = 'reply-form';
-            form.innerHTML = '<div class="comment-field"><label>Name (optional)</label><input type="text" class="reply-name" placeholder="Your name or guest"></div><div class="comment-field"><label>Reply</label><textarea class="reply-text" required placeholder="Write your reply..."></textarea></div><div class="reply-form-actions"><button type="submit" class="btn-primary">Post reply</button><button type="button" class="cancel-reply">Cancel</button></div>';
-            const cancelBtn = form.querySelector('.cancel-reply');
-            cancelBtn.addEventListener('click', function () {
-                form.remove();
-                onDone && onDone();
-            });
-            form.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const nameInput = form.querySelector('.reply-name');
-                const textInput = form.querySelector('.reply-text');
-                const text = (textInput && textInput.value || '').trim();
-                const name = (nameInput && nameInput.value || '').trim() || 'Guest';
-                if (!text || !supabase) return;
-                const submitBtn = form.querySelector('button[type="submit"]');
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Posting…';
-                try {
-                    const { error } = await supabase
-                        .from('comments')
-                        .insert([{ name, message: text, created_at: new Date().toISOString(), parent_id: parentId }]);
-                    if (error) throw error;
-                    form.remove();
-                    onDone && onDone();
-                    const items = await loadComments();
-                    renderComments(items);
-                } catch (err) {
-                    console.warn('Reply post failed:', err);
-                    alert('Could not post reply. To enable replies, add a parent_id (uuid, nullable) column to your Supabase comments table.');
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Post reply';
-                }
-            });
-            return form;
-        }
-
-        function renderOneItem(item, isReply, parentId) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'comment-item' + (isReply ? ' reply' : '');
-            wrapper.dataset.id = item.id;
-
-            const header = document.createElement('div');
-            header.className = 'comment-item-header';
-
-            const left = document.createElement('span');
-            const nameEl = document.createElement('span');
-            nameEl.className = 'comment-item-name';
-            nameEl.textContent = item.name || 'Guest';
-            const timeEl = document.createElement('span');
-            timeEl.textContent = item.createdAt || '';
-            left.appendChild(nameEl);
-            left.appendChild(document.createTextNode(' · '));
-            left.appendChild(timeEl);
-            header.appendChild(left);
-
-            const replyBtn = document.createElement('button');
-            replyBtn.type = 'button';
-            replyBtn.className = 'reply-btn';
-            replyBtn.textContent = 'Reply';
-            header.appendChild(replyBtn);
-
-            const body = document.createElement('div');
-            body.className = 'comment-item-body';
-            body.textContent = item.text || '';
-
-            wrapper.appendChild(header);
-            wrapper.appendChild(body);
-
-            replyBtn.addEventListener('click', function () {
-                const existing = wrapper.querySelector('.reply-form');
-                if (existing) {
-                    existing.remove();
-                    return;
-                }
-                const replyForm = createReplyForm(parentId || item.id, wrapper, function () { });
-                wrapper.appendChild(replyForm);
-            });
-
-            return wrapper;
-        }
-
         function renderComments(items) {
             if (!commentList) return;
             commentList.innerHTML = '';
-            if (!items.length) {
+            const top = (items || []).filter(i => !i.parentId).sort((a, b) => new Date(b.rawCreatedAt || 0) - new Date(a.rawCreatedAt || 0));
+            if (!top.length) {
                 const p = document.createElement('p');
                 p.className = 'comment-empty';
                 p.textContent = 'No discussions yet. Start the conversation.';
                 commentList.appendChild(p);
                 return;
             }
-
-            const { top, byParent } = buildDiscussionTree(items);
-            function appendReplies(wrapper, parentId) {
-                const replies = byParent[parentId] || [];
-                if (replies.length) {
-                    const repliesEl = document.createElement('div');
-                    repliesEl.className = 'comment-replies';
-                    replies.forEach(r => {
-                        const replyEl = renderOneItem(r, true, r.id);
-                        repliesEl.appendChild(replyEl);
-                        appendReplies(replyEl, r.id);
-                    });
-                    wrapper.appendChild(repliesEl);
-                }
-            }
             top.forEach(item => {
-                const wrapper = renderOneItem(item, false, item.id);
+                const wrapper = document.createElement('div');
+                wrapper.className = 'comment-item';
+                const header = document.createElement('div');
+                header.className = 'comment-item-header';
+                const left = document.createElement('span');
+                const nameEl = document.createElement('span');
+                nameEl.className = 'comment-item-name';
+                nameEl.textContent = item.name || 'Guest';
+                const timeEl = document.createElement('span');
+                timeEl.textContent = item.createdAt || '';
+                left.appendChild(nameEl);
+                left.appendChild(document.createTextNode(' · '));
+                left.appendChild(timeEl);
+                header.appendChild(left);
+                const body = document.createElement('div');
+                body.className = 'comment-item-body';
+                body.textContent = item.text || '';
+                wrapper.appendChild(header);
+                wrapper.appendChild(body);
                 commentList.appendChild(wrapper);
-                appendReplies(wrapper, item.id);
             });
         }
 
@@ -2205,31 +2263,14 @@
     });
 </script>
 
-    <!-- <h1> <strong> More Resources:</strong>https://frangiordano96.gitbook.io/ae-expressions/quick-tips </h1> -->
+    <!-- Analytics placeholder: add your analytics script here -->
+    <!-- Example: <script async src="https://analytics.example.com/script.js"></script> -->
 
-    <section id="about" class="info-section">
-        <h2>About this project</h2>
-        <p>This project is built and maintained by a one‑person team who loves After Effects and tiny tools that make motion design faster.</p>
-        <p>Every expression here is tested and documented so you can drop it straight into your comps without fighting the math.</p>
-        <p>If you have ideas, requests, or find a bug, feel free to reach out on 
-            <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
-                <span class="x-logo" aria-hidden="true">𝕏</span>
-            </a>.
-        </p>
-    </section>
-
-    <section id="contact" class="info-section">
-        <h2>Contact</h2>
-        <p>Right now the best way to contact me is via DMs or replies on 
-            <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
-                <span class="x-logo" aria-hidden="true">𝕏</span>
-            </a>. I read suggestions and ideas there regularly.
-        </p>
-    </section>
-
+    <footer class="site-footer">
+        <div class="footer-inner">
     <section id="discussion" class="info-section comments-section">
         <h2>Discussion</h2>
-        <p>Share your tips, ideas, or questions. You can add a name or post as a guest. Reply to others to keep the conversation going.</p>
+        <p>Share your tips, ideas, or questions. You can add a name or post as a guest.</p>
         <form id="comment-form" class="comment-form">
             <div class="comment-field">
                 <label for="comment-name">Name (optional)</label>
@@ -2239,10 +2280,9 @@
                 <label for="comment-text">Message</label>
                 <textarea id="comment-text" required placeholder="Write your message here..."></textarea>
             </div>
-            <p class="comment-note">Discussion posts and replies are saved online so everyone can see them.</p>
+            <p class="comment-note">Posts are saved online so everyone can see them.</p>
             <button type="submit" class="btn-primary">Post</button>
         </form>
-        <p class="comment-note" style="margin-top: 0.5rem; font-size: 0.9rem;">Use <strong>Reply</strong> on any post below to respond to someone. You can post a new message above or reply to existing ones.</p>
         <div id="comment-list" class="comment-list"></div>
     </section>
 
@@ -2260,6 +2300,16 @@
             <a href="bitcoin:bc1qdz50swgf4z9n4px3zu0lera9fcnkj5wx3l405g" class="btn-primary">Open in wallet (Bitcoin)</a>
         </div>
     </div>
+
+            <div class="footer-bottom">
+                <span class="footer-copyright">&copy; <span id="footer-year"></span> AE Expression Store. All expressions free to use.</span>
+                <nav class="footer-links" aria-label="Footer navigation">
+                    <a href="#discussion">Discussion</a>
+                    <a href="#donate">Support</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function copyCode(btn) {
