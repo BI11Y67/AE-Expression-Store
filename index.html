@@ -1895,6 +1895,27 @@
 
                 
         </div>
+
+        <div class="card">
+            <h2>Dynamic Line Connector Between Two Shapes</h2>
+            <p class="description">This setup creates a responsive line that automatically connects two layers (e.g., Shape 1 and Shape 2). Using expressions, the line updates in real time and stays attached to both shapes, even when they move, scale, or animate.
+                <br> This is useful for timelines, diagrams, and motion graphics where elements need to stay visually linked without manual adjustments. <br>
+            </p>
+             
+            <p class="usage-label">Shape Layer → Path</p>
+            <div class="expression-preview-wrap">
+                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/Coming%20Soon.gif" alt="Expression preview" class="expression-preview" loading="lazy">
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <code>p1 = thisComp.layer("Shape 1").toComp([0,0]);
+                    p2 = thisComp.layer("Shape 2").toComp([0,0]);
+                    
+                    createPath([p1, p2], [], [], false);</code>
+                </div>
+
+                
+        </div>
     
     </div>
 
