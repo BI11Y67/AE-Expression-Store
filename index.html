@@ -732,45 +732,6 @@
             word-break: break-word;
         }
 
-        /* Nested card panel (library) — same system as expression cards */
-        .card-discuss-panel.discussion-panel--nested {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-card);
-            padding: 16px;
-        }
-
-        .card-discuss-panel.discussion-panel--nested .thread-composer {
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-color);
-        }
-
-        .card-discuss-panel.discussion-panel--nested .comment-field label {
-            color: var(--text-gray);
-        }
-
-        .card-discuss-panel.discussion-panel--nested .comment-field input,
-        .card-discuss-panel.discussion-panel--nested .comment-field textarea {
-            background: var(--bg-white);
-            border-color: var(--border-color);
-            color: var(--text-dark);
-        }
-
-        .card-discuss-panel.discussion-panel--nested .comment-field input::placeholder,
-        .card-discuss-panel.discussion-panel--nested .comment-field textarea::placeholder {
-            color: var(--text-gray);
-        }
-
-        .card-discuss-panel.discussion-panel--nested .comment-note {
-            color: var(--text-gray);
-        }
-
-        .card-discuss-panel.discussion-panel--nested .thread-comments {
-            max-height: 280px;
-            overflow-y: auto;
-        }
-
         .container-narrow {
             max-width: var(--container-max);
             margin: 0 auto;
@@ -1409,157 +1370,21 @@
             color: #5b21b6;
         }
 
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
         .library-controls {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
             margin-bottom: 32px;
             padding-bottom: 28px;
             border-bottom: 1px solid var(--border);
-        }
-
-        .library-controls-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
-            flex: 1 1 280px;
-            min-width: 0;
-        }
-
-        .library-search-input {
-            flex: 1 1 200px;
-            min-width: 160px;
-            max-width: 320px;
-            padding: 10px 14px;
-            font-size: 15px;
-            font-family: inherit;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-btn);
-            background: var(--bg-white);
-            color: var(--text-dark);
-        }
-
-        .library-search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        .library-sort-select {
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-dark);
-            padding: 10px 32px 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-btn);
-            background: var(--bg-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center;
-            appearance: none;
-            cursor: pointer;
         }
 
         .library-hint {
             margin: 0;
             font-size: 13px;
             color: var(--text-gray);
-            flex: 1 1 200px;
-            text-align: right;
-            max-width: 360px;
+            text-align: center;
+            max-width: 520px;
             margin-left: auto;
+            margin-right: auto;
         }
-
-        @media (max-width: 720px) {
-            .library-hint {
-                text-align: left;
-                margin-left: 0;
-                max-width: none;
-            }
-        }
-
-        .card-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 16px;
-            margin-bottom: 0;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            border-top: 1px solid var(--border);
-            border-bottom: none;
-        }
-
-        .card-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            font-size: 12px;
-            color: var(--text-gray);
-            line-height: 1.3;
-        }
-
-        .card-stat-num {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .card-icon-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            padding: 0;
-            border: none;
-            border-radius: var(--radius-btn);
-            background: var(--bg-subtle);
-            color: var(--text-gray);
-            cursor: pointer;
-            transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
-        }
-
-        .card-icon-btn:hover {
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary);
-        }
-
-        .card-icon-btn:active {
-            transform: scale(0.94);
-        }
-
-        .card-icon-btn[aria-pressed="true"],
-        .card-icon-btn.is-active {
-            background: rgba(37, 99, 235, 0.15);
-            color: var(--primary);
-        }
-
-        .card-icon-btn svg {
-            flex-shrink: 0;
-        }
-
-        .card-stat {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-gray);
-            min-width: 1.25rem;
-        }
-
 
         .hero-typed-wrap {
             display: inline;
@@ -2072,45 +1897,6 @@
             margin-top: 0;
         }
 
-        /* Per-card discussion */
-        .card-discuss-wrap {
-            margin-top: 0;
-            padding-top: 0;
-            border-top: none;
-        }
-
-        .card-comment-btn[aria-expanded="true"] {
-            background: rgba(37, 99, 235, 0.12);
-            color: var(--primary);
-        }
-
-        .card-discuss-panel {
-            margin-top: 14px;
-            padding: 16px;
-            border-radius: var(--radius-md);
-            background: var(--bg-subtle);
-            border: 1px solid var(--border-color);
-        }
-
-        .card-discuss-panel[hidden] {
-            display: none !important;
-        }
-
-        .card-discuss-panel .comment-field label {
-            color: var(--text-muted);
-        }
-
-        .card-discuss-panel .comment-field input,
-        .card-discuss-panel .comment-field textarea {
-            background: var(--bg-white);
-        }
-
-        .card-discuss-panel .thread-comments {
-            max-height: 320px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-
         #social-popup {
             position: fixed;
             inset: 0;
@@ -2328,7 +2114,6 @@
         input:focus,
         textarea:focus,
         button:focus,
-        .card-comment-btn:focus-visible,
         .btn-dashboard:focus-visible,
         details.faq-item summary:focus {
             outline: 2px solid var(--focus-ring);
@@ -2546,7 +2331,7 @@
             <div class="section-header reveal">
                 <p class="section-kicker">Features</p>
                 <h2>Built for speed in After Effects</h2>
-                <p class="section-desc">Everything in one place: previews, copy buttons, categories, and per-snippet discussion.</p>
+                <p class="section-desc">Everything in one place: previews, copy buttons, categories, and site-wide discussion.</p>
             </div>
             <div class="feature-grid reveal">
                 <div class="feature-card">
@@ -2562,7 +2347,7 @@
                 <div class="feature-card">
                     <div class="feature-icon" aria-hidden="true">💬</div>
                     <h3>Community</h3>
-                    <p>Discuss each expression on its card, plus site-wide chat for general tips.</p>
+                    <p>Site-wide discussion for questions and tips—no account required.</p>
                 </div>
             </div>
         </div>
@@ -2600,22 +2385,14 @@
             <div class="section-header reveal">
                 <p class="section-kicker">Showcase</p>
                 <h2 id="categories" class="section-title">Expression library</h2>
-                <p class="section-desc">Preview GIFs, read the property path, and open Discuss on any card when you need context. Tags highlight what’s new, popular, or active.</p>
+                <p class="section-desc">Preview GIFs, read the property path, and copy ready-to-paste code. Tags highlight what’s new, popular, or active.</p>
             </div>
         </div>
         <div class="container-narrow library-wrap">
     <main id="main" class="main-content">
     <div class="library-surface">
         <div class="library-controls">
-            <div class="library-controls-row">
-                <input type="search" id="library-search-input" class="library-search-input" placeholder="Search library…" aria-label="Search expression library" autocomplete="off" />
-                <label class="visually-hidden" for="library-sort-select">Sort expressions</label>
-                <select id="library-sort-select" class="library-sort-select" aria-label="Sort expressions">
-                    <option value="new" selected>New</option>
-                    <option value="popular">Popular</option>
-                </select>
-            </div>
-            <p class="library-hint">Search matches title, description, and tags. Use the menu categories (animation, text, 3d, utility) to narrow the list.</p>
+            <p class="library-hint">Use the search in the header and menu categories (animation, text, 3d, utility) to narrow the list.</p>
         </div>
     <div class="container">
 
@@ -3598,7 +3375,7 @@
             <div class="community-grid reveal">
                 <article id="discussion" class="dashboard-card">
                     <h2 class="dashboard-card__title" id="community-heading">Discussion</h2>
-                    <p class="dashboard-card__hint">Site-wide messages. For one snippet, use <strong>Discuss</strong> on that expression card.</p>
+                    <p class="dashboard-card__hint">Site-wide messages. Mention an expression by name if your note is about a specific snippet.</p>
                     <form id="comment-form" class="comment-form">
                         <div class="comment-field chat-field">
                             <label for="comment-name">Name <span class="text-small" style="color: var(--text-gray); font-weight: 400;">(optional)</span></label>
@@ -3674,7 +3451,7 @@
                             <div class="testimonial-co">YouTube educator</div>
                         </div>
                     </div>
-                    <p>"Discuss on each card keeps context with the snippet instead of one endless footer thread."</p>
+                    <p>"I link this in my lesson notes so students grab vetted snippets instead of random forum paste."</p>
                 </div>
             </div>
         </div>
@@ -3703,7 +3480,7 @@
                 <div class="pricing-card">
                     <h3>Community</h3>
                     <div class="pricing-price">∞</div>
-                    <p>Share tips per expression or in site-wide discussion—help everyone level up.</p>
+                    <p>Share tips in the site-wide discussion—help everyone level up.</p>
                     <a href="#discussion" class="btn-hero-secondary pricing-card-btn">Join chat</a>
                 </div>
             </div>
@@ -3731,8 +3508,8 @@
                     <div class="faq-body">Expressions here are shared for you to use in your projects. Credit the site if you like—not required.</div>
                 </details>
                 <details class="faq-item">
-                    <summary>How do per-card discussions work?</summary>
-                    <div class="faq-body">Open Discuss on a card to keep questions tied to that snippet. Site-wide chat is in the Discussion section directly below the expression library.</div>
+                    <summary>Where do I ask about a specific expression?</summary>
+                    <div class="faq-body">Use the Discussion section below the library and mention the expression title so others know which snippet you mean.</div>
                 </details>
             </div>
         </div>
@@ -3917,37 +3694,10 @@
         });
 
         const searchInput = document.getElementById('search-input');
-        const librarySearchInput = document.getElementById('library-search-input');
-        const librarySortSelect = document.getElementById('library-sort-select');
         const categoryButtons = Array.from(document.querySelectorAll('.menu-category-option'));
         let currentCategory = 'all';
         let allComments = [];
         var engagement = { likeCounts: {}, viewCounts: {}, myLikes: new Set() };
-
-        var copyCounts = {};
-        try {
-            var copyRaw = localStorage.getItem('ae_copy_counts_v1');
-            if (copyRaw) copyCounts = JSON.parse(copyRaw) || {};
-        } catch (e) { copyCounts = {}; }
-
-        function persistCopyCounts() {
-            try {
-                localStorage.setItem('ae_copy_counts_v1', JSON.stringify(copyCounts));
-            } catch (e) { /* ignore */ }
-        }
-
-        function getCopyCountForId(expressionId) {
-            if (!expressionId) return 0;
-            var n = copyCounts[expressionId];
-            return typeof n === 'number' ? n : 0;
-        }
-
-        window.aeRecordExpressionCopy = function (expressionId) {
-            if (!expressionId) return;
-            copyCounts[expressionId] = (copyCounts[expressionId] || 0) + 1;
-            persistCopyCounts();
-            syncAllCardToolbars();
-        };
 
         function getLibraryCards() {
             var container = document.querySelector('.library-surface .container');
@@ -3972,25 +3722,6 @@
                 var matchesCat = matchesCategory(card, selectedCategory);
                 card.style.display = (matchesSearch && matchesCat) ? '' : 'none';
             });
-        }
-
-        function sortLibrary(mode) {
-            var container = document.querySelector('.library-surface .container');
-            if (!container) return;
-            var list = getLibraryCards();
-            if (mode === 'popular') {
-                list.sort(function (a, b) {
-                    return getLikeCountForCard(b) - getLikeCountForCard(a);
-                });
-            } else {
-                list.sort(function (a, b) {
-                    return Number(a.getAttribute('data-original-order')) - Number(b.getAttribute('data-original-order'));
-                });
-            }
-            var frag = document.createDocumentFragment();
-            list.forEach(function (c) { frag.appendChild(c); });
-            container.appendChild(frag);
-            applyFilters();
         }
 
         function getDiscussCountForId(expressionId) {
@@ -4075,25 +3806,7 @@
             searchInput.addEventListener('keyup', function (e) {
                 if (e.key === 'Enter') applyFilters();
             });
-            searchInput.addEventListener('input', function () {
-                if (librarySearchInput) librarySearchInput.value = searchInput.value;
-                applyFilters();
-            });
-        }
-
-        if (librarySearchInput && searchInput) {
-            librarySearchInput.value = searchInput.value;
-            librarySearchInput.addEventListener('input', function () {
-                searchInput.value = librarySearchInput.value;
-                applyFilters();
-            });
-        }
-
-        if (librarySortSelect) {
-            librarySortSelect.addEventListener('change', function () {
-                sortLibrary(librarySortSelect.value || 'new');
-            });
-            sortLibrary(librarySortSelect.value || 'new');
+            searchInput.addEventListener('input', applyFilters);
         }
 
         const menuButton = document.getElementById('menu-button');
@@ -4285,29 +3998,10 @@
             renderCommentsInto(commentList, global, 'No posts yet — start the thread.');
         }
 
-        function renderCardThread(cardWrap, expressionId) {
-            var listEl = cardWrap.querySelector('.card-comment-list');
-            var thread = (allComments || []).filter(function (i) {
-                return i.expressionId === expressionId;
-            });
-            renderCommentsInto(listEl, thread, 'No comments yet — be the first.');
-        }
-
-        function refreshOpenCardThreads() {
-            document.querySelectorAll('.card-discuss-panel:not([hidden])').forEach(function (panel) {
-                const wrap = panel.closest('.card-discuss-wrap');
-                const card = wrap && wrap.closest('.card');
-                const eid = card && card.getAttribute('data-expression-id');
-                if (wrap && eid) renderCardThread(wrap, eid);
-            });
-        }
-
         async function refreshAllCommentsFromServer() {
             allComments = await loadComments();
             renderGlobalComments();
-            refreshOpenCardThreads();
             refreshDynamicBadges();
-            syncAllCardToolbars();
         }
 
         function getVisitorId() {
@@ -4373,24 +4067,6 @@
             }
         }
 
-        function syncCardToolbar(card) {
-            var eid = card.getAttribute('data-expression-id');
-            if (!eid) return;
-            var tb = card.querySelector('.card-toolbar');
-            if (!tb) return;
-            var viewsEl = tb.querySelector('[data-stat="views"]');
-            var copiesEl = tb.querySelector('[data-stat="copies"]');
-            if (viewsEl) viewsEl.textContent = String(engagement.viewCounts[eid] || 0);
-            if (copiesEl) copiesEl.textContent = String(getCopyCountForId(eid));
-            var cbtn = tb.querySelector('.card-comment-btn');
-            var n = getDiscussCountForId(eid);
-            if (cbtn) cbtn.setAttribute('aria-label', n ? 'Discuss (' + n + ')' : 'Discuss');
-        }
-
-        function syncAllCardToolbars() {
-            getLibraryCards().forEach(syncCardToolbar);
-        }
-
         var viewedThisSession = {};
 
         async function recordView(expressionId) {
@@ -4409,7 +4085,6 @@
                 engagement.viewCounts[expressionId] = (engagement.viewCounts[expressionId] || 0) + 1;
                 persistEngagementLocal();
             }
-            syncAllCardToolbars();
         }
 
         function setupViewObserver() {
@@ -4425,135 +4100,13 @@
             getLibraryCards().forEach(function (card) { obs.observe(card); });
         }
 
-        var ICON_MSG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
-
-        function initCardInteractions() {
-            getLibraryCards().filter(function (card) {
-                return card.getAttribute('data-expression-id');
-            }).forEach(function (card) {
-                var expressionId = card.getAttribute('data-expression-id');
-                if (!expressionId || card.querySelector('.card-toolbar')) return;
-
-                var safeId = expressionId.replace(/[^a-zA-Z0-9_-]/g, '-');
-                var toolbar = document.createElement('div');
-                toolbar.className = 'card-toolbar';
-                toolbar.setAttribute('role', 'toolbar');
-                toolbar.setAttribute('aria-label', 'Expression actions');
-                toolbar.innerHTML =
-                    '<div class="card-stats" aria-label="Snippet stats">' +
-                    '<span><span class="card-stat-num" data-stat="views">0</span> views</span>' +
-                    '<span><span class="card-stat-num" data-stat="copies">0</span> copies</span>' +
-                    '</div>' +
-                    '<button type="button" class="card-icon-btn card-comment-btn" aria-label="Discuss" aria-expanded="false" aria-controls="discuss-panel-' + safeId + '">' + ICON_MSG + '</button>';
-
-                var wrap = document.createElement('div');
-                wrap.className = 'card-discuss-wrap';
-                wrap.innerHTML =
-                    '<div id="discuss-panel-' + safeId + '" class="card-discuss-panel discussion-panel--nested" role="region" aria-label="Discussion for this expression" hidden>' +
-                    '<div class="discussion-topic discussion-topic--compact">' +
-                    '<span class="discussion-topic-label">Expression</span>' +
-                    '<h3 class="card-discuss-expression-title"></h3></div>' +
-                    '<div class="thread-composer">' +
-                    '<form class="card-comment-form comment-form">' +
-                    '<div class="comment-field"><label for="card-cn-' + safeId + '">Name <span class="text-small" style="color: var(--text-gray); font-weight: 400;">(optional)</span></label>' +
-                    '<input id="card-cn-' + safeId + '" type="text" class="card-comment-name-input" maxlength="80" autocomplete="nickname" placeholder="Leave blank for Guest"></div>' +
-                    '<div class="comment-field"><label for="card-ct-' + safeId + '">Message</label>' +
-                    '<textarea id="card-ct-' + safeId + '" class="card-comment-text" required placeholder="Tip, question, or variation…"></textarea></div>' +
-                    '<div class="thread-composer-footer">' +
-                    '<p class="comment-note">Public · stays on this snippet</p>' +
-                    '<button type="submit" class="btn-primary">Post</button></div></form></div>' +
-                    '<div class="comment-list thread-comments card-comment-list"></div></div>';
-                var codeContainer = card.querySelector('.code-container');
-                if (codeContainer) {
-                    codeContainer.insertAdjacentElement('afterend', toolbar);
-                    toolbar.insertAdjacentElement('afterend', wrap);
-                } else {
-                    var badges = card.querySelector('.card-badges');
-                    if (badges) {
-                        badges.insertAdjacentElement('afterend', toolbar);
-                    } else {
-                        card.insertBefore(toolbar, card.firstChild);
-                    }
-                    toolbar.insertAdjacentElement('afterend', wrap);
-                }
-
-                var titleHeading = card.querySelector('h2');
-                var exprTitle = wrap.querySelector('.card-discuss-expression-title');
-                if (exprTitle && titleHeading) exprTitle.textContent = titleHeading.textContent;
-
-                var panel = wrap.querySelector('.card-discuss-panel');
-                var cbtn = toolbar.querySelector('.card-comment-btn');
-                cbtn.addEventListener('click', function () {
-                    var open = panel.hasAttribute('hidden');
-                    if (open) {
-                        panel.removeAttribute('hidden');
-                        panel.classList.add('is-open');
-                    } else {
-                        panel.setAttribute('hidden', '');
-                        panel.classList.remove('is-open');
-                    }
-                    cbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-                    if (open) renderCardThread(wrap, expressionId);
-                });
-
-                var form = wrap.querySelector('.card-comment-form');
-                form.addEventListener('submit', async function (e) {
-                    e.preventDefault();
-                    var ta = wrap.querySelector('.card-comment-text');
-                    var na = wrap.querySelector('.card-comment-name-input');
-                    var text = (ta && ta.value || '').trim();
-                    var name = (na && na.value || '').trim() || 'Guest';
-                    if (!text) return;
-                    if (!supabase) {
-                        alert('Comments are temporarily unavailable.');
-                        return;
-                    }
-                    var submitBtn = form.querySelector('button[type="submit"]');
-                    var originalText = submitBtn.textContent;
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = 'Posting…';
-                    try {
-                        var row = {
-                            name: name,
-                            message: text,
-                            created_at: new Date().toISOString(),
-                            parent_id: null,
-                            expression_id: expressionId
-                        };
-                        var res = await supabase.from('comments').insert([row]);
-                        if (res.error) {
-                            res = await supabase.from('comments').insert([{
-                                name: name,
-                                message: text,
-                                created_at: new Date().toISOString(),
-                                parent_id: null
-                            }]);
-                        }
-                        if (res.error) throw res.error;
-                        await refreshAllCommentsFromServer();
-                        form.reset();
-                    } catch (err) {
-                        alert('Could not post your comment. Please try again.');
-                    } finally {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = originalText;
-                    }
-                });
-            });
-        }
-
         loadComments().then(function (items) {
             allComments = items;
             if (commentList) renderGlobalComments();
-            initCardInteractions();
             refreshDynamicBadges();
             loadEngagementFromServer().then(function () {
                 refreshDynamicBadges();
-                syncAllCardToolbars();
                 setupViewObserver();
-                if (librarySortSelect && librarySortSelect.value === 'popular') {
-                    sortLibrary('popular');
-                }
             });
         });
 
@@ -4701,11 +4254,6 @@
             var codeBlock = btn.nextElementSibling;
             if (!codeBlock || codeBlock.tagName !== 'CODE') return;
             var text = codeBlock.innerText;
-            var card = btn.closest('.card');
-            var eid = card && card.getAttribute('data-expression-id');
-            if (eid && typeof window.aeRecordExpressionCopy === 'function') {
-                window.aeRecordExpressionCopy(eid);
-            }
             clearTimeout(btn._copyResetTimer);
             navigator.clipboard.writeText(text).then(function () {
                 btn.classList.add('copy-btn--copied');
