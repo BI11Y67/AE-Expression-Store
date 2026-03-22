@@ -13,49 +13,1230 @@
     <meta name="twitter:title" content="AE Expression Store">
     <meta name="twitter:description" content="A curated collection of time-saving After Effects expressions.">
     <title>AE Expression Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     </script>
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-main: #c9d1d9;
-            --text-accent: #58a6ff;
-            --text-muted: #8b949e;
-            --border-color: #30363d;
-            --code-bg: #0d1117;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-page: #f8fafc;
+            --bg-white: #ffffff;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --border: #e2e8f0;
+            --bg-color: var(--bg-page);
+            --bg-subtle: #f1f5f9;
+            --surface: var(--bg-white);
+            --card-bg: var(--bg-white);
+            --text-main: var(--text-dark);
+            --text-accent: var(--primary);
+            --accent-hover: var(--primary-hover);
+            --text-muted: var(--text-gray);
+            --border-color: var(--border);
+            --border-strong: #cbd5e1;
+            --code-bg: #0f172a;
+            --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 24px rgba(15, 23, 42, 0.06);
+            --shadow-card-hover: 0 12px 40px rgba(15, 23, 42, 0.12);
+            --shadow-card-float: 0 20px 50px rgba(15, 23, 42, 0.1), 0 8px 20px rgba(15, 23, 42, 0.06);
+            --radius-lg: 16px;
+            --radius-md: 16px;
+            --radius-btn: 10px;
+            --focus-ring: var(--primary);
+            --section-pad: 104px;
+            --container-max: 1200px;
+            --grid-gap: 24px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: "Inter", system-ui, sans-serif;
+            background-color: var(--bg-page);
             color: var(--text-main);
             margin: 0;
-            padding: 24px;
-            line-height: 1.65;
+            padding: 0;
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            font-size: 16px;
         }
 
-        header {
-            text-align: center;
-            padding: 36px 0 32px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 36px;
+        p {
+            font-size: 1rem;
+            color: var(--text-gray);
         }
 
         h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            margin: 0 0 12px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 8px;
+        }
+
+        .text-small,
+        .usage-label,
+        .menu-category-label {
+            font-size: 14px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-btn);
+            z-index: 3000;
+        }
+
+        .skip-link:focus {
+            left: 12px;
+            top: 12px;
+        }
+
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+
+        .nav-inner {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        .nav-brand:hover {
+            color: var(--primary);
+        }
+
+        .nav-center {
+            flex: 1 1 220px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 10px;
+            border-radius: var(--radius-btn);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.06);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background: var(--primary);
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            transition: background 0.15s ease, transform 0.1s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
             color: #fff;
         }
 
-        p.subtitle {
-            color: #8b949e;
-            font-size: 1.1rem;
+        .nav-cta:active {
+            transform: scale(0.98);
+        }
+
+        .section {
+            padding: var(--section-pad) 0;
+        }
+
+        .section--slate {
+            background: var(--bg-page);
+        }
+
+        .section--white {
+            background: var(--bg-white);
+        }
+
+        .section--community {
+            background: var(--bg-page);
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.72fr) minmax(0, 1fr);
+            gap: var(--grid-gap);
+            align-items: start;
+        }
+
+        @media (max-width: 960px) {
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            transition: border-color 0.25s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .dashboard-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-card-float);
+            transform: translateY(-2px) scale(1.005);
+        }
+
+        .dashboard-card__title {
+            margin: 0 0 6px;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .dashboard-card__hint {
+            margin: 0 0 14px;
+            font-size: 13px;
+            line-height: 1.45;
+            color: var(--text-gray);
+        }
+
+        .dashboard-card__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 2px;
+        }
+
+        .dashboard-card__foot {
+            margin: 14px 0 0;
+            font-size: 12px;
+            color: var(--text-gray);
+            line-height: 1.45;
+            font-style: italic;
+        }
+
+        .btn-dashboard {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            border-radius: var(--radius-btn);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-dashboard--btc {
+            background: #0f172a;
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.35);
+        }
+
+        .btn-dashboard--btc:hover {
+            color: #fcd34d;
+            background: #1e293b;
+        }
+
+        .btn-dashboard--upi {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border-color: var(--border-color);
+        }
+
+        .btn-dashboard--upi:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .support-upi-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 14px;
+        }
+
+        .support-upi-label {
+            font-weight: 600;
+            color: var(--text-gray);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .support-upi-value {
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 13px;
+            padding: 6px 10px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-btn);
+            color: var(--text-dark);
+        }
+
+        .support-btc-inline {
+            margin: 12px 0 0;
+            font-size: 11px;
+            color: var(--text-gray);
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .support-btc-inline code {
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 10px;
+            display: block;
+            margin-top: 6px;
+            padding: 8px 10px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-dark);
+        }
+
+        .dashboard-card .comment-form {
+            margin: 0 0 12px;
+        }
+
+        .dashboard-card .chat-field textarea {
+            width: 100%;
+            min-height: 76px;
+            resize: vertical;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-btn);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.45;
+        }
+
+        .dashboard-card .chat-field textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .dashboard-card .chat-field textarea::placeholder {
+            color: var(--text-gray);
+        }
+
+        .chat-form-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .dashboard-card .chat-form-footer .btn-primary {
+            padding: 8px 18px;
+            font-size: 14px;
+            border-radius: var(--radius-btn);
+        }
+
+        .discussion-topic-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .discussion-panel--nested .discussion-topic--compact {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .discussion-panel--nested .discussion-topic--compact h3 {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.02em;
+            line-height: 1.35;
+        }
+
+        .thread-composer {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-btn);
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .thread-composer .comment-field {
+            margin-bottom: 10px;
+        }
+
+        .thread-composer .comment-field label {
+            color: var(--text-gray);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .thread-composer .comment-field input,
+        .thread-composer .comment-field textarea {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            border-radius: var(--radius-btn);
+        }
+
+        .thread-composer .comment-field input::placeholder,
+        .thread-composer .comment-field textarea::placeholder {
+            color: var(--text-gray);
+        }
+
+        .thread-composer .comment-field textarea {
+            min-height: 72px;
+        }
+
+        .thread-composer-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .thread-composer .comment-note {
+            margin: 0;
+            color: var(--text-gray);
+            font-size: 12px;
+        }
+
+        .thread-composer .btn-primary {
+            padding: 8px 18px;
+            font-size: 14px;
+            border-radius: var(--radius-btn);
+        }
+
+        .reply-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border-radius: var(--radius-btn);
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.18);
+            font-size: 12px;
+            color: var(--primary);
+        }
+
+        .reply-banner[hidden] {
+            display: none !important;
+        }
+
+        .reply-banner-cancel {
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .reply-banner-cancel:hover {
+            color: var(--text-dark);
+            background: var(--bg-subtle);
+        }
+
+        .thread-comments {
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-thread {
+            max-height: 360px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .thread-comment-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .thread-comment-card:hover {
+            border-color: var(--border-strong);
+        }
+
+        .thread-comment-card--nested {
+            margin-left: 16px;
+            margin-top: 8px;
+            padding: 10px 12px;
+            background: var(--bg-white);
+        }
+
+        @media (max-width: 600px) {
+            .thread-comment-card--nested {
+                margin-left: 10px;
+            }
+        }
+
+        .thread-comment-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .thread-comment-avatar {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+        }
+
+        .thread-comment-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .thread-comment-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+            margin: 0 0 2px;
+        }
+
+        .thread-comment-time {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin: 0;
+        }
+
+        .thread-comment-body {
+            margin: 8px 0 0 42px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        @media (max-width: 500px) {
+            .thread-comment-body {
+                margin-left: 0;
+            }
+        }
+
+        .thread-comment-actions {
+            margin: 8px 0 0 42px;
+        }
+
+        @media (max-width: 500px) {
+            .thread-comment-actions {
+                margin-left: 0;
+            }
+        }
+
+        .thread-comment-reply {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            padding: 4px 0;
+            border-radius: 6px;
+        }
+
+        .thread-comment-reply:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .thread-comment-replies {
+            margin-top: 4px;
+        }
+
+        .comment-empty {
+            text-align: center;
+            padding: 22px 14px;
+            font-size: 13px;
+            color: var(--text-gray);
+            background: var(--bg-subtle);
+            border-radius: 12px;
+            border: 1px dashed var(--border-color);
+        }
+
+        /* Nested card panel (library) — same system as expression cards */
+        .card-discuss-panel.discussion-panel--nested {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            padding: 16px;
+        }
+
+        .card-discuss-panel.discussion-panel--nested .thread-composer {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-discuss-panel.discussion-panel--nested .comment-field label {
+            color: var(--text-gray);
+        }
+
+        .card-discuss-panel.discussion-panel--nested .comment-field input,
+        .card-discuss-panel.discussion-panel--nested .comment-field textarea {
+            background: var(--bg-white);
+            border-color: var(--border-color);
+            color: var(--text-dark);
+        }
+
+        .card-discuss-panel.discussion-panel--nested .comment-field input::placeholder,
+        .card-discuss-panel.discussion-panel--nested .comment-field textarea::placeholder {
+            color: var(--text-gray);
+        }
+
+        .card-discuss-panel.discussion-panel--nested .comment-note {
+            color: var(--text-gray);
+        }
+
+        .card-discuss-panel.discussion-panel--nested .thread-comments {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .container-narrow {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 56px;
+        }
+
+        .section-kicker {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 0 0 8px;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin: 0;
+        }
+
+        .hero {
+            padding: 80px 0 96px;
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-page) 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 36px;
+            }
+            h2 {
+                font-size: 26px;
+            }
+        }
+
+        .hero-lead {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            margin: 16px 0 28px;
+            line-height: 1.65;
+        }
+
+        .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-hero-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background: var(--primary);
+            border: none;
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s ease, box-shadow 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--primary-hover);
+            color: #fff;
+        }
+
+        .btn-hero-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-btn);
+            text-decoration: none;
+            font-family: inherit;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .btn-hero-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-mock {
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            box-shadow: var(--shadow-card-hover);
+            overflow: hidden;
+            transform: perspective(800px) rotateY(-6deg) rotateX(4deg);
+            transition: transform 0.35s ease;
+        }
+
+        .hero-mock:hover {
+            transform: perspective(800px) rotateY(-2deg) rotateX(2deg);
+        }
+
+        .hero-mock-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 14px;
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-mock-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .hero-mock-dot:nth-child(1) { background: #f87171; }
+        .hero-mock-dot:nth-child(2) { background: #fbbf24; }
+        .hero-mock-dot:nth-child(3) { background: #4ade80; }
+
+        .hero-mock-body {
+            display: grid;
+            grid-template-columns: 72px 1fr;
+            min-height: 220px;
+        }
+
+        .hero-mock-rail {
+            background: #f8fafc;
+            border-right: 1px solid var(--border);
+        }
+
+        .hero-mock-editor {
+            padding: 16px;
+            background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+        }
+
+        .hero-mock-code {
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #334155;
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+
+        .hero-mock-code .hl { color: #7dd3fc; }
+
+        .hero-mock-label {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .logo-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 32px 40px;
+        }
+
+        .logo-pill {
+            font-size: 14px;
+            font-weight: 600;
+            color: #94a3b8;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 56px 0;
+            }
+        }
+
+        .feature-card {
+            padding: 28px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .section--slate .feature-card {
+            background: var(--bg-white);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+            counter-reset: step;
+        }
+
+        @media (max-width: 768px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+        }
+
+        @media (max-width: 900px) {
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .testimonial-card {
+            padding: 24px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+        }
+
+        .testimonial-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            color: #fff;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+        }
+
+        .testimonial-co {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .testimonial-card > p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.55;
+            color: var(--text-gray);
+        }
+
+        .feature-card p,
+        .step-card p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--grid-gap);
+            align-items: stretch;
+        }
+
+        @media (max-width: 900px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pricing-card {
+            padding: 28px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .pricing-card--highlight {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+        }
+
+        .pricing-card p {
+            flex: 1 1 auto;
+            margin-bottom: 0;
+        }
+
+        .pricing-card-btn {
+            margin-top: 20px;
+            align-self: flex-start;
+            text-decoration: none;
+        }
+
+        .pricing-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 8px 0;
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        details.faq-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-white);
+            margin-bottom: 12px;
+            padding: 0 20px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        details.faq-item[open] {
+            box-shadow: var(--shadow-card);
+        }
+
+        details.faq-item summary {
+            padding: 18px 0;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            color: var(--text-dark);
+        }
+
+        details.faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-body {
+            padding: 0 0 18px;
+            color: var(--text-gray);
+            font-size: 15px;
+        }
+
+        .cta-band {
+            text-align: center;
+            padding: 64px 24px;
+            background: linear-gradient(135deg, #1e3a8a 0%, var(--primary) 55%, #3b82f6 100%);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            margin: 0 24px;
+            max-width: calc(var(--container-max) + 48px);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-band h2 {
+            color: #fff;
+        }
+
+        .cta-band p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 12px auto 24px;
+            max-width: 520px;
+        }
+
+        .cta-band .btn-hero-primary {
+            background: #fff;
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .cta-band .btn-hero-primary:hover {
+            background: #f1f5f9;
+            color: var(--primary-hover);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-columns {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-col h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-gray);
+            margin: 0 0 16px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 6px 0;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-btn);
+            border: 1px solid var(--border);
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 0;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .main-content {
@@ -63,12 +1244,22 @@
             width: 100%;
         }
 
+        .library-surface {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 36px 28px 44px;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+        }
+
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px 40px;
+            padding: 0;
             column-count: 2;
-            column-gap: 20px;
+            column-gap: var(--grid-gap);
         }
 
         .footer-spacer {
@@ -82,118 +1273,310 @@
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: var(--radius-md);
             padding: 20px;
             display: flex;
             flex-direction: column;
             height: fit-content;
-            margin: 0 0 20px 0;
-            box-sizing: border-box;
+            margin: 0 0 var(--grid-gap) 0;
             width: 100%;
             min-height: 0;
             break-inside: avoid;
             page-break-inside: avoid;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transform: translateY(0) scale(1);
+            transition: border-color 0.25s ease, box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .card:hover {
-            border-color: rgba(88, 166, 255, 0.35);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-card-float);
+            transform: translateY(-3px) scale(1.018);
+        }
+
+        .card--featured {
+            padding: 26px 24px;
+            border-width: 2px;
+            border-color: rgba(37, 99, 235, 0.22);
+            box-shadow: 0 8px 40px rgba(37, 99, 235, 0.1);
+        }
+
+        .card--featured:hover {
+            box-shadow: 0 20px 56px rgba(37, 99, 235, 0.12), 0 10px 28px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .card-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 9px;
+            border-radius: 6px;
+        }
+
+        .card-badge--popular {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .card-badge--new {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .card-badge--recommended {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .card-badge--discussed {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .library-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .library-hint {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-gray);
+            text-align: center;
+            max-width: 520px;
+        }
+
+        .card-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 16px;
+            margin-bottom: 0;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            border-top: 1px solid var(--border);
+            border-bottom: none;
+        }
+
+        .card-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            border: none;
+            border-radius: var(--radius-btn);
+            background: var(--bg-subtle);
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+        }
+
+        .card-icon-btn:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .card-icon-btn:active {
+            transform: scale(0.94);
+        }
+
+        .card-icon-btn[aria-pressed="true"],
+        .card-icon-btn.is-active {
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--primary);
+        }
+
+        .card-icon-btn svg {
+            flex-shrink: 0;
+        }
+
+        .card-stat {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-gray);
+            min-width: 1.25rem;
+        }
+
+
+        .hero-typed-wrap {
+            display: inline;
+            color: var(--primary);
+        }
+
+        .hero-typed {
+            display: inline;
+        }
+
+        .hero-typed-cursor {
+            display: inline;
+            font-weight: 400;
+            color: var(--primary);
+            animation: hero-cursor-blink 1s step-end infinite;
+        }
+
+        @keyframes hero-cursor-blink {
+            50% { opacity: 0; }
+        }
+
+        .search-button-icon svg {
+            display: block;
+        }
+
+        .search-button.search-button-icon {
+            padding: 10px 12px;
+            min-width: 44px;
         }
 
         .card h2 {
             margin-top: 0;
-            font-size: 1.2rem;
-            color: var(--text-accent);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            line-height: 1.3;
         }
 
         .description {
-            font-size: 0.9rem;
-            color: #94a3b8;
+            font-size: 16px;
+            color: var(--text-muted);
             margin-bottom: 12px;
             flex-shrink: 0;
         }
 
-        .social-media-links {
-            font-size: 1rem;
-            color: #94a3b8;
-            margin-bottom: 15px;
-            padding: 0 20px;
-            text-align: left;
+        .description strong {
+            color: var(--text-dark);
         }
 
         .usage-label {
-            font-size: 0.85rem;
+            font-size: 14px;
             margin-bottom: 10px;
-            color: #cbd5e1;
+            color: var(--text-gray);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .code-container {
             position: relative;
             background-color: var(--code-bg);
-            border-radius: 6px;
-            padding: 15px;
+            border-radius: 8px;
+            padding: 14px 14px 14px 12px;
             border: 1px solid var(--border-color);
         }
 
         code {
-            font-family: "Consolas", "Courier New", monospace;
-            color: #79c0ff;
-            font-size: 0.9rem;
+            font-family: "IBM Plex Mono", ui-monospace, monospace;
+            color: #a5d8ff;
+            font-size: 0.82rem;
             white-space: pre-wrap;
             word-break: break-all;
             display: block;
+            line-height: 1.5;
         }
 
         .copy-btn {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #21262d;
+            top: 8px;
+            right: 8px;
+            background-color: rgba(248, 250, 252, 0.95);
             border: 1px solid var(--border-color);
-            color: #c9d1d9;
-            border-radius: 4px;
-            padding: 4px 8px;
-            font-size: 0.8rem;
+            color: var(--text-main);
+            border-radius: var(--radius-btn);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-family: inherit;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
         }
 
         .copy-btn:hover {
-            background-color: #30363d;
-            border-color: #8b949e;
+            background-color: var(--card-bg);
+            border-color: var(--text-accent);
+            color: var(--text-accent);
+        }
+
+        .copy-btn.copy-btn--copied {
+            animation: copy-btn-flash 0.65s ease;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.12) 100%);
+            border-color: #34d399;
+            color: #047857;
+            box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.35), 0 4px 14px rgba(16, 185, 129, 0.2);
+        }
+
+        @keyframes copy-btn-flash {
+            0% {
+                filter: brightness(1);
+            }
+            35% {
+                filter: brightness(1.08);
+                box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.45), 0 6px 20px rgba(16, 185, 129, 0.25);
+            }
+            100% {
+                filter: brightness(1);
+            }
         }
 
         .donate-section {
             width: 100%;
             max-width: 100%;
-            margin: 40px auto 0;
-            padding: 30px 20px;
-            padding-top: 30px;
-            border-top: 2px solid var(--text-accent);
-            background: linear-gradient(180deg, rgba(88,166,255,0.05) 0%, transparent 100%);
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: transparent;
             box-sizing: border-box;
         }
 
         .donate-section h2 {
             margin-top: 0;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 1.3rem;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
         }
 
         .donate-section p {
-            color: #cbd5e1;
+            color: var(--text-muted);
             font-size: 0.95rem;
         }
 
         .donate-section code {
-            background-color: var(--card-bg);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            background-color: var(--code-bg);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.88rem;
             color: var(--text-accent);
             border: 1px solid var(--border-color);
+            font-family: "IBM Plex Mono", monospace;
         }
 
         .qr-code-container {
@@ -205,10 +1588,10 @@
         .donate-qr-wrap {
             display: inline-block;
             padding: 20px;
-            background: linear-gradient(145deg, rgba(22, 27, 34, 0.95) 0%, rgba(13, 17, 23, 0.98) 100%);
+            background: linear-gradient(145deg, var(--card-bg) 0%, var(--bg-subtle) 100%);
             border-radius: 16px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(88, 166, 255, 0.08);
+            box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
         }
@@ -219,7 +1602,7 @@
             inset: 0;
             border-radius: 16px;
             padding: 1px;
-            background: linear-gradient(135deg, rgba(88, 166, 255, 0.25) 0%, transparent 50%, rgba(88, 166, 255, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, transparent 50%, rgba(37, 99, 235, 0.06) 100%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -259,14 +1642,17 @@
         }
 
         .top-bar {
-            max-width: 100%;
-            margin: 0 auto 24px;
-            padding: 0 20px;
+            flex: 1 1 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 8px;
             flex-wrap: nowrap;
-            gap: 12px;
+            min-width: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            padding: 0;
         }
 
         .top-bar-left {
@@ -276,32 +1662,41 @@
         }
 
         .search-input {
-            background-color: var(--card-bg);
+            background-color: var(--bg-white);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 6px 8px;
+            border-radius: var(--radius-btn);
+            padding: 10px 14px;
             color: var(--text-main);
-            font-size: 0.9rem;
-            min-width: 180px;
+            font-size: 14px;
+            font-family: inherit;
+            min-width: 140px;
+            flex: 1 1 auto;
         }
 
         .search-input::placeholder {
-            color: #8b949e;
+            color: var(--text-muted);
         }
 
         .search-button {
-            background-color: #238636;
+            background: var(--primary);
             border: none;
-            border-radius: 4px;
-            color: #ffffff;
-            padding: 6px 12px;
-            font-size: 0.9rem;
+            border-radius: var(--radius-btn);
+            color: #fff;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            transition: background-color 0.15s ease;
+            transition: background 0.15s ease, transform 0.1s ease;
+            flex-shrink: 0;
         }
 
         .search-button:hover {
-            background-color: #2ea043;
+            background: var(--primary-hover);
+        }
+
+        .search-button:active {
+            transform: scale(0.98);
         }
 
         .top-bar-right {
@@ -313,21 +1708,22 @@
         }
 
         .menu-button {
-            border-radius: 12px;
+            border-radius: var(--radius-btn);
             border: 1px solid var(--border-color);
-            background: rgba(22, 27, 34, 0.6);
+            background: var(--bg-white);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            padding: 10px 16px;
+            padding: 10px 14px;
             gap: 8px;
             transition: all 0.2s ease;
+            font-family: inherit;
         }
 
         .menu-button:hover {
-            background: rgba(22, 27, 34, 0.8);
-            border-color: var(--text-accent);
+            background: var(--bg-subtle);
+            border-color: var(--primary);
         }
 
         .menu-button span {
@@ -343,7 +1739,7 @@
         .menu-button .menu-dots span {
             width: 18px;
             height: 2px;
-            background-color: var(--text-accent);
+            background-color: var(--primary);
             border-radius: 1px;
         }
 
@@ -357,13 +1753,13 @@
             position: absolute;
             top: 100%;
             right: 0;
-            background: rgba(13, 17, 23, 0.88);
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-top: none;
-            border-radius: 0 0 16px 16px;
+            border-radius: 0 0 14px 14px;
             min-width: 220px;
             padding: 8px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 16px 48px rgba(15, 23, 42, 0.12);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: none;
@@ -420,8 +1816,8 @@
         }
 
         .menu-dropdown a:hover {
-            background: rgba(88, 166, 255, 0.12);
-            color: #ffffff;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--text-main);
         }
 
         .menu-category {
@@ -429,12 +1825,22 @@
         }
 
         .section-title {
-            max-width: 100%;
-            margin: 0 0 10px 0;
-            padding: 0 20px;
-            font-size: 1.4rem;
-            color: #ffffff;
-            text-align: left;
+            margin: 0 0 8px;
+            padding: 0;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .library-section .section-header {
+            margin-bottom: 40px;
+        }
+
+        .library-wrap {
+            padding-left: 28px;
+            padding-right: 28px;
         }
 
         .menu-category {
@@ -444,10 +1850,10 @@
 
         .menu-category-label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            color: #8b949e;
+            color: var(--text-gray);
             margin-bottom: 4px;
         }
 
@@ -474,104 +1880,160 @@
             opacity: 1;
         }
 
-        /* Footer wrapper - always at bottom, never collides with cards */
         footer.site-footer {
             display: block;
             clear: both;
             position: relative;
             width: 100%;
-            margin: 0;
-            padding-top: 60px;
-            padding-bottom: 0;
-            background: linear-gradient(180deg, rgba(13, 17, 23, 0.3) 0%, rgba(13, 17, 23, 0.6) 100%);
-            border-top: 1px solid var(--border-color);
+            margin-top: 0;
+            padding: var(--section-pad) 0 32px;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
             box-sizing: border-box;
-            overflow: visible;
             flex-shrink: 0;
         }
 
-        @media (min-width: 768px) {
-            footer.site-footer {
-                padding-top: 80px;
-            }
-        }
-
         .footer-inner {
-            max-width: 1400px;
+            max-width: var(--container-max);
             margin: 0 auto;
-            padding: 0 20px 40px;
+            padding: 0 28px;
             box-sizing: border-box;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .footer-panel h2,
+        .info-section h2 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .footer-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 26px 28px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .footer-panels-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        @media (min-width: 900px) {
+            .footer-panels-row {
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+            }
         }
 
         .info-section {
             width: 100%;
             max-width: 100%;
-            margin: 40px auto 0;
-            padding: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
+            margin: 0;
+            padding: 0;
+            border: none;
             box-sizing: border-box;
         }
 
         .info-section:first-of-type {
             margin-top: 0;
-            border-top: none;
-            padding-top: 20px;
         }
 
         .info-section h2 {
             margin-top: 0;
-            color: #ffffff;
+            color: var(--text-main);
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .info-section p {
-            color: #8b949e;
+            color: var(--text-muted);
             font-size: 0.95rem;
         }
 
         .comments-section {
-            margin-top: 40px;
-            border-radius: 12px;
+            margin-top: 0;
+        }
+
+        /* Per-card discussion */
+        .card-discuss-wrap {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .card-comment-btn[aria-expanded="true"] {
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--primary);
+        }
+
+        .card-discuss-panel {
+            margin-top: 14px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            background: var(--bg-subtle);
             border: 1px solid var(--border-color);
-            padding: 24px;
-            background: rgba(22, 27, 34, 0.5);
+        }
+
+        .card-discuss-panel[hidden] {
+            display: none !important;
+        }
+
+        .card-discuss-panel .comment-field label {
+            color: var(--text-muted);
+        }
+
+        .card-discuss-panel .comment-field input,
+        .card-discuss-panel .comment-field textarea {
+            background: var(--bg-white);
+        }
+
+        .card-discuss-panel .thread-comments {
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
 
         #social-popup {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(15, 23, 42, 0.45);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             cursor: pointer;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(12px);
         }
 
         .social-popup-content {
             position: relative;
-            background-color: rgba(22, 27, 34, 0.9);
-            border-radius: 12px;
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
-            padding: 20px 24px;
+            padding: 22px 24px;
             max-width: 380px;
             width: 90%;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: var(--shadow-card-hover);
             cursor: default;
         }
 
         .social-popup-content h2 {
             margin-top: 0;
             margin-bottom: 8px;
-            font-size: 1.2rem;
-            color: #ffffff;
+            font-size: 1.15rem;
+            color: var(--text-main);
+            font-weight: 700;
         }
 
         .social-popup-content p {
             margin: 0 0 10px;
-            color: #cbd5e1;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
@@ -608,23 +2070,29 @@
         }
 
         .btn-primary {
-            background-color: #238636;
-            color: #ffffff;
+            background: var(--primary);
+            color: #fff;
             border: none;
+            font-weight: 600;
+            font-family: inherit;
+            border-radius: var(--radius-btn);
         }
 
         .btn-primary:hover {
-            background-color: #2ea043;
+            background: var(--primary-hover);
+            color: #fff;
         }
 
         .btn-secondary {
             background-color: transparent;
             color: var(--text-accent);
             border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-weight: 600;
         }
 
         .btn-secondary:hover {
-            background-color: #21262d;
+            background-color: var(--surface);
         }
 
         .x-link {
@@ -652,20 +2120,21 @@
 
         .comment-field label {
             display: block;
-            font-size: 0.8rem;
-            color: #8b949e;
+            font-size: 14px;
+            color: var(--text-gray);
             margin-bottom: 4px;
         }
 
         .comment-field input,
         .comment-field textarea {
             width: 100%;
-            background-color: var(--card-bg);
+            background-color: var(--bg-white);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 6px 8px;
+            border-radius: var(--radius-btn);
+            padding: 10px 12px;
             color: var(--text-main);
-            font-size: 0.9rem;
+            font-size: 16px;
+            font-family: inherit;
         }
 
         .comment-field textarea {
@@ -675,8 +2144,14 @@
 
         .comment-note {
             font-size: 0.75rem;
-            color: #8b949e;
+            color: var(--text-muted);
             margin-bottom: 8px;
+        }
+
+        .comment-note code {
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 0.9em;
+            color: var(--text-accent);
         }
 
         .comment-list {
@@ -686,45 +2161,13 @@
             gap: 10px;
         }
 
-        .comment-item {
-            padding: 10px 12px;
-            border-radius: 6px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-        }
-
-        .comment-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-            font-size: 0.8rem;
-            color: #8b949e;
-        }
-
-        .comment-item-name {
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-
-        .comment-item-body {
-            font-size: 0.9rem;
-            color: var(--text-main);
-            white-space: pre-wrap;
-        }
-
-        .comment-empty {
-            font-size: 0.85rem;
-            color: #8b949e;
-        }
-
         .expression-preview-wrap {
             margin-top: 8px;
             margin-bottom: 12px;
-            border-radius: 6px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            background: var(--code-bg);
+            background: #f1f5f9;
             aspect-ratio: 16 / 9;
             max-width: 100%;
             position: relative;
@@ -735,7 +2178,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, var(--code-bg) 0%, #1a1f26 50%, var(--code-bg) 100%);
+            background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.2s ease-in-out infinite;
         }
@@ -766,34 +2209,42 @@
         .copy-btn:focus,
         .btn-primary:focus,
         .btn-secondary:focus,
+        .btn-hero-primary:focus,
+        .btn-hero-secondary:focus,
+        .nav-cta:focus,
+        .nav-link:focus,
+        .nav-brand:focus,
         input:focus,
         textarea:focus,
-        button:focus {
-            outline: 2px solid var(--text-accent);
+        button:focus,
+        .card-comment-btn:focus-visible,
+        .btn-dashboard:focus-visible,
+        details.faq-item summary:focus {
+            outline: 2px solid var(--focus-ring);
             outline-offset: 2px;
         }
 
-        .copy-btn:hover {
-            background-color: #30363d;
-            border-color: #8b949e;
-        }
-
         .copy-btn:active {
-            background-color: #21262d;
+            transform: scale(0.98);
         }
 
         /* Footer bottom bar */
+        .footer-donate-actions {
+            justify-content: center;
+            margin-top: 16px;
+        }
+
         .footer-bottom {
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 8px;
+            padding-top: 24px;
             border-top: 1px solid var(--border-color);
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            font-size: 0.9rem;
-            color: #8b949e;
+            font-size: 0.88rem;
+            color: var(--text-muted);
         }
 
         .footer-links {
@@ -817,18 +2268,6 @@
             outline-offset: 2px;
         }
 
-        /* Responsive adjustments */
-        @media (min-width: 1400px) {
-            .top-bar,
-            .container,
-            .section-title,
-            .social-media-links {
-                max-width: 1400px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
         @media (max-width: 900px) {
             .container {
                 column-gap: 16px;
@@ -836,10 +2275,14 @@
         }
 
         @media (max-width: 600px) {
+            .library-surface {
+                padding: 18px 14px 28px;
+                border-radius: var(--radius-md);
+            }
+
             .container {
                 column-count: 1;
                 column-gap: 16px;
-                padding: 0 16px;
             }
 
             .card {
@@ -872,10 +2315,8 @@
                 padding: 0 20px 40px;
             }
 
-            .info-section,
-            .donate-section {
-                padding-left: 20px;
-                padding-right: 20px;
+            .footer-panel {
+                padding: 22px 18px;
             }
 
             .footer-bottom {
@@ -898,62 +2339,172 @@
 
 <body>
 
-    <div class="top-bar">
-        <div class="top-bar-left">
-            <input type="text" id="search-input" class="search-input" placeholder="Search expressions..." />
-            <button id="search-button" class="search-button">Search</button>
-        </div>
-        <div class="top-bar-right">
-            <div class="menu-wrapper">
-                <button id="menu-button" class="menu-button" aria-label="Open menu" aria-expanded="false">
-                    <span class="menu-label">Menu</span>
-                    <span class="menu-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
-                <div id="menu-dropdown" class="menu-dropdown" aria-label="Quick navigation menu">
-                    <div class="menu-category">
-                        <span class="menu-category-label">Category</span>
-                        <div class="menu-category-options">
-                            <button type="button" class="menu-category-option menu-category-option--active" data-category="all">All expressions</button>
-                            <button type="button" class="menu-category-option" data-category="animation">Animation</button>
-                            <button type="button" class="menu-category-option" data-category="text">Text &amp; titles</button>
-                            <button type="button" class="menu-category-option" data-category="3d">3D &amp; orientation</button>
-                            <button type="button" class="menu-category-option" data-category="utility">Utility &amp; workflow</button>
+    <a class="skip-link" href="#library">Skip to library</a>
+
+    <header class="site-nav" id="top">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#top">🎬 AE Expression Store</a>
+            <div class="nav-center top-bar">
+                <div class="top-bar-left">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search expressions..." aria-label="Search expressions" />
+                    <button type="button" id="search-button" class="search-button search-button-icon" aria-label="Search expressions">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a class="nav-link" href="#library">Library</a>
+                <a class="nav-link" href="#faq">FAQ</a>
+                <a class="nav-cta" href="#donate">Support</a>
+                <div class="top-bar-right">
+                    <div class="menu-wrapper">
+                        <button type="button" id="menu-button" class="menu-button" aria-label="Open menu" aria-expanded="false">
+                            <span class="menu-label">Menu</span>
+                            <span class="menu-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </button>
+                        <div id="menu-dropdown" class="menu-dropdown" aria-label="Quick navigation menu">
+                            <a href="#features">Features</a>
+                            <a href="#how">How it works</a>
+                            <a href="#library">Expression library</a>
+                            <a href="#testimonials">Testimonials</a>
+                            <a href="#pricing">Pricing</a>
+                            <a href="#faq">FAQ</a>
+                            <div class="menu-category">
+                                <span class="menu-category-label">Category</span>
+                                <div class="menu-category-options">
+                                    <button type="button" class="menu-category-option menu-category-option--active" data-category="all">All expressions</button>
+                                    <button type="button" class="menu-category-option" data-category="animation">Animation</button>
+                                    <button type="button" class="menu-category-option" data-category="text">Text &amp; titles</button>
+                                    <button type="button" class="menu-category-option" data-category="3d">3D &amp; orientation</button>
+                                    <button type="button" class="menu-category-option" data-category="utility">Utility &amp; workflow</button>
+                                </div>
+                            </div>
+                            <a href="#discussion">Discussion</a>
+                            <a href="#donate">Support</a>
                         </div>
                     </div>
-                    <a href="#discussion">Discussion</a>
-                    <a href="#donate">Support</a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <header>
-        <h1>🎬 AE Expression Store</h1>
-        <p class="subtitle">A curated collection of time-saving After Effects expressions.</p>
     </header>
 
+    <section class="hero" aria-labelledby="hero-heading">
+        <div class="container-narrow hero-grid reveal">
+            <div>
+                <h1 id="hero-heading">Copy-paste After Effects <span class="hero-typed-wrap"><span id="hero-typed" class="hero-typed"></span><span class="hero-typed-cursor" aria-hidden="true">|</span></span></h1>
+                <p class="hero-lead">Curated, ready-to-use snippets for animation, text, 3D, and workflow—so you spend less time fighting the graph editor and more time shipping frames.</p>
+                <div class="hero-cta-row">
+                    <a href="#library" class="btn-hero-primary">Browse library</a>
+                    <a href="https://twitter.com/socrazymedia" class="btn-hero-secondary" target="_blank" rel="noopener noreferrer">Follow on X</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-mock" aria-hidden="true">
+                    <div class="hero-mock-bar">
+                        <span class="hero-mock-dot"></span>
+                        <span class="hero-mock-dot"></span>
+                        <span class="hero-mock-dot"></span>
+                    </div>
+                    <div class="hero-mock-body">
+                        <div class="hero-mock-rail"></div>
+                        <div class="hero-mock-editor">
+                            <p class="hero-mock-label">Expression preview</p>
+                            <div class="hero-mock-code"><span class="hl">wiggle</span>(2, 40);<br><span class="hl">loopOut</span>(<span class="hl">"cycle"</span>);</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="social-media-links">
-        <p>Project updates on 
-            <a href="https://twitter.com/socrazymedia" target="_blank" class="x-link">
-                <span class="x-logo" aria-hidden="true">𝕏</span>
-            </a>
-        </p>
-        <!-- <p>More Links
-            <a href="https://www.linktr.ee/socrazymedia" target="_blank" style="color: var(--text-accent);">Click here</a>
-        </p> -->
-    </div>
+    <section class="section section--slate" id="clients" aria-label="Community">
+        <div class="container-narrow reveal">
+            <div class="logo-row">
+                <span class="logo-pill">Motion designers</span>
+                <span class="logo-pill">YouTube creators</span>
+                <span class="logo-pill">Studios</span>
+                <span class="logo-pill">Freelancers</span>
+                <span class="logo-pill">Students</span>
+            </div>
+        </div>
+    </section>
 
-    <h2 id="categories" class="section-title">Expression Library</h2>
+    <section class="section section--white" id="features">
+        <div class="container-narrow">
+            <div class="section-header reveal">
+                <p class="section-kicker">Features</p>
+                <h2>Built for speed in After Effects</h2>
+                <p class="section-desc">Everything in one place: previews, copy buttons, categories, and per-snippet discussion.</p>
+            </div>
+            <div class="feature-grid reveal">
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">📋</div>
+                    <h3>Copy-ready</h3>
+                    <p>One click copies the full expression. Paste straight into the property you need.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🗂️</div>
+                    <h3>Organized</h3>
+                    <p>Search, categories, and on-card tags help you spot bounce, text, 3D, and utility rigs fast.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">💬</div>
+                    <h3>Community</h3>
+                    <p>Discuss each expression on its card, plus site-wide chat for general tips.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <main class="main-content">
+    <section class="section section--slate" id="how">
+        <div class="container-narrow">
+            <div class="section-header reveal">
+                <p class="section-kicker">How it works</p>
+                <h2>Three steps</h2>
+                <p class="section-desc">No signup required to browse and copy.</p>
+            </div>
+            <div class="steps-grid reveal">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Pick a snippet</h3>
+                    <p>Search or use the menu categories to narrow the list.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Copy the code</h3>
+                    <p>Hit Copy and check the usage line for where to paste in AE.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Paste in AE</h3>
+                    <p>Alt-click the stopwatch, paste, and tweak values to taste.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="library" class="section section--white library-section" aria-labelledby="categories">
+        <div class="container-narrow">
+            <div class="section-header reveal">
+                <p class="section-kicker">Showcase</p>
+                <h2 id="categories" class="section-title">Expression library</h2>
+                <p class="section-desc">Preview GIFs, read the property path, and open Discuss on any card when you need context. Tags highlight what’s new, popular, or active.</p>
+            </div>
+        </div>
+        <div class="container-narrow library-wrap">
+    <main id="main" class="main-content">
+    <div class="library-surface">
+        <div class="library-controls">
+            <p class="library-hint">Use the nav search to filter; pick a category from the menu. Badges on each card show New, Popular, or Discussed when relevant.</p>
+        </div>
     <div class="container">
 
-        <div class="card">
+        <div class="card card--featured" data-expression-id="maintain-shapes-stroke-width">
+            <div class="card-badges"><span class="card-badge card-badge--popular">Popular</span></div>
             <h2>Maintain Shape's Stroke Width</h2>
             <p class="description">Keeps the stroke width of a shape layer consistent even when you <strong>Scale</strong> the shape layer itself from the <strong>Transform</strong> property.</p>
             <p class="usage-label">Shape Layer > Contents > Rectangle > Stroke > Stroke Width</p>
@@ -966,7 +2517,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="maintain-shapes-scale-parented">
             <h2>Maintain Shape's Scale (Parented)</h2>
             <p class="description">Keeps the layer's visual scale locked, even if the parent layer is scaled.</p>
             <p class="usage-label">Shape Layer > Contents > Rectangle > Rectangle Path > Size</p>
@@ -984,7 +2535,8 @@
             </div>
             </div>
             
-            <div class="card" data-tags="bounce animation inertial">
+            <div class="card" data-tags="bounce animation inertial" data-expression-id="in-bounce-animation-left-right">
+                <div class="card-badges"><span class="card-badge card-badge--new">New</span></div>
                 <h2>In Bounce Animation (Left - Right)</h2>
                 <p class="description">This makes Bounce in Animation.</p>
                 <p class="usage-label">Shape Layer /Image /Video > Position</p>
@@ -1002,7 +2554,8 @@
                 </div>
             </div>
             
-            <div class="card" data-tags="bounce animation advanced control">
+            <div class="card" data-tags="bounce animation advanced control" data-expression-id="in-bounce-animation-top-bottom">
+            <div class="card-badges"><span class="card-badge card-badge--recommended">Recommended</span></div>
             <h2>In Bounce Animation (Top - Bottom)</h2>
             <p class="description">This is the same In Bounce Expression (left - right) what is unique in this is, There is some other
                 properties which let's you control where you want you shape after the bounce and it also falls from the top to Bottom.</p>
@@ -1051,7 +2604,7 @@
                 </div>
                 </div>
 
-        <div class="card" data-tags="reverse animation mirror">
+        <div class="card" data-tags="reverse animation mirror" data-expression-id="reverse-keyframe-animation">
             <h2>Reverse Keyframe /Animation</h2>
             <p class="description">This expression make the animation in Reverse with the help of Math, which means the Shape layer which was moving in the right direction will now move in the left direction.</p>
             <p class="usage-label">Shape Layer > Position</p>
@@ -1066,7 +2619,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="math sin wave">
+        <div class="card" data-tags="math sin wave" data-expression-id="floating-ball-animation">
             <h2>Floating Ball Animation</h2>
             <p class="description">You can use this on a shape when you need a floating ball animation. Make sure to
                 link that property to a <strong>null</strong> so it's position is <strong>0</strong> before applying this expression</p>
@@ -1085,7 +2638,7 @@
                 </div>
                 </div>
 
-        <div class="card" data-tags="math cos wave">
+        <div class="card" data-tags="math cos wave" data-expression-id="math-cos-smooth-rotation">
             <h2>Math.cos() /Smooth Rotation</h2>
             <p class="description">Apply this on a Shape's <strong>Rotation Property</strong> and it's gives some smooth smooth in and out rotation Animation</p>
             <p class="usage-label">Shape Layer > Rotation            </p>
@@ -1102,7 +2655,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="anchor point advance text center">
+        <div class="card" data-tags="anchor point advance text center" data-expression-id="auto-center-text">
             <h2>Auto-Center Text</h2>
             <p class="description">Automatically realigns the anchor and text as you type to maintain symmetry.</p>
             <p class="usage-label">Text Layer > Anchor Point</p>
@@ -1117,7 +2670,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="text box rectangle size resize">
+        <div class="card" data-tags="text box rectangle size resize" data-expression-id="dynamic-text-box">
             <h2>Dynamic Text Box</h2>
             <p class="description">Automatically resizes the background shape to fit your text length.</p>
             <p class="usage-label">Shape Layer > Rectangle > Rectangle Path > Size</p>
@@ -1164,7 +2717,7 @@
                 </div>
             </div>
 
-        <div class="card" data-tags="change text font">
+        <div class="card" data-tags="change text font" data-expression-id="font-switcher">
             <h2>Font Switcher</h2>
             <p class="description">Changes the layer's font style based on the slider value (Don't forget to add the <strong>Slider Control</strong>effect on Text Layer).</p>
             <p class="usage-label">Text Layer > Text > Source Text            </p>
@@ -1184,7 +2737,7 @@
                 </div>
                 </div>
 
-        <div class="card" data-tags="link text comp external">
+        <div class="card" data-tags="link text comp external" data-expression-id="remote-text-control">
             <h2>Remote Text Control</h2>
             <p class="description">Links this text to a master controller. Simply edit the text inside Comp 2, and it will instantly update here in Comp 1 without you needing to switch comps.
             </p>
@@ -1199,7 +2752,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="posterize time fps stop motion">
+        <div class="card" data-tags="posterize time fps stop motion" data-expression-id="local-posterize-time">
             <h2>Local Posterize Time</h2>
             <p class="description">Restricts the frame rate of this specific property. Ideal for adding "organic" jitter to smooth digital movements.</p>
             <p class="usage-label">Any Property            </p>
@@ -1213,7 +2766,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="loop pingpong">
+        <div class="card" data-tags="loop pingpong" data-expression-id="single-segment-pingpong">
             <h2>Single-Segment PingPong</h2>
             <p class="description">Loops the animation back and forth using only the last two keyframes.</p>
             <p class="usage-label">Any Property            </p>
@@ -1226,7 +2779,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="loop offset infinite">
+        <div class="card" data-tags="loop offset infinite" data-expression-id="continuous-offset-loop">
             <h2>Continuous Offset Loop</h2>
             <p class="description">Creates a never-ending animation by adding the last keyframe's value to the next cycle. Perfect for infinite scrolling or rotating.</p>
             <p class="usage-label">Any Property            </p>
@@ -1239,7 +2792,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="wiggle custom shake">
+        <div class="card" data-tags="wiggle custom shake" data-expression-id="local-wiggle-controller">
             <h2>Local Wiggle Controller</h2>
             <p class="description">Adds a Point Control directly to the layer to manage wiggle frequency and amplitude. This keeps your timeline clean by eliminating the need for extra Null layers.</p>
             <p class="usage-label">Shape Layer > Position</p>
@@ -1252,7 +2805,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="clamp lock layer">
+        <div class="card" data-tags="clamp lock layer" data-expression-id="value-lock">
             <h2>Value Lock</h2>
             <p class="description">Forces a property to remain at a fixed value (100) regardless of manual adjustments or keyframes.</p>
             <p class="usage-label">Any Property            </p>
@@ -1265,7 +2818,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="delay time animation">
+        <div class="card" data-tags="delay time animation" data-expression-id="constant-time-offset">
             <h2>Constant Time Offset</h2>
             <p class="description">Delays the property's animation by exactly 1 second. Useful for creating staggered motion or secondary animation.</p>
             <p class="usage-label">Any Property            </p>
@@ -1278,7 +2831,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="random static posterize">
+        <div class="card" data-tags="random static posterize" data-expression-id="seeded-low-fi-random">
             <h2>Seeded Low-Fi Random</h2>
             <p class="description">Generates a unique, stepped random value for each layer. Using <strong>seedRandom</strong> ensures each layer gets a different result, while posterizeTime controls the <strong>"jitter"</strong> speed.
             </p>
@@ -1306,7 +2859,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="smooth keyframe ease">
+        <div class="card" data-tags="smooth keyframe ease" data-expression-id="dynamic-ease-mapping">
             <h2>Dynamic Ease Mapping</h2>
             <p class="description">Maps time to a value range with built-in easing. Unlike a linear transition, this starts slowly and decelerates at the end for more natural movement.</p>
             <p class="usage-label">Any Property            </p>
@@ -1319,7 +2872,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="card animation system">
+        <div class="card" data-tags="card animation system" data-expression-id="dynamic-3x5-auto-scaling-shape-grid">
             <h2>Dynamic 3x5 Auto-Scaling Shape Grid</h2>
             <p class="description">This setup creates a grid of 15 shapes (5 columns by 3 rows) that you can control globally using a single Null Object. By using expressions, you can adjust the size, spacing, and selection of the shapes without having to edit each layer individually.</p>
             <p class="usage-label">Shape Layer > Scale             </p>
@@ -1346,7 +2899,7 @@
                 </div>
                 </div>
                 
-                <div class="card" data-tags="Dynamic Multi-Layer Index Rotation system">
+                <div class="card" data-tags="Dynamic Multi-Layer Index Rotation system" data-expression-id="dynamic-multi-layer-index-rotation">
                     <h2>Dynamic Multi-Layer Index Rotation</h2>
             <p class="description">This expression automates the rotation of multiple layers based on their stack order. It creates
                 a responsive, procedural animation controlled by a single "CONTROLLER" Null.<br>
@@ -1373,7 +2926,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="Live Transform HUD debug">
+        <div class="card" data-tags="Live Transform HUD debug" data-expression-id="live-transform-hud">
             <h2>Live Transform HUD</h2>
             <p class="description">Displays real-time transform data (Position, Scale, Rotation, and Opacity) from a target layer
                 onto a text layer. Perfect for technical UI designs and automated property labeling.</p>
@@ -1402,7 +2955,7 @@
                 </div>
         </div>
 
-        <div class="card" data-tags="3D LookAt Target Constraint">
+        <div class="card" data-tags="3D LookAt Target Constraint" data-expression-id="3d-lookat-target-constraint">
             <h2>3D LookAt Target Constraint</h2>
             <p class="description">Forces a 3D layer to constantly face a designated "TargetLayer." This expression calculates the
                 necessary orientation to keep the target in sight, regardless of where either layer moves in 3D space.</p>
@@ -1424,7 +2977,7 @@
             </div>
         </div>
 
-        <div class="card" data-tags="track position 2d">
+        <div class="card" data-tags="track position 2d" data-expression-id="relative-position-tracker">
             <h2>Relative Position Tracker</h2>
             <p class="description">Syncs a layer's position to another object (e.g., "Null 1") while allowing the layer to remain
                 independent. It converts Global Composition coordinates into Local Layer coordinates.</p>
@@ -1442,7 +2995,7 @@
 
         
 
-        <div class="card">
+        <div class="card" data-expression-id="keyframe-friendly-scripting">
             <h2>Keyframe-Friendly Scripting</h2>
             <p class="description">Prevents an expression from "locking" your properties. This allows you to animate naturally with
                 keyframes while the expression runs simultaneously, adding its results to your manual animation.</p>
@@ -1459,7 +3012,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="value-inversion-mirroring">
             <h2>Value Inversion (Mirroring)</h2>
             <p class="description">Multiplies the property value by -1 to create a "mirror" effect. This is ideal for symmetrical
                 rigs where one side of a design must move in the exact opposite direction of the other.</p>
@@ -1476,7 +3029,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="2d-auto-orient-look-at">
             <h2>2D Auto-Orient / Look-At</h2>
             <p class="description">A trigonometric expression applied to the Rotation property that dynamically calculates the angle
                 required for a layer to continuously face a target layer.</p>
@@ -1498,7 +3051,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="luma-scale-driver">
             <h2>Luma Scale Driver</h2>
             <p class="description">Samples the luminance (brightness) of a target layer to drive the scale property. White values produce 100% scale, while black values produce 0%.<br>
                 <br>
@@ -1522,7 +3075,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="absolute-world-position-tracker">
             <h2>Absolute World Position Tracker</h2>
             <p class="description">Converts a layer's local anchor point into global composition coordinates. This allows you to
                 track the exact screen position of a layer, even if it is parented or inside a complex hierarchy.
@@ -1542,7 +3095,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="auto-grid-layout">
             <h2>Auto Grid Layout</h2>
             <p class="description">Automatically arranges shape layers in a grid pattern based on a padding value from a null layer.</p>
             <p class="usage-label">Shape Layer > Position</p>
@@ -1564,7 +3117,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="seamless-looping-wiggle">
             <h2>Seamless Looping Wiggle</h2>
             <p class="description">A dual-timeline expression that uses a cross-fade to eliminate "jumps" in random movement, creating a perfect repeat.</p>
             <p class="usage-label">Shape Layer > Position</p>
@@ -1585,7 +3138,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="half-frame-stutter">
             <h2>Half-Frame Stutter</h2>
             <p class="description">Forces a property to update every second frame, creating a low-fps stop-motion aesthetic.</p>
             <p class="usage-label">Any Property            </p>
@@ -1599,7 +3152,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="proportional-y-scaler">
             <h2>Proportional Y-Scaler</h2>
             <p class="description">This expression scales the Y value proportionally to the X value.</p>
             <p class="usage-label">Any Y Value            </p>
@@ -1616,7 +3169,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="constant-auto-scale">
             <h2>Constant Auto-Scale</h2>
             <p class="description">Automatically scales a layer up or down at a fixed speed starting from the layer's In-Point.</p>
             <p class="usage-label">Shape Layer > Scale            </p>
@@ -1634,7 +3187,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="constant-auto-scale-alt">
             <h2>Constant Auto-Scale</h2>
             <p class="description">Automatically scales a layer up or down at a fixed speed starting from the layer's In-Point.</p>
             <p class="usage-label">Shape Layer > Scale            </p>
@@ -1652,7 +3205,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="typewriter-with-cursor">
             <h2>Typewriter with Cursor</h2>
             <p class="description">Creates a typewriter effect with a blinking cursor.</p>
             <p class="usage-label">Text Layer > Source Text            </p>
@@ -1700,7 +3253,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="proportional-y-scale-sync">
             <h2>The Proportional Y-Scale Sync</h2>
             <p class="description">This expression creates a mathematical bridge between a Slider Control and a layer's Vertical Position. It normalizes a specific coordinate (in this case, -181.5) to a "Home" value of 100 on the slider. Once synced, any percentage change on the slider (e.g., moving from 100 to 120) triggers an identical percentage shift in the Y-position, keeping the movement perfectly proportional.</p>
             <p class="usage-label">Any property</p>
@@ -1731,8 +3284,9 @@
                 
                 </code>
             </div>
+        </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="path-flow-distributor-shape-layer">
             <h2>Path Flow Distributor(Shape Layer)</h2>
             <p class="description">Automatically calculates spacing based on layer index. Usage: Apply to the Position property. Requires a source shape layer named "MAIN PATH" with "OFFSET CONTROL" and "RANDOM POSITION" sliders attached.<br
                 <br>
@@ -1776,7 +3330,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="dynamic-velocity-spring">
             <h2>Dynamic Velocity Spring</h2>
             <p class="description">Apply to the Rotation property. Adjust rotateOnMovement for the lean intensity and decay for the spring duration. Align your shape, then duplicate the layer to see the magic happen!</p>
             <p class="usage-label">Shape Layer > Rotation            </p>
@@ -1818,7 +3372,7 @@
                 </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="proximity-force-field">
             <h2>Proximity Force Field</h2>
             <p class="description">Apply to the Position property. Requires a layer named "SPACESHIP" with a "DEFLECT RADIUS" slider. Align your shape, then duplicate the layer to see the magic happen!<br
                 <br>
@@ -1864,7 +3418,7 @@
                 
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="auto-distribute">
             <h2>Auto-Distribute</h2>
             <p class="description">This expression automatically calculates a layer's position based on the layer directly above it in the stack. When you duplicate the layer (Cmd+D or Ctrl+D), it pushes the new copy by a fixed horizontal amount (xOffset) while still allowing you to manually nudge the layer to fine-tune its placement.</p>
              
@@ -1896,7 +3450,7 @@
                 
         </div>
 
-        <div class="card">
+        <div class="card" data-expression-id="dynamic-line-connector-between-two-shapes">
             <h2>Dynamic Line Connector Between Two Shapes</h2>
             <p class="description">This setup creates a responsive line that automatically connects two layers (e.g., Shape 1 and Shape 2). Using expressions, the line updates in real time and stays attached to both shapes, even when they move, scale, or animate.
                 <br> This is useful for timelines, diagrams, and motion graphics where elements need to stay visually linked without manual adjustments. <br>
@@ -1918,9 +3472,162 @@
         </div>
     
     </div>
+    </div>
+    </main>
+        </div>
+    </section>
+
+    <section class="section section--slate section--community" aria-labelledby="community-heading">
+        <div class="container-narrow">
+            <div class="community-grid reveal">
+                <article id="discussion" class="dashboard-card">
+                    <h2 class="dashboard-card__title" id="community-heading">Discussion</h2>
+                    <p class="dashboard-card__hint">Site-wide messages. For one snippet, use <strong>Discuss</strong> on that expression card.</p>
+                    <div id="global-reply-banner" class="reply-banner" hidden>
+                        <span id="global-reply-banner-text">Replying to a comment</span>
+                        <button type="button" class="reply-banner-cancel" id="global-reply-cancel">Cancel</button>
+                    </div>
+                    <form id="comment-form" class="comment-form">
+                        <div class="comment-field chat-field">
+                            <label class="visually-hidden" for="comment-text">Your message</label>
+                            <textarea id="comment-text" required placeholder="Write a message…" rows="3"></textarea>
+                        </div>
+                        <div class="chat-form-footer">
+                            <button type="submit" class="btn-primary">Post</button>
+                        </div>
+                    </form>
+                    <div id="comment-list" class="comment-list thread-comments chat-thread"></div>
+                </article>
+
+                <article id="donate" class="dashboard-card">
+                    <h2 class="dashboard-card__title">Support</h2>
+                    <p class="dashboard-card__hint">The library is free. Donations help cover hosting and new expressions.</p>
+                    <div class="support-upi-row" aria-label="UPI ID">
+                        <span class="support-upi-label">UPI ID</span>
+                        <code class="support-upi-value">waytomj@ybl</code>
+                    </div>
+                    <div class="dashboard-card__actions">
+                        <a class="btn-dashboard btn-dashboard--btc" href="bitcoin:bc1qdz50swgf4z9n4px3zu0lera9fcnkj5wx3l405g">Bitcoin</a>
+                        <button type="button" class="btn-dashboard btn-dashboard--upi" id="copy-upi-btn" title="Copies waytomj@ybl to clipboard">Copy UPI ID</button>
+                    </div>
+                    <p class="dashboard-card__foot">People who use this tool help keep it alive.</p>
+                    <p class="support-btc-inline">Bitcoin address <code id="btc-address">bc1qdz50swgf4z9n4px3zu0lera9fcnkj5wx3l405g</code></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--slate" id="testimonials" aria-labelledby="testimonials-heading">
+        <div class="container-narrow">
+            <div class="section-header reveal">
+                <p class="section-kicker">Testimonials</p>
+                <h2 id="testimonials-heading">Loved by motion designers</h2>
+                <p class="section-desc">A few notes from people who live in the timeline.</p>
+            </div>
+            <div class="testimonial-grid reveal">
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-avatar" aria-hidden="true">MR</div>
+                        <div>
+                            <div class="testimonial-name">Maya R.</div>
+                            <div class="testimonial-co">Freelance mograph, Berlin</div>
+                        </div>
+                    </div>
+                    <p>"I stopped bookmarking messy forum threads—previews and copy buttons in one place is what I needed."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-avatar" aria-hidden="true">JL</div>
+                        <div>
+                            <div class="testimonial-name">Jordan Lee</div>
+                            <div class="testimonial-co">In-house at a social studio</div>
+                        </div>
+                    </div>
+                    <p>"Categories plus search actually work. I send juniors here before they Slack me for another wiggle expression."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-avatar" aria-hidden="true">SK</div>
+                        <div>
+                            <div class="testimonial-name">Sam K.</div>
+                            <div class="testimonial-co">YouTube educator</div>
+                        </div>
+                    </div>
+                    <p>"Discuss on each card keeps context with the snippet instead of one endless footer thread."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--white" id="pricing" aria-labelledby="pricing-heading">
+        <div class="container-narrow">
+            <div class="section-header reveal">
+                <p class="section-kicker">Pricing</p>
+                <h2 id="pricing-heading">Simple and fair</h2>
+                <p class="section-desc">The library is free to use. Support the project if it saves you time.</p>
+            </div>
+            <div class="pricing-grid reveal">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="pricing-price">$0</div>
+                    <p>Full access to every expression, search, categories, and copy.</p>
+                    <a href="#library" class="btn-hero-primary pricing-card-btn">Browse</a>
+                </div>
+                <div class="pricing-card pricing-card--highlight">
+                    <h3>Supporter</h3>
+                    <div class="pricing-price">You choose</div>
+                    <p>Optional Bitcoin tip to help fund new snippets and hosting.</p>
+                    <a href="#donate" class="btn-hero-primary pricing-card-btn">Support</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Community</h3>
+                    <div class="pricing-price">∞</div>
+                    <p>Share tips per expression or in site-wide discussion—help everyone level up.</p>
+                    <a href="#discussion" class="btn-hero-secondary pricing-card-btn">Join chat</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--slate" id="faq" aria-labelledby="faq-heading">
+        <div class="container-narrow">
+            <div class="section-header reveal">
+                <p class="section-kicker">FAQ</p>
+                <h2 id="faq-heading">Common questions</h2>
+                <p class="section-desc">Quick answers before you dive into the library.</p>
+            </div>
+            <div class="faq-list reveal">
+                <details class="faq-item">
+                    <summary>Do I need an account?</summary>
+                    <div class="faq-body">No. Browse and copy expressions without signing up. Posting in discussion uses a simple guest form.</div>
+                </details>
+                <details class="faq-item">
+                    <summary>Where do I paste an expression?</summary>
+                    <div class="faq-body">Each card lists the property path (e.g. Position, Source Text). Alt-click (Option-click) the stopwatch for that property and paste.</div>
+                </details>
+                <details class="faq-item">
+                    <summary>Can I use these in commercial work?</summary>
+                    <div class="faq-body">Expressions here are shared for you to use in your projects. Credit the site if you like—not required.</div>
+                </details>
+                <details class="faq-item">
+                    <summary>How do per-card discussions work?</summary>
+                    <div class="faq-body">Open Discuss on a card to keep questions tied to that snippet. Site-wide chat is in the Discussion section directly below the expression library.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--white" aria-label="Call to action">
+        <div class="container-narrow">
+            <div class="cta-band reveal">
+                <h2>Ready to move faster in After Effects?</h2>
+                <p>Open the library, pick a snippet, and paste it in one timeline.</p>
+                <a href="#library" class="btn-hero-primary">Open library</a>
+            </div>
+        </div>
+    </section>
 
     <div class="footer-spacer" aria-hidden="true"></div>
-    </main>
 
     <div id="social-popup">
         <div class="social-popup-content">
@@ -1965,6 +3672,25 @@
         const footerYear = document.getElementById('footer-year');
         if (footerYear) footerYear.textContent = new Date().getFullYear();
 
+        // Fade-in sections on scroll
+        if ('IntersectionObserver' in window) {
+            var revealObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -48px 0px', threshold: 0.08 });
+            document.querySelectorAll('.reveal').forEach(function (el) {
+                revealObserver.observe(el);
+            });
+        } else {
+            document.querySelectorAll('.reveal').forEach(function (el) {
+                el.classList.add('is-visible');
+            });
+        }
+
         // Expression preview loading states (skeleton until image loads)
         document.querySelectorAll('.expression-preview-wrap').forEach(function (wrap) {
             const img = wrap.querySelector('.expression-preview, video');
@@ -2007,60 +3733,182 @@
             }
         });
 
+        function inferAndSetCategory(card) {
+            if (card.getAttribute('data-category')) return;
+            var tags = (card.getAttribute('data-tags') || '').toLowerCase();
+            var title = (card.querySelector('h2') && card.querySelector('h2').textContent || '').toLowerCase();
+            var cat = 'utility';
+            if (tags.indexOf('3d') !== -1 || title.indexOf('3d') !== -1 || title.indexOf('look at') !== -1 || title.indexOf('lookat') !== -1 || title.indexOf('orientation') !== -1 || title.indexOf('auto-orient') !== -1) cat = '3d';
+            else if (tags.indexOf('text') !== -1 || title.indexOf('text') !== -1 || title.indexOf('typewriter') !== -1 || title.indexOf('font') !== -1 || title.indexOf('source text') !== -1 || title.indexOf('remote text') !== -1 || title.indexOf('dynamic text') !== -1) cat = 'text';
+            else if (tags.indexOf('animation') !== -1 || tags.indexOf('bounce') !== -1 || tags.indexOf('wiggle') !== -1 || tags.indexOf('loop') !== -1 || tags.indexOf('spring') !== -1 || title.indexOf('bounce') !== -1 || title.indexOf('wiggle') !== -1 || title.indexOf('loop') !== -1 || title.indexOf('spring') !== -1 || title.indexOf('pingpong') !== -1 || title.indexOf('velocity') !== -1 || title.indexOf('inertial') !== -1 || title.indexOf('floating ball') !== -1) cat = 'animation';
+            card.setAttribute('data-category', cat);
+        }
+
+        (function prepareLibraryLayout() {
+            var container = document.querySelector('.library-surface .container');
+            if (!container) return;
+            var list = Array.prototype.slice.call(container.querySelectorAll('.card'));
+            list.forEach(function (card, i) {
+                if (!card.getAttribute('data-original-order')) card.setAttribute('data-original-order', String(i));
+                inferAndSetCategory(card);
+                var eid = card.getAttribute('data-expression-id');
+                if (eid) card.id = 'expr-' + eid;
+            });
+            var shuffled = list.slice();
+            var frag = document.createDocumentFragment();
+            for (var i = shuffled.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = shuffled[i];
+                shuffled[i] = shuffled[j];
+                shuffled[j] = tmp;
+            }
+            shuffled.forEach(function (c) { frag.appendChild(c); });
+            container.appendChild(frag);
+        })();
+
+        (function heroTypingAnimation() {
+            var el = document.getElementById('hero-typed');
+            if (!el) return;
+            var words = ['expressions', 'snippets', 'workflows', 'rigs'];
+            var wi = 0;
+            var ci = 0;
+            var deleting = false;
+            function tick() {
+                var w = words[wi];
+                if (!deleting) {
+                    ci += 1;
+                    el.textContent = w.slice(0, ci);
+                    if (ci >= w.length) {
+                        deleting = true;
+                        setTimeout(tick, 2000);
+                        return;
+                    }
+                } else {
+                    ci -= 1;
+                    el.textContent = w.slice(0, Math.max(0, ci));
+                    if (ci <= 0) {
+                        deleting = false;
+                        wi = (wi + 1) % words.length;
+                    }
+                }
+                setTimeout(tick, deleting ? 45 : 95);
+            }
+            setTimeout(tick, 400);
+        })();
+
+        document.querySelectorAll('.copy-btn').forEach(function (btn) {
+            if (!btn.getAttribute('aria-label')) btn.setAttribute('aria-label', 'Copy expression code');
+        });
+
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
         const categoryButtons = Array.from(document.querySelectorAll('.menu-category-option'));
-        const cards = Array.from(document.querySelectorAll('.card'));
         let currentCategory = 'all';
+        let allComments = [];
+        var engagement = { likeCounts: {}, viewCounts: {}, myLikes: new Set() };
+
+        function getLibraryCards() {
+            var container = document.querySelector('.library-surface .container');
+            if (!container) return [];
+            return Array.prototype.slice.call(container.children).filter(function (n) {
+                return n.nodeType === 1 && n.classList && n.classList.contains('card');
+            });
+        }
 
         function matchesCategory(card, category) {
             if (!category || category === 'all') return true;
-            const tags = (card.getAttribute('data-tags') || '').toLowerCase();
-            const title = (card.querySelector('h2')?.innerText || '').toLowerCase();
-
-            if (category === 'animation') {
-                return tags.includes('animation') ||
-                    title.includes('bounce') ||
-                    title.includes('wiggle') ||
-                    title.includes('loop') ||
-                    title.includes('animation');
-            }
-            if (category === 'text') {
-                return tags.includes('text') ||
-                    title.includes('text') ||
-                    title.includes('typewriter') ||
-                    title.includes('font');
-            }
-            if (category === '3d') {
-                return tags.includes('3d') ||
-                    title.includes('3d') ||
-                    title.includes('lookat') ||
-                    title.includes('orientation');
-            }
-            if (category === 'utility') {
-                return tags.includes('utility') ||
-                    title.includes('grid') ||
-                    title.includes('hud') ||
-                    title.includes('tracker') ||
-                    title.includes('control') ||
-                    title.includes('driver');
-            }
-            return true;
+            inferAndSetCategory(card);
+            return (card.getAttribute('data-category') || 'utility') === category;
         }
 
         function applyFilters() {
-            const term = (searchInput?.value || '').trim().toLowerCase();
-            const selectedCategory = currentCategory || 'all';
-
-            cards.forEach(card => {
-                const tags = (card.getAttribute('data-tags') || '').toLowerCase();
-                const text = card.innerText.toLowerCase();
-
-                const matchesSearch = !term || tags.includes(term) || text.includes(term);
-                const matchesCat = matchesCategory(card, selectedCategory);
-
+            var term = (searchInput && searchInput.value || '').trim().toLowerCase();
+            var selectedCategory = currentCategory || 'all';
+            getLibraryCards().forEach(function (card) {
+                var tags = (card.getAttribute('data-tags') || '').toLowerCase();
+                var text = card.innerText.toLowerCase();
+                var matchesSearch = !term || tags.indexOf(term) !== -1 || text.indexOf(term) !== -1;
+                var matchesCat = matchesCategory(card, selectedCategory);
                 card.style.display = (matchesSearch && matchesCat) ? '' : 'none';
             });
+        }
+
+        function getDiscussCountForId(expressionId) {
+            return (allComments || []).filter(function (c) {
+                return c.expressionId === expressionId && !c.parentId;
+            }).length;
+        }
+
+        function refreshDynamicBadges() {
+            var cards = getLibraryCards().filter(function (c) {
+                return c.getAttribute('data-expression-id');
+            });
+            var ranked = cards.map(function (c) {
+                return { el: c, likes: getLikeCountForCard(c), id: c.getAttribute('data-expression-id') };
+            }).sort(function (a, b) {
+                return b.likes - a.likes;
+            });
+            var popularIds = {};
+            var k = 0;
+            for (var i = 0; i < ranked.length && k < 6; i++) {
+                if (ranked[i].likes > 0) {
+                    popularIds[ranked[i].id] = true;
+                    k++;
+                }
+            }
+            var byOrder = cards.map(function (c) {
+                return { el: c, order: Number(c.getAttribute('data-original-order')) || 0, id: c.getAttribute('data-expression-id') };
+            }).sort(function (a, b) {
+                return b.order - a.order;
+            });
+            var newIds = {};
+            for (var j = 0; j < Math.min(6, byOrder.length); j++) {
+                newIds[byOrder[j].id] = true;
+            }
+            cards.forEach(function (card) {
+                var id = card.getAttribute('data-expression-id');
+                var badges = card.querySelector('.card-badges');
+                if (!badges) {
+                    badges = document.createElement('div');
+                    badges.className = 'card-badges';
+                    var h2 = card.querySelector('h2');
+                    if (h2) card.insertBefore(badges, h2);
+                    else card.insertBefore(badges, card.firstChild);
+                }
+                badges.querySelectorAll('[data-dynamic-badge]').forEach(function (el) {
+                    el.remove();
+                });
+                var hasStaticNew = badges.querySelector('.card-badge--new');
+                var hasStaticPopular = badges.querySelector('.card-badge--popular');
+                if (!hasStaticPopular && popularIds[id]) {
+                    var sp = document.createElement('span');
+                    sp.className = 'card-badge card-badge--popular';
+                    sp.setAttribute('data-dynamic-badge', 'popular');
+                    sp.textContent = 'Popular';
+                    badges.appendChild(sp);
+                }
+                if (!hasStaticNew && newIds[id]) {
+                    var sn = document.createElement('span');
+                    sn.className = 'card-badge card-badge--new';
+                    sn.setAttribute('data-dynamic-badge', 'new');
+                    sn.textContent = 'New';
+                    badges.appendChild(sn);
+                }
+                if (getDiscussCountForId(id) >= 1) {
+                    var sd = document.createElement('span');
+                    sd.className = 'card-badge card-badge--discussed';
+                    sd.setAttribute('data-dynamic-badge', 'discussed');
+                    sd.textContent = 'Discussed';
+                    badges.appendChild(sd);
+                }
+            });
+        }
+
+        function getLikeCountForCard(card) {
+            var id = card.getAttribute('data-expression-id');
+            if (!id) return 0;
+            var n = engagement.likeCounts[id];
+            return typeof n === 'number' ? n : 0;
         }
 
         if (searchButton && searchInput) {
@@ -2151,11 +3999,9 @@
         }
 
         const commentForm = document.getElementById('comment-form');
-        const commentName = document.getElementById('comment-name');
         const commentText = document.getElementById('comment-text');
         const commentList = document.getElementById('comment-list');
 
-        // Supabase: table "comments" columns: id (uuid), parent_id (uuid, nullable, for replies), name (text), message (text), created_at (timestamptz). Add parent_id if you want replies. Enable RLS and allow anon insert/select.
         const SUPABASE_URL = 'https://cmqdmcxpdactcbvltqwz.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtcWRtY3hwZGFjdGNidmx0cXd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5OTM5MTcsImV4cCI6MjA4NjU2OTkxN30.jR5SmkG_AKDHFbBjvdUFrHHotOu4J3jcJdZsBJnJm2A';
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
@@ -2168,86 +4014,544 @@
             } catch (e) { return iso; }
         }
 
+        function formatTimeAgo(iso) {
+            if (!iso) return '';
+            try {
+                var t = new Date(iso).getTime();
+                if (isNaN(t)) return formatCommentTime(iso);
+                var s = (Date.now() - t) / 1000;
+                if (s < 45) return 'just now';
+                if (s < 3600) return Math.floor(s / 60) + 'm ago';
+                if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+                if (s < 604800) return Math.floor(s / 86400) + 'd ago';
+                if (s < 2592000) return Math.floor(s / 604800) + 'w ago';
+                return formatCommentTime(iso);
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function commentAvatarLetter(name) {
+            var n = (name || 'Guest').trim();
+            var c = n.charAt(0).toUpperCase();
+            return /[A-Z0-9]/.test(c) ? c : '?';
+        }
+
+        var globalReplyParentId = null;
+
+        function setGlobalReplyTarget(item) {
+            globalReplyParentId = item && item.id != null ? item.id : null;
+            var b = document.getElementById('global-reply-banner');
+            var tx = document.getElementById('global-reply-banner-text');
+            if (!b || !tx) return;
+            if (item && item.id != null) {
+                b.removeAttribute('hidden');
+                tx.textContent = 'Replying to ' + (item.name || 'Guest');
+            } else {
+                b.setAttribute('hidden', '');
+            }
+        }
+
+        function buildCommentTree(items) {
+            var byParent = {};
+            (items || []).forEach(function (i) {
+                var k = i.parentId == null || i.parentId === '' ? '__root__' : String(i.parentId);
+                if (!byParent[k]) byParent[k] = [];
+                byParent[k].push(i);
+            });
+            Object.keys(byParent).forEach(function (k) {
+                byParent[k].sort(function (a, b) {
+                    return new Date(a.rawCreatedAt || 0) - new Date(b.rawCreatedAt || 0);
+                });
+            });
+            return byParent;
+        }
+
+        function renderCommentNode(item, byParent, depth, onReply) {
+            var wrap = document.createElement('div');
+            wrap.className = depth ? 'thread-comment-branch' : '';
+
+            var card = document.createElement('article');
+            card.className = 'thread-comment-card' + (depth ? ' thread-comment-card--nested' : '');
+
+            var top = document.createElement('div');
+            top.className = 'thread-comment-top';
+
+            var av = document.createElement('div');
+            av.className = 'thread-comment-avatar';
+            av.setAttribute('aria-hidden', 'true');
+            av.textContent = commentAvatarLetter(item.name);
+
+            var meta = document.createElement('div');
+            meta.className = 'thread-comment-meta';
+            var nameEl = document.createElement('p');
+            nameEl.className = 'thread-comment-name';
+            nameEl.textContent = item.name || 'Guest';
+            var timeEl = document.createElement('p');
+            timeEl.className = 'thread-comment-time';
+            timeEl.textContent = formatTimeAgo(item.rawCreatedAt);
+            meta.appendChild(nameEl);
+            meta.appendChild(timeEl);
+            top.appendChild(av);
+            top.appendChild(meta);
+            card.appendChild(top);
+
+            var body = document.createElement('div');
+            body.className = 'thread-comment-body';
+            body.textContent = item.text || '';
+            card.appendChild(body);
+
+            var actions = document.createElement('div');
+            actions.className = 'thread-comment-actions';
+            var replyBtn = document.createElement('button');
+            replyBtn.type = 'button';
+            replyBtn.className = 'thread-comment-reply';
+            replyBtn.textContent = 'Reply';
+            replyBtn.addEventListener('click', function () {
+                onReply(item);
+            });
+            actions.appendChild(replyBtn);
+            card.appendChild(actions);
+
+            wrap.appendChild(card);
+
+            var kids = byParent[String(item.id)] || [];
+            if (kids.length) {
+                var rw = document.createElement('div');
+                rw.className = 'thread-comment-replies';
+                kids.forEach(function (ch) {
+                    rw.appendChild(renderCommentNode(ch, byParent, depth + 1, onReply));
+                });
+                wrap.appendChild(rw);
+            }
+
+            return wrap;
+        }
+
+        function mapCommentRow(row, hasExpressionId) {
+            const rawExpr = hasExpressionId ? row.expression_id : null;
+            const expressionId = rawExpr != null && String(rawExpr).trim() !== '' ? String(rawExpr) : null;
+            return {
+                id: row.id,
+                parentId: row.parent_id ?? null,
+                expressionId: expressionId,
+                name: row.name || 'Guest',
+                text: row.message || '',
+                createdAt: formatCommentTime(row.created_at),
+                rawCreatedAt: row.created_at
+            };
+        }
+
         async function loadComments() {
             if (!supabase) return [];
             try {
                 const { data, error } = await supabase
                     .from('comments')
-                    .select('id, parent_id, name, message, created_at')
+                    .select('id, parent_id, name, message, created_at, expression_id')
                     .order('created_at', { ascending: true });
                 if (error) throw error;
-                return (data || []).map(row => ({
-                    id: row.id,
-                    parentId: row.parent_id ?? null,
-                    name: row.name || 'Guest',
-                    text: row.message || '',
-                    createdAt: formatCommentTime(row.created_at),
-                    rawCreatedAt: row.created_at
-                }));
+                return (data || []).map(row => mapCommentRow(row, true));
             } catch (e) {
                 try {
                     const { data, error } = await supabase
                         .from('comments')
-                        .select('id, name, message, created_at')
+                        .select('id, parent_id, name, message, created_at')
                         .order('created_at', { ascending: true });
                     if (error) throw error;
-                    return (data || []).map(row => ({
-                        id: row.id,
-                        parentId: null,
-                        name: row.name || 'Guest',
-                        text: row.message || '',
-                        createdAt: formatCommentTime(row.created_at),
-                        rawCreatedAt: row.created_at
-                    }));
+                    return (data || []).map(row => mapCommentRow(row, false));
                 } catch (e2) {
-                    console.warn('Discussion load failed:', e2);
-                    return [];
+                    try {
+                        const { data, error } = await supabase
+                            .from('comments')
+                            .select('id, name, message, created_at')
+                            .order('created_at', { ascending: true });
+                        if (error) throw error;
+                        return (data || []).map(row => mapCommentRow({ ...row, parent_id: null }, false));
+                    } catch (e3) {
+                        return [];
+                    }
                 }
             }
         }
 
-        function renderComments(items) {
-            if (!commentList) return;
-            commentList.innerHTML = '';
-            const top = (items || []).filter(i => !i.parentId).sort((a, b) => new Date(b.rawCreatedAt || 0) - new Date(a.rawCreatedAt || 0));
-            if (!top.length) {
-                const p = document.createElement('p');
+        function isGlobalComment(item) {
+            return item.expressionId == null || item.expressionId === '';
+        }
+
+        function renderCommentsInto(listEl, items, emptyMessage, options) {
+            if (!listEl) return;
+            options = options || {};
+            var onReply = options.onReply || function () {};
+            listEl.innerHTML = '';
+            var byParent = buildCommentTree(items || []);
+            var roots = byParent['__root__'] || [];
+            roots.sort(function (a, b) {
+                return new Date(b.rawCreatedAt || 0) - new Date(a.rawCreatedAt || 0);
+            });
+            if (!roots.length) {
+                var p = document.createElement('p');
                 p.className = 'comment-empty';
-                p.textContent = 'No discussions yet. Start the conversation.';
-                commentList.appendChild(p);
+                p.textContent = emptyMessage || 'No messages yet.';
+                listEl.appendChild(p);
                 return;
             }
-            top.forEach(item => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'comment-item';
-                const header = document.createElement('div');
-                header.className = 'comment-item-header';
-                const left = document.createElement('span');
-                const nameEl = document.createElement('span');
-                nameEl.className = 'comment-item-name';
-                nameEl.textContent = item.name || 'Guest';
-                const timeEl = document.createElement('span');
-                timeEl.textContent = item.createdAt || '';
-                left.appendChild(nameEl);
-                left.appendChild(document.createTextNode(' · '));
-                left.appendChild(timeEl);
-                header.appendChild(left);
-                const body = document.createElement('div');
-                body.className = 'comment-item-body';
-                body.textContent = item.text || '';
-                wrapper.appendChild(header);
-                wrapper.appendChild(body);
-                commentList.appendChild(wrapper);
+            roots.forEach(function (item) {
+                listEl.appendChild(renderCommentNode(item, byParent, 0, onReply));
             });
         }
 
-        if (commentForm && commentText && commentList) {
-            loadComments().then(renderComments);
+        function renderGlobalComments() {
+            var global = (allComments || []).filter(function (i) {
+                return isGlobalComment(i);
+            });
+            renderCommentsInto(commentList, global, 'No posts yet — start the thread.', {
+                onReply: function (item) {
+                    setGlobalReplyTarget(item);
+                    var ta = document.getElementById('comment-text');
+                    if (ta) ta.focus();
+                }
+            });
+        }
 
+        function setCardReplyTarget(cardWrap, item) {
+            if (!cardWrap) return;
+            var b = cardWrap.querySelector('.card-reply-banner');
+            var tx = cardWrap.querySelector('.card-reply-banner-text');
+            if (item && item.id != null) {
+                cardWrap.dataset.replyParentId = String(item.id);
+                if (b) b.removeAttribute('hidden');
+                if (tx) tx.textContent = 'Replying to ' + (item.name || 'Guest');
+            } else {
+                delete cardWrap.dataset.replyParentId;
+                if (b) b.setAttribute('hidden', '');
+            }
+        }
+
+        function renderCardThread(cardWrap, expressionId) {
+            var listEl = cardWrap.querySelector('.card-comment-list');
+            var thread = (allComments || []).filter(function (i) {
+                return i.expressionId === expressionId;
+            });
+            renderCommentsInto(listEl, thread, 'No comments yet — be the first.', {
+                onReply: function (item) {
+                    setCardReplyTarget(cardWrap, item);
+                    var ta = cardWrap.querySelector('.card-comment-text');
+                    if (ta) ta.focus();
+                }
+            });
+        }
+
+        function refreshOpenCardThreads() {
+            document.querySelectorAll('.card-discuss-panel:not([hidden])').forEach(function (panel) {
+                const wrap = panel.closest('.card-discuss-wrap');
+                const card = wrap && wrap.closest('.card');
+                const eid = card && card.getAttribute('data-expression-id');
+                if (wrap && eid) renderCardThread(wrap, eid);
+            });
+        }
+
+        async function refreshAllCommentsFromServer() {
+            allComments = await loadComments();
+            renderGlobalComments();
+            refreshOpenCardThreads();
+            refreshDynamicBadges();
+            syncAllCardToolbars();
+        }
+
+        function getVisitorId() {
+            try {
+                var k = 'ae_visitor_id';
+                var id = localStorage.getItem(k);
+                if (!id) {
+                    id = 'v_' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
+                    localStorage.setItem(k, id);
+                }
+                return id;
+            } catch (e) {
+                return 'session_' + Math.random().toString(36).slice(2);
+            }
+        }
+
+        function persistEngagementLocal() {
+            try {
+                localStorage.setItem('ae_engagement_v1', JSON.stringify({
+                    likes: engagement.likeCounts,
+                    views: engagement.viewCounts,
+                    myLikes: Array.from(engagement.myLikes)
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        function loadEngagementLocal() {
+            try {
+                var raw = localStorage.getItem('ae_engagement_v1');
+                if (!raw) return;
+                var j = JSON.parse(raw);
+                engagement.likeCounts = j.likes || {};
+                engagement.viewCounts = j.views || {};
+                engagement.myLikes = new Set(j.myLikes || []);
+            } catch (e) { /* ignore */ }
+        }
+
+        async function loadEngagementFromServer() {
+            loadEngagementLocal();
+            if (!supabase) return;
+            var vid = getVisitorId();
+            try {
+                var likesRes = await supabase.from('expression_likes').select('expression_id, visitor_id');
+                if (!likesRes.error && likesRes.data) {
+                    engagement.likeCounts = {};
+                    engagement.myLikes = new Set();
+                    likesRes.data.forEach(function (row) {
+                        var eid = row.expression_id;
+                        engagement.likeCounts[eid] = (engagement.likeCounts[eid] || 0) + 1;
+                        if (row.visitor_id === vid) engagement.myLikes.add(eid);
+                    });
+                }
+                var viewsRes = await supabase.from('expression_views').select('expression_id');
+                if (!viewsRes.error && viewsRes.data) {
+                    engagement.viewCounts = {};
+                    viewsRes.data.forEach(function (row) {
+                        var e = row.expression_id;
+                        engagement.viewCounts[e] = (engagement.viewCounts[e] || 0) + 1;
+                    });
+                }
+            } catch (e) {
+                loadEngagementLocal();
+            }
+        }
+
+        function syncCardToolbar(card) {
+            var eid = card.getAttribute('data-expression-id');
+            if (!eid) return;
+            var tb = card.querySelector('.card-toolbar');
+            if (!tb) return;
+            var cbtn = tb.querySelector('.card-comment-btn');
+            var n = getDiscussCountForId(eid);
+            if (cbtn) cbtn.setAttribute('aria-label', n ? 'Comments (' + n + ')' : 'Comments');
+        }
+
+        function syncAllCardToolbars() {
+            getLibraryCards().forEach(syncCardToolbar);
+        }
+
+        var viewedThisSession = {};
+
+        async function recordView(expressionId) {
+            if (viewedThisSession[expressionId]) return;
+            viewedThisSession[expressionId] = true;
+            var vid = getVisitorId();
+            if (supabase) {
+                try {
+                    await supabase.from('expression_views').insert([{ expression_id: expressionId, visitor_id: vid }]);
+                    await loadEngagementFromServer();
+                } catch (e) {
+                    engagement.viewCounts[expressionId] = (engagement.viewCounts[expressionId] || 0) + 1;
+                    persistEngagementLocal();
+                }
+            } else {
+                engagement.viewCounts[expressionId] = (engagement.viewCounts[expressionId] || 0) + 1;
+                persistEngagementLocal();
+            }
+            syncAllCardToolbars();
+        }
+
+        function setupViewObserver() {
+            if (!('IntersectionObserver' in window)) return;
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (!en.isIntersecting || en.intersectionRatio < 0.25) return;
+                    var card = en.target;
+                    var eid = card.getAttribute('data-expression-id');
+                    if (eid) recordView(eid);
+                });
+            }, { threshold: [0, 0.25, 0.5] });
+            getLibraryCards().forEach(function (card) { obs.observe(card); });
+        }
+
+        var ICON_MSG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+
+        function initCardInteractions() {
+            getLibraryCards().filter(function (card) {
+                return card.getAttribute('data-expression-id');
+            }).forEach(function (card) {
+                var expressionId = card.getAttribute('data-expression-id');
+                if (!expressionId || card.querySelector('.card-toolbar')) return;
+
+                var safeId = expressionId.replace(/[^a-zA-Z0-9_-]/g, '-');
+                var toolbar = document.createElement('div');
+                toolbar.className = 'card-toolbar';
+                toolbar.setAttribute('role', 'toolbar');
+                toolbar.setAttribute('aria-label', 'Expression actions');
+                toolbar.innerHTML =
+                    '<button type="button" class="card-icon-btn card-comment-btn" aria-label="Comments" aria-expanded="false" aria-controls="discuss-panel-' + safeId + '">' + ICON_MSG + '</button>';
+
+                var wrap = document.createElement('div');
+                wrap.className = 'card-discuss-wrap';
+                wrap.innerHTML =
+                    '<div id="discuss-panel-' + safeId + '" class="card-discuss-panel discussion-panel--nested" role="region" aria-label="Comments for this expression" hidden>' +
+                    '<div class="discussion-topic discussion-topic--compact">' +
+                    '<span class="discussion-topic-label">Expression</span>' +
+                    '<h3 class="card-discuss-expression-title"></h3></div>' +
+                    '<div class="card-reply-banner reply-banner" hidden>' +
+                    '<span class="card-reply-banner-text"></span>' +
+                    '<button type="button" class="reply-banner-cancel card-reply-cancel">Cancel</button></div>' +
+                    '<div class="thread-composer">' +
+                    '<form class="card-comment-form comment-form">' +
+                    '<div class="comment-field"><label for="card-cn-' + safeId + '">Display name</label>' +
+                    '<input id="card-cn-' + safeId + '" type="text" class="card-comment-name" autocomplete="name" placeholder="Optional"></div>' +
+                    '<div class="comment-field"><label for="card-ct-' + safeId + '">Your message</label>' +
+                    '<textarea id="card-ct-' + safeId + '" class="card-comment-text" required placeholder="Tip, question, or variation…"></textarea></div>' +
+                    '<div class="thread-composer-footer">' +
+                    '<p class="comment-note">Public · stays on this snippet</p>' +
+                    '<button type="submit" class="btn-primary">Post</button></div></form></div>' +
+                    '<div class="comment-list thread-comments card-comment-list"></div></div>';
+                var codeContainer = card.querySelector('.code-container');
+                if (codeContainer) {
+                    codeContainer.insertAdjacentElement('afterend', toolbar);
+                    toolbar.insertAdjacentElement('afterend', wrap);
+                } else {
+                    var badges = card.querySelector('.card-badges');
+                    if (badges) {
+                        badges.insertAdjacentElement('afterend', toolbar);
+                    } else {
+                        card.insertBefore(toolbar, card.firstChild);
+                    }
+                    toolbar.insertAdjacentElement('afterend', wrap);
+                }
+
+                var titleHeading = card.querySelector('h2');
+                var exprTitle = wrap.querySelector('.card-discuss-expression-title');
+                if (exprTitle && titleHeading) exprTitle.textContent = titleHeading.textContent;
+
+                var cardReplyCancel = wrap.querySelector('.card-reply-cancel');
+                if (cardReplyCancel) {
+                    cardReplyCancel.addEventListener('click', function () {
+                        setCardReplyTarget(wrap, null);
+                    });
+                }
+
+                var panel = wrap.querySelector('.card-discuss-panel');
+                var cbtn = toolbar.querySelector('.card-comment-btn');
+                cbtn.addEventListener('click', function () {
+                    var open = panel.hasAttribute('hidden');
+                    if (open) {
+                        panel.removeAttribute('hidden');
+                        panel.classList.add('is-open');
+                    } else {
+                        panel.setAttribute('hidden', '');
+                        panel.classList.remove('is-open');
+                    }
+                    cbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (open) renderCardThread(wrap, expressionId);
+                });
+
+                var form = wrap.querySelector('.card-comment-form');
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    var ta = wrap.querySelector('.card-comment-text');
+                    var na = wrap.querySelector('.card-comment-name');
+                    var text = (ta && ta.value || '').trim();
+                    var name = (na && na.value || '').trim() || 'Guest';
+                    if (!text) return;
+                    if (!supabase) {
+                        alert('Comments are temporarily unavailable.');
+                        return;
+                    }
+                    var submitBtn = form.querySelector('button[type="submit"]');
+                    var originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Posting…';
+                    try {
+                        var replyPid = wrap.dataset.replyParentId ? wrap.dataset.replyParentId : null;
+                        var row = {
+                            name: name,
+                            message: text,
+                            created_at: new Date().toISOString(),
+                            parent_id: replyPid,
+                            expression_id: expressionId
+                        };
+                        var res = await supabase.from('comments').insert([row]);
+                        if (res.error) {
+                            res = await supabase.from('comments').insert([{
+                                name: name,
+                                message: text,
+                                created_at: new Date().toISOString(),
+                                parent_id: replyPid
+                            }]);
+                        }
+                        if (res.error) throw res.error;
+                        await refreshAllCommentsFromServer();
+                        form.reset();
+                        setCardReplyTarget(wrap, null);
+                    } catch (err) {
+                        alert('Could not post your comment. Please try again.');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                });
+            });
+        }
+
+        loadComments().then(function (items) {
+            allComments = items;
+            if (commentList) renderGlobalComments();
+            initCardInteractions();
+            refreshDynamicBadges();
+            loadEngagementFromServer().then(function () {
+                refreshDynamicBadges();
+                syncAllCardToolbars();
+                setupViewObserver();
+            });
+        });
+
+        var globalReplyCancel = document.getElementById('global-reply-cancel');
+        if (globalReplyCancel) {
+            globalReplyCancel.addEventListener('click', function () {
+                setGlobalReplyTarget(null);
+            });
+        }
+
+        (function initCopyUpi() {
+            var copyUpiBtn = document.getElementById('copy-upi-btn');
+            if (!copyUpiBtn) return;
+            var upiId = 'waytomj@ybl';
+            var defaultLabel = 'Copy UPI ID';
+            copyUpiBtn.addEventListener('click', function () {
+                function showCopied() {
+                    clearTimeout(copyUpiBtn._copyUpiT);
+                    copyUpiBtn.textContent = 'Copied';
+                    copyUpiBtn._copyUpiT = setTimeout(function () {
+                        copyUpiBtn.textContent = defaultLabel;
+                    }, 2000);
+                }
+                function fallbackCopy() {
+                    try {
+                        var ta = document.createElement('textarea');
+                        ta.value = upiId;
+                        ta.setAttribute('readonly', '');
+                        ta.style.position = 'fixed';
+                        ta.style.left = '-9999px';
+                        document.body.appendChild(ta);
+                        ta.select();
+                        if (document.execCommand('copy')) showCopied();
+                        document.body.removeChild(ta);
+                    } catch (err) { /* ignore */ }
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(upiId).then(showCopied).catch(fallbackCopy);
+                } else {
+                    fallbackCopy();
+                }
+            });
+        })();
+
+        if (commentForm && commentText && commentList) {
             commentForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
                 const text = commentText.value.trim();
-                const name = (commentName?.value || '').trim() || 'Guest';
+                const name = ((document.getElementById('comment-name'))?.value || '').trim() || 'Guest';
                 if (!text) return;
 
                 if (!supabase) {
@@ -2260,20 +4564,30 @@
                 submitBtn.textContent = 'Posting…';
 
                 try {
-                    let res = await supabase
-                        .from('comments')
-                        .insert([{ name, message: text, created_at: new Date().toISOString(), parent_id: null }]);
+                    var pid = globalReplyParentId != null ? globalReplyParentId : null;
+                    const row = {
+                        name: name,
+                        message: text,
+                        created_at: new Date().toISOString(),
+                        parent_id: pid,
+                        expression_id: null
+                    };
+                    let res = await supabase.from('comments').insert([row]);
+                    if (res.error) {
+                        res = await supabase
+                            .from('comments')
+                            .insert([{ name, message: text, created_at: new Date().toISOString(), parent_id: pid }]);
+                    }
                     if (res.error) {
                         res = await supabase
                             .from('comments')
                             .insert([{ name, message: text, created_at: new Date().toISOString() }]);
                     }
                     if (res.error) throw res.error;
-                    const items = await loadComments();
-                    renderComments(items);
+                    await refreshAllCommentsFromServer();
                     commentForm.reset();
+                    setGlobalReplyTarget(null);
                 } catch (err) {
-                    console.warn('Post failed:', err);
                     alert('Could not post. Please try again.');
                 } finally {
                     submitBtn.disabled = false;
@@ -2281,52 +4595,56 @@
                 }
             });
         }
+
+        if (window.location.hash && window.location.hash.indexOf('expr-') === 1) {
+            setTimeout(function () {
+                var el = document.getElementById(window.location.hash.slice(1));
+                if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+        }
     });
 </script>
 
-    <!-- Analytics placeholder: add your analytics script here -->
-    <!-- Example: <script async src="https://analytics.example.com/script.js"></script> -->
-
     <footer class="site-footer">
         <div class="footer-inner">
-    <section id="discussion" class="info-section comments-section">
-        <h2>Discussion</h2>
-        <p>Share your tips, ideas, or questions. You can add a name or post as a guest.</p>
-        <form id="comment-form" class="comment-form">
-            <div class="comment-field">
-                <label for="comment-name">Name (optional)</label>
-                <input id="comment-name" type="text" autocomplete="name" placeholder="Your name or leave empty to post as guest">
+            <div class="footer-columns reveal">
+                <div class="footer-col">
+                    <h3>Product</h3>
+                    <a href="#library">Expression library</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#discussion">Site-wide discussion</a>
+                    <a href="#pricing">Pricing</a>
+                </div>
+                <div class="footer-col">
+                    <h3>Features</h3>
+                    <a href="#features">Overview</a>
+                    <a href="#how">How it works</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#clients">Community</a>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <a href="https://twitter.com/socrazymedia" target="_blank" rel="noopener noreferrer">Updates on X</a>
+                    <a href="#top">Back to top</a>
+                    <a href="#library">Browse snippets</a>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <a href="#donate">Support the project</a>
+                    <a href="bitcoin:bc1qdz50swgf4z9n4px3zu0lera9fcnkj5wx3l405g">Bitcoin wallet link</a>
+                    <div class="footer-social">
+                        <a href="https://twitter.com/socrazymedia" target="_blank" rel="noopener noreferrer" aria-label="Follow on X"><span class="x-logo" aria-hidden="true">𝕏</span></a>
+                    </div>
+                </div>
             </div>
-            <div class="comment-field">
-                <label for="comment-text">Message</label>
-                <textarea id="comment-text" required placeholder="Write your message here..."></textarea>
-            </div>
-            <p class="comment-note">Posts are saved online so everyone can see them.</p>
-            <button type="submit" class="btn-primary">Post</button>
-        </form>
-        <div id="comment-list" class="comment-list"></div>
-    </section>
-
-    <div class="donate-section" id="donate">
-        <h2>Support this project</h2>
-        <p>If this tool saves you time and you’d like to support future expressions, you can send a small Bitcoin donation to the address below:</p>
-        <p><strong>Bitcoin Address:</strong> <code id="btc-address">bc1qdz50swgf4z9n4px3zu0lera9fcnkj5wx3l405g</code></p>
-        <div class="qr-code-container">
-            <div class="donate-qr-wrap">
-                <span class="qr-label">Scan this QR with your phone camera</span>
-                <img src="https://cmqdmcxpdactcbvltqwz.supabase.co/storage/v1/object/public/gifs/IMG_0533.JPG.jpeg" alt="Bitcoin donation QR code" class="qr-code-image">
-            </div>
-        </div>
-        <div class="popup-actions" style="justify-content: center; margin-top: 16px;">
-            <a href="bitcoin:bc1qdz50swgf4z9n4px3zu0lera9fcnkj5wx3l405g" class="btn-primary">Open in wallet (Bitcoin)</a>
-        </div>
-    </div>
 
             <div class="footer-bottom">
                 <span class="footer-copyright">&copy; <span id="footer-year"></span> AE Expression Store. All expressions free to use.</span>
                 <nav class="footer-links" aria-label="Footer navigation">
+                    <a href="#library">Library</a>
                     <a href="#discussion">Discussion</a>
                     <a href="#donate">Support</a>
+                    <a href="#faq">FAQ</a>
                 </nav>
             </div>
         </div>
@@ -2334,14 +4652,19 @@
 
     <script>
         function copyCode(btn) {
-            const codeBlock = btn.nextElementSibling;
-            const text = codeBlock.innerText;
-
-            navigator.clipboard.writeText(text).then(() => {
-                btn.innerText = "Copied!";
-                setTimeout(() => {
-                    btn.innerText = "Copy";
+            var codeBlock = btn.nextElementSibling;
+            if (!codeBlock || codeBlock.tagName !== 'CODE') return;
+            var text = codeBlock.innerText;
+            clearTimeout(btn._copyResetTimer);
+            navigator.clipboard.writeText(text).then(function () {
+                btn.classList.add('copy-btn--copied');
+                btn.textContent = 'Copied';
+                btn._copyResetTimer = setTimeout(function () {
+                    btn.classList.remove('copy-btn--copied');
+                    btn.textContent = 'Copy';
                 }, 2000);
+            }).catch(function () {
+                btn.textContent = 'Copy';
             });
         }
     </script>
